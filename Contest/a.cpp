@@ -1,3 +1,11 @@
+/*
+ * @Description: https://blog.csdn.net/qq_45859188
+ * @Author: NEFU AB_IN
+ * @version: 1.0
+ * @Date: 2021-03-08 20:28:04
+ * @LastEditors: NEFU AB_IN
+ * @LastEditTime: 2021-03-08 20:35:16
+ */
 #include<bits/stdc++.h>
 using namespace std;
 #define ll                          long long
@@ -20,7 +28,8 @@ const int INF = 0x3f3f3f3f;
 #define ls                          i << 1
 #define rs                          i << 1 | 1
 void solve(){
-
+    int a;
+    cin >> a; 
 }
 
 int main()
