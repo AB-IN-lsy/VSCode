@@ -1,45 +1,36 @@
-def g(a, b, c):
-    cc = s.replace("A", a)
-    cc = cc.replace("B", b)
-    cc = cc.replace("C", c)
-    stack = []
-    if cc[0] != '(' or cc[-1] != ')':
-        return False
-    for _ in cc:
-        if stack != []:
-            if stack[len(stack) - 1] == '(' and _ == ')':
-                stack.pop()
-            else:
-                stack.append(_)
-        else:
-            stack.append(_)
-    if stack == []:
-        return True
-    else:
-        return False
-
+'''
+Description: https://blog.csdn.net/qq_45859188
+Author: NEFU AB_IN
+version: 1.0
+Date: 2021-03-08 20:28:04
+LastEditors: NEFU AB_IN
+LastEditTime: 2021-03-10 20:29:46
+'''
 import math
-for _ in range(int(input())):
+
+def solve():
+    n, k  = map(int, input().split())
     s = input()
-    l = []
-    l.append(g('(', '(', '('))
-    l.append(g(')', '(', '('))
-    l.append(g('(', ')', '('))
-    l.append(g('(', '(', ')'))
-    l.append(g(')', '(', ')'))
-    l.append(g(')', ')', '('))
-    l.append(g('(', ')', ')'))
-    l.append(g(')', ')', ')'))
-    if True in l:
-        print('YES')
+    if k == 0:
+        print("YES")
+        return
+    if n & 1:
+        s1 = s[:n // 2]
+        s2 = s[n // 2 + 1 :]
+    else:
+        s1 = s[: n // 2 - 1]
+        s2 = s[n // 2 + 1: ]
+    s2 = s2[::-1]
+    k1 = 0
+    for i in range(len(s1)):
+        if s1[i] == s2[i]:
+            k1 += 1
+        else:
+            break
+    if k1 >= k:
+        print("YES")
     else:
         print("NO")
 
-
-
-
-
-
-
-
-    
+for _ in range(int(input())):
+    solve()

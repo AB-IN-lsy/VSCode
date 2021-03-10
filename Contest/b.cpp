@@ -1,3 +1,11 @@
+/*
+ * @Description: https://blog.csdn.net/qq_45859188
+ * @Author: NEFU AB_IN
+ * @version: 1.0
+ * @Date: 2021-03-08 20:28:04
+ * @LastEditors: NEFU AB_IN
+ * @LastEditTime: 2021-03-10 21:07:52
+ */
 #include<bits/stdc++.h>
 using namespace std;
 #define ll                          long long
@@ -18,21 +26,41 @@ typedef pair<int, int>               pii;
 typedef pair<ll, ll>                 pll;
 const int INF = 0x3f3f3f3f;
 
-
+unordered_map <ll, int> a;
 
 void solve(){
-    int h, m, s, f;
-    cin >> h >> m;
-    scanf("%d%d", &h, &m);
-    scanf("%d:%d", &s, &f);
-
-
+    ll n, k, x, mx = 0;
+    cin >> n >> k;
+    a.clear();
+    forn(i, 1, n) {
+        cin >> x;
+        a[x] = 1;
+        mx = max(mx, x);
+    }
+    if(k == 0){
+        cout << n << endl;
+        return;
+    }
+    ll me = mx + 1;
+    forn(i, 0, mx) {
+        if(!a[i]){
+            me = i;
+            break;
+        }
+    }
+    ll ans = 0;
+    if(me == mx + 1) ans = k;
+    else {
+        if( a[ceil( (ld) (me + mx) / 2)] == 0 ) ans = 1;
+    };
+    cout << n + ans << endl;
 }
 
 int main()
 {
+    IOS;
     int t;
-    scanf("%d", &t);
+    cin >> t;
     while(t --){
         solve();
     }

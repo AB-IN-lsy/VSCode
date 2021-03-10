@@ -1,79 +1,52 @@
-/*
- * @Description: 
- * @Author: NEFU AB_IN
- * @version: 1.0
- * @Date: 2021-03-06 20:12:14
- * @LastEditors: NEFU AB_IN
- * @LastEditTime: 2021-03-06 20:12:59
- */
 #include<bits/stdc++.h>
 using namespace std;
-typedef long long ll;
- 
-ll fast_mul(ll p,ll q,ll mod){      //计算p*q  
-	ll ret=0;
-	p%=mod; q%=mod;
-	while(q>0){
-		if(q&1)
-		ret=(ret+p)%mod;
-	
-		q>>=1;
-		p=(p+p)%mod;
-				
-	}
-	return ret;
+#define ll                          long long
+#define ull                         unsigned long long
+#define ld                          long double
+#define db                          double
+#define all(x)                      (x).begin(),(x).end()
+#define F                           first
+#define S                           second
+#define MP                          make_pair
+#define PB                          emplace_back
+#define SZ(X)                       ((int)(X).size())   
+#define mset(s, _)                  memset(s, _, sizeof(s))
+#define IOS                         ios::sync_with_stdio(false);cin.tie(0);cout.tie(0);
+#define endl                        "\n"
+#define forn(i, l, r)                for (int i = l; i <= r; i++)
+typedef pair<int, int>               pii;
+typedef pair<ll, ll>                 pll;
+const int INF = 0x3f3f3f3f;
+
+const int N = 1e6 + 10;
+
+struct sa{
+	int ts;
+	int id;
+}a[N];
+
+bool b[N];
+int ans[N];
+bool cmp(const sa a, const sa b){
+	return a.ts < b.ts;
 }
- 
-ll pow_mod(ll a,ll p,ll mod){      //计算a^p 
-	ll ret=1;
-	a%=mod;
-	while(p>0){
-		if(p&1)
-		ret=fast_mul(ret,a,mod);
-		
-		p>>=1;
-		a=fast_mul(a,a,mod);
-	}
-	return ret;
-}
- 
-ll euler_phi(ll n){
-	ll m=sqrt(n+0.5);
-	ll ans=n;
-	for(int i=2;i<=m;i++)
-	if(n%i==0){
-		ans=ans/i*(i-1);
-		while(n%i==0) n/=i;
-	}
-	if(n>1) ans=ans/n*(n-1);
-	return ans;
-}
- 
-ll get_zhishu(ll x){
-	for(int i=2;i<=x;i++){
-		if(x%i==0)
-		return i;
+
+void solve(){
+	int n, m, t, ts, id;
+	cin >> n >> m >> t;
+	forn(i, 1, m) cin >> a[i].ts >> a[i].id;
+	sort(a + 1, a + 1 + m, cmp);
+	forn(i, 1, m){
+		if(!b[a[i].ts]) {
+			b[a[i].ts] = 1;
+		}
+		ans[a[i].id] += 2;
 	}
 }
- 
-int main(){
-	
-	ll n=1001733993063167141;
-	ll d=212353;
-	ll C=20190324;
-	
-	ll p=get_zhishu(n);
-	printf("p的值为%lld\n",p);
-	ll q=n/p;
-	printf("q的值为%lld\n",q);
-	
-	ll k=(p-1)*(q-1);
-	printf("k的值为%lld\n",k);
-	
-	ll ans=euler_phi(k);
-	printf("phi(k)的值为%lld\n",ans);
-	ll e=pow_mod(d,ans-1,k);
-	printf("e的值为%lld\n",e);
-	printf("C^e的值为%lld",pow_mod(C,e,n));	
-	
-} 
+
+int main()
+{
+	IOS;
+	solve();
+	return 0;
+}

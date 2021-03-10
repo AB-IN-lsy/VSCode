@@ -4,7 +4,7 @@
  * @version: 1.0
  * @Date: 2021-03-08 20:28:04
  * @LastEditors: NEFU AB_IN
- * @LastEditTime: 2021-03-08 20:35:16
+ * @LastEditTime: 2021-03-10 21:08:51
  */
 #include<bits/stdc++.h>
 using namespace std;
@@ -29,7 +29,7 @@ const int INF = 0x3f3f3f3f;
 #define rs                          i << 1 | 1
 void solve(){
     int a;
-    cin >> a; 
+    cout << ceil( (ld) (4 + 3) / 2);
 }
 
 int main()
