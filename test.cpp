@@ -4,7 +4,7 @@
  * @version: 1.0
  * @Date: 2020-12-10 10:46:04
  * @LastEditors: NEFU AB_IN
- * @LastEditTime: 2021-03-08 22:08:09
+ * @LastEditTime: 2021-03-10 10:03:51
  */
 #include<bits/stdc++.h>
 using namespace std;
@@ -27,8 +27,8 @@ typedef pair<ll, ll>                 pll;
 const int INF = 0x3f3f3f3f;
 
 void solve(){
-
-}
+    
+}   
 
 int main()
 {
