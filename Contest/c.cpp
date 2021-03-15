@@ -4,7 +4,7 @@
  * @version: 1.0
  * @Date: 2021-03-08 20:28:04
  * @LastEditors: NEFU AB_IN
- * @LastEditTime: 2021-03-10 21:37:04
+ * @LastEditTime: 2021-03-14 12:05:49
  */
 #include<bits/stdc++.h>
 using namespace std;
@@ -26,37 +26,40 @@ typedef pair<int, int>               pii;
 typedef pair<ll, ll>                 pll;
 const int INF = 0x3f3f3f3f;
 
-ld d(ll x, ll y){
-    return (ld) sqrt(x * x + y * y);
+vector < int > v[200];
+int f(int n){
+    int ans = 0;
+    while(n){
+        ans += n % 10;
+        n /= 10;
+    }
+    return ans;
 }
-
+int n;
 void solve(){
-    int n;
-    ll x, y;
-    scanf("%d", &n);
-    vector < ll > x1, y1;
-    forn(i, 1, 2 * n){
-        scanf("%lld%lld", &x, &y);
-        x = abs(x);
-        y = abs(y);
-        if(x) x1.PB(x);
-        if(y) y1.PB(y);
+    cin >> n;
+    ll ans = INF, a;
+    forn(i, 1, 100000){
+        a = f(i);
+        v[a].PB(i);
     }
-    sort(x1.begin(), x1.end());
-    sort(y1.begin(), y1.end());
-    ld ans = 0;
-    forn(i, 0, n - 1){
-        ans += d(x1[i], y1[i]);
+    forn(i, 1, 100){
+        if(SZ(v[i]) >= n){
+            ll tmp = 0;
+            int b = SZ(v[i]);
+            int mn = min(b, n);
+            forn(j, 0, mn - 1){
+                tmp += v[i][j];
+            }
+            ans = min(ans, tmp);
+        }
     }
-    printf("%.18Lf\n", ans);
+    cout << ans;
 }
 
 int main()
 {
-    int t;
-    scanf("%d", &t);
-    while(t --){
-        solve();
-    }
+    IOS;
+    solve();
     return 0;
 }

@@ -1,20 +1,13 @@
-'''
-Description: 
-Author: NEFU AB_IN
-version: 1.0
-Date: 2021-02-16 17:07:34
-LastEditors: NEFU AB_IN
-LastEditTime: 2021-03-05 18:38:16
-'''
-s = list(input())
-l = list(input())
-lst = [s[0]]
-l = ["0"] + l
-ind = 0
-for i in range(len(l) - 1):
-    if l[i] == "L":
-        lst.insert(ind, s[i])
-    if l[i] == "R":
-        ind += 1
-        lst.insert(ind, s[i])
-print("".join(lst))
+n, x, y = map(int, input().split())
+tmp = n
+for i in range(1, y + 1):
+    n = 2 * n / 3
+    if i == x:
+        n += tmp / 2
+    if n < tmp / 32:
+        print("N0!")
+        print(i, f'{n:.6f}')
+        exit(0)
+print("YE5!")
+print(f'{n:.6f}')
+    

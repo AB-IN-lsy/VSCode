@@ -1,11 +1,3 @@
-/*
- * @Description: https://blog.csdn.net/qq_45859188
- * @Author: NEFU AB_IN
- * @version: 1.0
- * @Date: 2020-12-10 10:46:04
- * @LastEditors: NEFU AB_IN
- * @LastEditTime: 2021-03-10 10:49:08
- */
 #include<bits/stdc++.h>
 using namespace std;
 #define ll                          long long
@@ -26,32 +18,14 @@ typedef pair<int, int>               pii;
 typedef pair<ll, ll>                 pll;
 const int INF = 0x3f3f3f3f;
 
-const int N = 1E6 + 10;
-int prime[N], flag[N];
-
-void init(){
-    mset(flag, 1);
-    flag[1] = 0;
-    int cnt = 0;
-    for(int i = 2; i <= N; i ++){
-        if(flag[i]){
-            prime[++cnt] = i;
-        }
-        for(int j = 1; j <= cnt && (1ll) * prime[j] * i <= N; j++){
-            flag[prime[j] * i] = 0;
-            if(i % prime[j] == 0) break;
-        }
-    }
-}
-
-void solve(){
-    init();
-    forn(i, 1, 10) cout << prime[i] << " ";
-}   
-
 int main()
 {
-    IOS;
-    solve();
-    return 0;
+	int a, b, c, d;
+	cin >> a >> b >> c >> d;
+	c *= 2;
+    d *= 2;
+	int l = a % c >= c / 2 ? a / c + 1: a / c;
+	int r = b % d >= d / 2 ? b / d + 1: b / d;
+	cout << l * r << endl;
+	return 0;
 }

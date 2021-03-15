@@ -18,30 +18,19 @@ typedef pair<int, int>               pii;
 typedef pair<ll, ll>                 pll;
 const int INF = 0x3f3f3f3f;
 
-const int N = 1e6 + 10;
-
-struct sa{
-	int ts;
-	int id;
-}a[N];
-
-bool b[N];
-int ans[N];
-bool cmp(const sa a, const sa b){
-	return a.ts < b.ts;
-}
-
 void solve(){
-	int n, m, t, ts, id;
-	cin >> n >> m >> t;
-	forn(i, 1, m) cin >> a[i].ts >> a[i].id;
-	sort(a + 1, a + 1 + m, cmp);
-	forn(i, 1, m){
-		if(!b[a[i].ts]) {
-			b[a[i].ts] = 1;
-		}
-		ans[a[i].id] += 2;
+	int A, B, a, b;
+	cin >> A >> B >> a >> b;
+	int suma = 0, sumb = 0, cnta = 0, cntb = 0;
+	while(A - suma >= a){
+		cnta += 1;
+		suma += (a + a - 1);
 	}
+	while(B - sumb >= b){
+		cntb += 1;
+		sumb += (b + b - 1);
+	}
+	cout << cnta * cntb << endl;
 }
 
 int main()

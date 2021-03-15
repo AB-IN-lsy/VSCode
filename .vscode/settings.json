@@ -18,6 +18,7 @@
         "regex": "cpp",
         "valarray": "cpp",
         "type_traits": "cpp",
-        "complex": "cpp"
+        "complex": "cpp",
+        "thread": "cpp"
     }
 }
