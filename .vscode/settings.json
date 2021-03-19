@@ -20,5 +20,6 @@
         "type_traits": "cpp",
         "complex": "cpp",
         "thread": "cpp"
-    }
+    },
+    "git.ignoreLimitWarning": true
 }
