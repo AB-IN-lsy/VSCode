@@ -4,7 +4,7 @@
  * @version: 1.0
  * @Date: 2021-03-08 20:28:04
  * @LastEditors: NEFU AB_IN
- * @LastEditTime: 2021-03-10 21:08:51
+ * @LastEditTime: 2021-03-27 18:15:30
  */
 #include<bits/stdc++.h>
 using namespace std;
@@ -25,11 +25,15 @@ using namespace std;
 typedef pair<int, int>               pii;
 typedef pair<ll, ll>                 pll;
 const int INF = 0x3f3f3f3f;
-#define ls                          i << 1
-#define rs                          i << 1 | 1
+
 void solve(){
-    int a;
-    cout << ceil( (ld) (4 + 3) / 2);
+    int x, y, x1, y1, a, b;
+    cin >> x >> y >> x1 >> y1;
+    cin >> a >> b;
+    if(abs(x - x1) % a == 0 && (abs(x - x1) / a) % 2 == (abs(y - y1) / b) % 2 && abs(y - y1) % b == 0){
+        cout << "YES" << endl;
+    }
+    else cout << "NO" << endl;
 }
 
 int main()

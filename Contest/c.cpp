@@ -4,7 +4,7 @@
  * @version: 1.0
  * @Date: 2021-03-08 20:28:04
  * @LastEditors: NEFU AB_IN
- * @LastEditTime: 2021-03-14 12:05:49
+ * @LastEditTime: 2021-03-25 23:27:50
  */
 #include<bits/stdc++.h>
 using namespace std;
@@ -26,40 +26,36 @@ typedef pair<int, int>               pii;
 typedef pair<ll, ll>                 pll;
 const int INF = 0x3f3f3f3f;
 
-vector < int > v[200];
-int f(int n){
-    int ans = 0;
-    while(n){
-        ans += n % 10;
-        n /= 10;
-    }
-    return ans;
-}
-int n;
+const int N = 100;
+
 void solve(){
-    cin >> n;
-    ll ans = INF, a;
-    forn(i, 1, 100000){
-        a = f(i);
-        v[a].PB(i);
-    }
-    forn(i, 1, 100){
-        if(SZ(v[i]) >= n){
-            ll tmp = 0;
-            int b = SZ(v[i]);
-            int mn = min(b, n);
-            forn(j, 0, mn - 1){
-                tmp += v[i][j];
+    string s1, s2;
+    cin >> s1 >> s2;
+    int dp[N][N], mx = 0;
+    mset(dp, 0);
+    for(int i = 0; i < s1.size(); i++){
+        for(int j = 0; j < s2.size(); j++){
+            if(s1[i] == s2[j]){
+                if(i == 0 || j == 0){
+                    dp[i][j] = 1;
+                }
+                else{
+                    dp[i][j] = dp[i - 1][j - 1] + 1;
+                }
+                mx = max(mx, dp[i][j]);
             }
-            ans = min(ans, tmp);
         }
     }
-    cout << ans;
+    cout << s1.size() + s2.size() - 2 * mx << endl;
 }
 
 int main()
 {
     IOS;
-    solve();
+    int t;
+    cin >> t;
+    while(t --){
+        solve();
+    }
     return 0;
 }

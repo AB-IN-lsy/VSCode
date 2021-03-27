@@ -4,7 +4,7 @@
  * @version: 1.0
  * @Date: 2021-03-08 20:28:04
  * @LastEditors: NEFU AB_IN
- * @LastEditTime: 2021-03-10 21:07:52
+ * @LastEditTime: 2021-03-25 23:12:45
  */
 #include<bits/stdc++.h>
 using namespace std;
@@ -26,34 +26,27 @@ typedef pair<int, int>               pii;
 typedef pair<ll, ll>                 pll;
 const int INF = 0x3f3f3f3f;
 
-unordered_map <ll, int> a;
-
 void solve(){
-    ll n, k, x, mx = 0;
+    int n, k;
     cin >> n >> k;
-    a.clear();
-    forn(i, 1, n) {
-        cin >> x;
-        a[x] = 1;
-        mx = max(mx, x);
-    }
-    if(k == 0){
-        cout << n << endl;
-        return;
-    }
-    ll me = mx + 1;
-    forn(i, 0, mx) {
-        if(!a[i]){
-            me = i;
-            break;
+    string s;
+    cin >> s;
+    int cnt = 1;
+    s[s.find('*')] = 'x';
+    for(int i = 0; i < n; i++){
+        if(s[i] == 'x'){
+            for(int j = i + k; j >= i + 1; j--){
+                if(j > n - 1) j = n - 1;
+                if(s[j] == '*'){
+                    cnt ++;
+                    s[j] = 'x';
+                    i = j - 1;
+                    break;
+                }
+            }
         }
     }
-    ll ans = 0;
-    if(me == mx + 1) ans = k;
-    else {
-        if( a[ceil( (ld) (me + mx) / 2)] == 0 ) ans = 1;
-    };
-    cout << n + ans << endl;
+    cout << cnt << endl;
 }
 
 int main()
