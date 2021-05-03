@@ -1,17 +1,29 @@
-'''
-Description: https://blog.csdn.net/qq_45859188
-Author: NEFU AB_IN
-version: 1.0
-Date: 2021-03-08 20:28:04
-LastEditors: NEFU AB_IN
-LastEditTime: 2021-03-25 17:27:00
-'''
-import math
+l, r = map(int, input().split())
+s = input()
+ans = 0
 
-n = 10000000000000000000000000000
-a = 3 * math.log(n) +2000 * n
-b = pow(10, -20) * n * n * n
-c = pow(math.log(n, 3), 5)
-d = math.log(n) ** 2 + 4 * math.log(n) - 1
+lst = dict()
+cnt = dict()
+for i in range(0, len(s)):
+    if s[i] == '0':
+        ans += 1
+    if s[i] != '0':
+        lst[i] = ans
+        ans = 0
+ans = 0
 
-print(a, b, c, d)
+for i in range(len(s)):
+    c = 0
+    if s[i] == "0":
+        cnt[i] = 0
+        continue
+    for j in range(i + 1, len(s) + 1):
+        if int(s[i:j]) >= l and int(s[i:j]) <= r:
+            ans += 1
+            c += 1
+    cnt[i] = c
+
+for i in lst:
+    ans += cnt[i] * lst[i]
+print(ans)
+    

@@ -4,7 +4,7 @@
  * @version: 1.0
  * @Date: 2021-03-08 20:28:04
  * @LastEditors: NEFU AB_IN
- * @LastEditTime: 2021-03-27 18:15:30
+ * @LastEditTime: 2021-05-03 13:05:35
  */
 #include<bits/stdc++.h>
 using namespace std;
@@ -13,8 +13,6 @@ using namespace std;
 #define ld                          long double
 #define db                          double
 #define all(x)                      (x).begin(),(x).end()
-#define F                           first
-#define S                           second
 #define MP                          make_pair
 #define PB                          emplace_back
 #define SZ(X)                       ((int)(X).size())   
@@ -22,23 +20,31 @@ using namespace std;
 #define IOS                         ios::sync_with_stdio(false);cin.tie(0);cout.tie(0);
 #define endl                        "\n"
 #define forn(i, l, r)                for (int i = l; i <= r; i++)
-typedef pair<int, int>               pii;
-typedef pair<ll, ll>                 pll;
 const int INF = 0x3f3f3f3f;
 
 void solve(){
-    int x, y, x1, y1, a, b;
-    cin >> x >> y >> x1 >> y1;
-    cin >> a >> b;
-    if(abs(x - x1) % a == 0 && (abs(x - x1) / a) % 2 == (abs(y - y1) / b) % 2 && abs(y - y1) % b == 0){
-        cout << "YES" << endl;
+    ll n, k;
+    cin >> n >> k;
+    vector <ll> a(n);
+    vector <ll> b(n);
+    for(auto &i : a) cin >> i;
+    for(auto &i : b) cin >> i;
+    sort(all(a));
+    sort(all(b));
+    ll ans = 0, j = n - 1;
+    forn(i, 0, n - 1){
+       if(a[i] + b[j] >= k) ans ++, j --;
     }
-    else cout << "NO" << endl;
+    cout << ans << endl;
 }
 
 int main()
 {
     IOS;
-    solve();
+    int t;
+    cin >> t;
+    while(t --){
+        solve();
+    }
     return 0;
 }

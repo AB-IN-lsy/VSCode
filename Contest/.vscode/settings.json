@@ -20,7 +20,5 @@
         "type_traits": "cpp",
         "complex": "cpp",
         "thread": "cpp"
-    },
-    "git.ignoreLimitWarning": true,
-    "python.pythonPath": "C:\\Users\\qpliu\\AppData\\Local\\Programs\\Python\\Python38\\python.exe"
+    }
 }
