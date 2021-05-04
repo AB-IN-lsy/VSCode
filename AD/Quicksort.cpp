@@ -1,16 +1,16 @@
 /*
- * @Description: find the k-th smallest element
+ * @Description: https://blog.csdn.net/qq_45859188
  * @Author: NEFU AB_IN
  * @version: 1.0
- * @Date: 2021-05-04 21:58:45
+ * @Date: 2021-05-04 23:18:06
  * @LastEditors: NEFU AB_IN
- * @LastEditTime: 2021-05-05 00:01:45
+ * @LastEditTime: 2021-05-04 23:49:32
  */
 #include<bits/stdc++.h>
 using namespace std;
 
 const int N = 1e4 + 10;
-int n, k, a[N];
+int a[N];
 
 int partition(int a[], int l, int r, int p){
     int tmp = l;
@@ -27,28 +27,20 @@ int partition(int a[], int l, int r, int p){
     swap(a[r], a[tmp]);
     return r;
 }
-
-int QuickSelect(int a[], int l, int r, int k){
+void Quicksort(int a[], int l, int r){
     if(l <= r){
-        int p = a[l];
-        int id = partition(a, l, r, p);
-        if(id == k) return a[k];
-        else if(id < k){
-            QuickSelect(a, id + 1, r, k);
-        }
-        else QuickSelect(a, l, id - 1, k);
+        int pivot = partition(a, l, r, a[l]); //这里选的pivot值，是选的每次递归的第一个
+        //当然可以优化成{a[begin], a[mid], a[end]}的中位数
+        Quicksort(a, l, pivot - 1);
+        Quicksort(a, pivot + 1, r);
     }
 }
-
 int main()
 {
-    cin >> n >> k;
+    int n;
+    cin >> n;
     for(int i = 1; i <= n; i ++) cin >> a[i];
-    cout << QuickSelect(a, 1, n, k) << endl;
+    Quicksort(a, 1, n);
+    for(int i = 1; i <= n; i ++) cout << a[i] << " ";
     return 0;
-
 }
-/*
-10 1
-10 13 2 12 5 9 1 8 3 11
-*/

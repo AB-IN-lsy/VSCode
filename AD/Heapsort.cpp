@@ -1,13 +1,15 @@
 /*
- * @Description: https://blog.csdn.net/qq_45859188
+ * @Description: Ascending order
  * @Author: NEFU AB_IN
  * @version: 1.0
  * @Date: 2021-05-04 20:53:41
  * @LastEditors: NEFU AB_IN
- * @LastEditTime: 2021-05-04 21:56:18
+ * @LastEditTime: 2021-05-04 23:52:26
  */
 #include<bits/stdc++.h>
 using namespace std;
+const int N = 1e4 + 10;
+int n, a[N];
 
 void sink(int a[], int i, int n){
     while(2 * i <= n){
@@ -33,9 +35,7 @@ int *heapsort(int a[], int n){
 
 int main()
 {
-    int n;
     cin >> n;
-    int a[n + 10];
     for(int i = 1; i <= n; i ++) cin >> a[i];
     int *b = heapsort(a, n);
     for(int i = 1; i <= n; i ++) cout << b[i] << " ";
