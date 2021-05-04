@@ -1,13 +1,16 @@
 /*
- * @Description: 第k小
+ * @Description: find the k-th smallest element
  * @Author: NEFU AB_IN
  * @version: 1.0
  * @Date: 2021-05-04 21:58:45
  * @LastEditors: NEFU AB_IN
- * @LastEditTime: 2021-05-04 22:59:35
+ * @LastEditTime: 2021-05-05 00:01:44
  */
 #include<bits/stdc++.h>
 using namespace std;
+
+const int N = 1e4 + 10;
+int n, k, a[N];
 
 int partition(int a[], int l, int r, int p){
     int tmp = l;
@@ -24,6 +27,7 @@ int partition(int a[], int l, int r, int p){
     swap(a[r], a[tmp]);
     return r;
 }
+
 int QuickSelect(int a[], int l, int r, int k){
     if(l <= r){
         int p = a[l];
@@ -38,9 +42,7 @@ int QuickSelect(int a[], int l, int r, int k){
 
 int main()
 {
-    int n, k;
     cin >> n >> k;
-    int a[n + 10];
     for(int i = 1; i <= n; i ++) cin >> a[i];
     cout << QuickSelect(a, 1, n, k) << endl;
     return 0;
