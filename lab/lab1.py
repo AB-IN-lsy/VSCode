@@ -26,10 +26,3 @@ class Linked_List:
         while tmp != None:
             lst.append(tmp.data)
             tmp = tmp.next
-
-arr = input(" ")
-data_list=[int(n) for n in arr.split()]
-linklist =Linked_List()
-linklist.initlist(data_list)
-linklist.reverse()
-linklist.print_list()
