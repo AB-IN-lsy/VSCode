@@ -1,9 +1,16 @@
+/*
+ * @Description: https://blog.csdn.net/qq_45859188
+ * @Author: NEFU AB_IN
+ * @version: 1.0
+ * @Date: 2021-03-06 20:12:14
+ * @LastEditors: NEFU AB_IN
+ * @LastEditTime: 2021-05-11 21:18:56
+ */
 #include<bits/stdc++.h>
 using namespace std;
 #define LL                          long long
 #define ULL                         unsigned long long
 #define SZ(X)                       ((int)(X).size())
-#define MP                          make_pair
 #define IOS                         ios::sync_with_stdio(false);cin.tie(0);cout.tie(0);
 typedef pair<int , int>             PII;
 
