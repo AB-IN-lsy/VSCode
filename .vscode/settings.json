@@ -1,5 +1,6 @@
 {
     "files.associations": {
+        "*.rmd": "markdown",
         "iostream": "cpp",
         "*.tcc": "cpp",
         "deque": "cpp",
@@ -19,7 +20,8 @@
         "valarray": "cpp",
         "type_traits": "cpp",
         "complex": "cpp",
-        "thread": "cpp"
+        "thread": "cpp",
+        "iosfwd": "cpp"
     },
     "git.ignoreLimitWarning": true,
     "python.pythonPath": "C:\\Users\\qpliu\\AppData\\Local\\Programs\\Python\\Python38\\python.exe"

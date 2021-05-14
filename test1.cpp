@@ -62,6 +62,7 @@ using namespace dij;
 int main()
 {
     IOS;
+    
     memset(h, -1, sizeof h);
     int n, m;
     cin >> n >> m;
