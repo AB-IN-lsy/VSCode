@@ -1,10 +1,10 @@
 /*
- * @Description: find the k-th smallest element
+ * @Description: find the k-th biggest element
  * @Author: NEFU AB_IN
  * @version: 1.0
  * @Date: 2021-05-04 21:58:45
  * @LastEditors: NEFU AB_IN
- * @LastEditTime: 2021-05-05 00:01:45
+ * @LastEditTime: 2021-05-21 08:52:56
  */
 #include<bits/stdc++.h>
 using namespace std;
@@ -32,8 +32,8 @@ int QuickSelect(int a[], int l, int r, int k){
     if(l <= r){
         int p = a[l];
         int id = partition(a, l, r, p);
-        if(id == k) return a[k];
-        else if(id < k){
+        if(id == n - k + 1) return a[id];
+        else if(id < n - k + 1){
             QuickSelect(a, id + 1, r, k);
         }
         else QuickSelect(a, l, id - 1, k);
@@ -49,6 +49,19 @@ int main()
 
 }
 /*
+k-th smallest
+in:
 10 1
 10 13 2 12 5 9 1 8 3 11
+
+out:
+1
+/////////////////////////
+k-th bigest
+in:
+5 2
+1 3 4 21 6
+
+out:
+6
 */

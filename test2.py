@@ -1,35 +1,24 @@
 '''
-Description: https://blog.csdn.net/qq_45859188
+Description: file content
 Author: NEFU AB_IN
 version: 1.0
 Date: 2021-03-14 09:56:33
 LastEditors: NEFU AB_IN
-LastEditTime: 2021-05-07 08:38:42
+LastEditTime: 2021-05-21 19:23:32
 '''
-class Node:
-    def __init__(self, data, nxt):
-        self.data = data
-        self.next = nxt
-class Linked_List:
-    def __init__(self):
-        self.head = None
-    def initlist(self,data_list):
-        for i in data_list:
-            self.head = Node(i, self.head)
-    def reverse(self):
-        #no code here
-        a = 1
-    def print_list(self):
-        print("linked_list:")
-        tmp = self.head
-        lst = []
-        while tmp != None:
-            lst.append(tmp.data)
-            tmp = tmp.next
+'''
+Description: file content
+Author: NEFU AB_IN
+version: 1.0
+Date: 2021-03-14 09:56:33
+LastEditors: NEFU AB_IN
+LastEditTime: 2021-05-21 19:02:35
+'''
 
-arr = input(" ")
-data_list=[int(n) for n in arr.split()]
-linklist =Linked_List()
-linklist.initlist(data_list)
-linklist.reverse()
-linklist.print_list()
+
+for i in range(1, 100):
+    t = str(bin(i))[2:]
+    if t.count("1") & 1:
+        print("1", end = " ")
+    else:
+        print("0", end = " ")
