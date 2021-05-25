@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1585146677 source:f:\code\aulin oj\1004\main.cpp
+	<iostream>
+	<cstdio>
+	<cstring>
+

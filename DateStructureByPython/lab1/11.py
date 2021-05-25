@@ -1,0 +1,1 @@
+print(  sorted([111, 2, 33], key=lambda x: len(str(x)))  )

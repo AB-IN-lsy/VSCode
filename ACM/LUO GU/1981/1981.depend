@@ -1,0 +1,9 @@
+# depslib dependency file v1.0
+1586787389 source:f:\code\acm\luogu\1981\main.cpp
+	<cstdio>
+	<iostream>
+	<algorithm>
+	<cmath>
+	<cstring>
+	<string>
+

@@ -1,0 +1,1 @@
+print(tuple(i for i in range(1,int(input("Enter an integer: "))+1)))
