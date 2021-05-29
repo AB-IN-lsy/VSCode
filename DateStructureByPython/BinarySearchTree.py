@@ -190,12 +190,11 @@ def in_order_print(tree):
         print(tree.get_data(), end = " ")
         in_order_print(tree.get_right())
 
-t = BinarySearchTree(65)
-t.insert(24)
-t.insert(16)
-t.insert(43)
-t.insert(88)
-t.insert(71)
-t.insert(81)
+t = BinarySearchTree(1)
+t.insert(72)
+t.insert(34)
+t.insert(29)
+t.insert(22)
+
 
 in_order_print(t)

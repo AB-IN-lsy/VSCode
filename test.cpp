@@ -1,33 +1,29 @@
 /*
- * @Description: https://blog.csdn.net/qq_45859188
+ * @Description: file content
  * @Author: NEFU AB_IN
  * @version: 1.0
  * @Date: 2020-12-10 10:46:04
  * @LastEditors: NEFU AB_IN
- * @LastEditTime: 2021-05-10 20:40:59
+ * @LastEditTime: 2021-05-28 22:52:17
  */
-#include<bits/stdc++.h>
-using namespace std;
-#define LL                          long long
-#define ULL                         unsigned long long
-#define SZ(X)                       ((int)(X).size())
-#define MP                          make_pair
-#define IOS                         ios::sync_with_stdio(false);cin.tie(0);cout.tie(0);
+#include <iostream>
+#include <algorithm>
+#include <vector>
+#include <set>
 
-struct cmp{
-	bool operator() (const int &a, const int &b){
-		return a > b;
-	}
-};
-int main()
-{
-	IOS;
-	int a[5] = {1, 8, 3, 9, 1};
-	priority_queue <int, vector<int>, cmp> q(a, a + 5);
-	cout << q.top() << " "; q.pop();
-	cout << q.top() << " "; q.pop();
-	cout << q.top() << " "; q.pop();
-	cout << q.top() << " "; q.pop();
-	cout << q.top() << " "; q.pop();
-	return 0;
+typedef long long int ll;
+using namespace std;
+
+int main() {
+    int n;
+    string str;
+    cin >> n >> str;
+    multiset<char> a;
+    for (int i = 0; i < n; ++i) {
+        auto tmp = a.upper_bound(str[i]);
+        if (tmp != a.end()) a.erase(tmp);
+        a.insert(str[i]);
+    }
+    cout << n-a.size();
+    return 0;
 }
