@@ -26,7 +26,7 @@ char* strrev(char *str)
 }
 
 
-char* con2_10(char* str){
+char* con2_16(char* str){
     int cnt = 0;
     int p = 8;
     int tmp = 0;
@@ -109,7 +109,7 @@ int main(int argc, char *argv[]){
                         strcat(tmp, change3(p));   
                     }
                     //printf("tmp : %s\n", tmp);
-                    char* after = con2_10(tmp);
+                    char* after = con2_16(tmp);
                     char real[4];
                     strcpy(real, after);
                     //printf("real : %s\n", real);
@@ -130,7 +130,7 @@ int main(int argc, char *argv[]){
                         strcat(tmp, change3(p));   
                     }
                     //printf("tmp : %s\n", tmp);
-                    char* after = con2_10(tmp);
+                    char* after = con2_16(tmp);
                     char real[4];
                     strcpy(real, after);
                     //printf("real : %s\n", real);

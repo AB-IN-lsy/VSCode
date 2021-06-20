@@ -22,7 +22,7 @@ char* strrev(char *str){
     return str;
 }
 
-char* con2_10(char* str){
+char* con2_16(char* str){
     int cnt = 0;
     int p = 8;
     int tmp = 0;
@@ -141,7 +141,7 @@ int main(int argc, char *argv[]){
                         int p = strtol(token + 1, &ptr, 10);
                         strcat(tmp, change3(p));   
                     }
-                    char* after = con2_10(tmp);
+                    char* after = con2_16(tmp);
                     char real[4];
                     strcpy(real, after);
                     sscanf(real, "%2x%2x", &x, &y);
@@ -179,7 +179,7 @@ int main(int argc, char *argv[]){
                         int p = strtol(token + 1, &ptr, 10);
                         strcat(tmp, change3(p));   
                     }
-                    char* after = con2_10(tmp);
+                    char* after = con2_16(tmp);
                     char real[4];
                     strcpy(real, after);
                     sscanf(real, "%2x%2x", &x, &y);
