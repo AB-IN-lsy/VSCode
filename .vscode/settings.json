@@ -22,7 +22,8 @@
         "complex": "cpp",
         "thread": "cpp",
         "iosfwd": "cpp",
-        "cstring": "c"
+        "cstring": "c",
+        "string.h": "c"
     },
     "git.ignoreLimitWarning": true,
     "python.pythonPath": "C:\\Users\\qpliu\\AppData\\Local\\Programs\\Python\\Python38\\python.exe"

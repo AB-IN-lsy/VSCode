@@ -1,30 +1,26 @@
 /*
 *  @Copyright (C) 2021 NEFU AB_IN. All rights reserved.
-*  @FileName:part2.c
+*  @FileName:part3.c
 *  @Author:NEFU AB_IN
-*  @Date:2021.06.18
+*  @Date:2021.06.20
 *  @Description:https://blog.csdn.net/qq_45859188
 */
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
 
-char* strrev(char *str)
-{
+char* strrev(char *str){
     char *p1, *p2;
     if (! str || ! *str)
         return str;
-    for (p1 = str, p2 = str + strlen(str) - 1; p2 > p1; ++p1, --p2)
-    {
+    for (p1 = str, p2 = str + strlen(str) - 1; p2 > p1; ++p1, --p2){
         *p1 ^= *p2;
         *p2 ^= *p1;
         *p1 ^= *p2;
     }
     return str;
 }
-
 
 char* con2_10(char* str){
     int cnt = 0;
@@ -46,7 +42,6 @@ char* con2_10(char* str){
     return ans1;
 }
 
-
 char* change3(int x){
     char tmp[3];
     int cnt = 0;
@@ -60,6 +55,24 @@ char* change3(int x){
     }
     int p = strlen(tmp);
     for(int i = 1; i <= (3 - p); i ++) tmp[cnt++] = '0';
+    strrev(tmp);
+    char* ans = tmp;
+    return ans;
+}
+
+char* change5(int x){
+    char tmp[5];
+    int cnt = 0;
+    if(x == 0){
+        return "00000";
+    }
+    while(x > 0){
+        if(x & 1) tmp[cnt++] = '1';
+        else tmp[cnt++] = '0';
+        x = x >> 1;
+    }
+    int p = strlen(tmp);
+    for(int i = 1; i <= (5 - p); i ++) tmp[cnt++] = '0';
     strrev(tmp);
     char* ans = tmp;
     return ans;
@@ -100,42 +113,76 @@ int main(int argc, char *argv[]){
                     char tmp[100] = "0001";
                     char* ptr;
                     for(int i = 1; i <= 3; i ++){
-                        if(i == 3) strcat(tmp, "000");
-                        //printf("tmp : %s\n", tmp);
                         token = strsep(&pos, delimiters);
-                        //printf("token : %s\n", token);
+                        if(i == 3) {
+                            if(*(token) == 'r') {
+                                strcat(tmp, "000");
+                                int p = strtol(token + 1, &ptr, 10);
+                                strcat(tmp, change3(p));
+                            }
+                            if(*(token) == '#') {
+                                strcat(tmp, "1");
+                                if(*(token + 1) == '-'){
+                                    char* reverse = change5(strtol(token + 2, &ptr, 10) - 1);
+                                    for(int i = 0; i <= 4; i ++){
+                                        if(*(reverse + i) == '0') *(reverse + i) = '1';
+                                        else *(reverse + i) = '0';
+                                    }
+                                    strcat(tmp, reverse);
+                                }
+                                else{
+                                    int p = strtol(token + 1, &ptr, 10);
+                                    strcat(tmp, change5(p)); 
+                                }
+                                //printf("tmp : %s\n", tmp);
+                            }
+                            continue;
+                        }
                         int p = strtol(token + 1, &ptr, 10);
-                        //printf("p : %d\n", p);
                         strcat(tmp, change3(p));   
                     }
-                    //printf("tmp : %s\n", tmp);
                     char* after = con2_10(tmp);
                     char real[4];
                     strcpy(real, after);
-                    //printf("real : %s\n", real);
                     sscanf(real, "%2x%2x", &x, &y);
-                    //printf("%x %x", x, y);
                     fprintf(file_out, "%c%c", x, y);
                 }
                 if(strstr(token, "and") == token){
                     char tmp[100] = "0101";
                     char* ptr;
                     for(int i = 1; i <= 3; i ++){
-                        if(i == 3) strcat(tmp, "000");
-                        //printf("tmp : %s\n", tmp);
                         token = strsep(&pos, delimiters);
-                        //printf("token : %s\n", token);
+                        if(i == 3) {
+                            if(*(token) == 'r') {
+                                strcat(tmp, "000");
+                                int p = strtol(token + 1, &ptr, 10);
+                                strcat(tmp, change3(p)); 
+                            }
+                            if(*(token) == '#') {
+                                strcat(tmp, "1");
+                                if(*(token + 1) == '-'){
+                                    char* reverse = change5(strtol(token + 2, &ptr, 10) - 1);
+                                    for(int i = 0; i <= 4; i ++){
+                                        if(*(reverse + i) == '0') *(reverse + i) = '1';
+                                        else *(reverse + i) = '0';
+                                    }
+                                    strcat(tmp, reverse);
+                                }
+                                else{
+                                    int p = strtol(token + 1, &ptr, 10);
+                                    strcat(tmp, change5(p)); 
+                                }
+                                //printf("tmp : %s\n", tmp);
+                            }
+                            continue;
+                        }
                         int p = strtol(token + 1, &ptr, 10);
-                        //printf("p : %d\n", p);
                         strcat(tmp, change3(p));   
                     }
-                    //printf("tmp : %s\n", tmp);
                     char* after = con2_10(tmp);
                     char real[4];
                     strcpy(real, after);
-                    //printf("real : %s\n", real);
                     sscanf(real, "%2x%2x", &x, &y);
-                    //printf("%x %x", x, y);
                     fprintf(file_out, "%c%c", x, y);
                 }
                 if(strstr(token, "halt") == token){
