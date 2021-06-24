@@ -1,10 +1,10 @@
 '''
-Description: file content
+Description: Bellman-Ford
 Author: NEFU AB_IN
 version: 1.0
 Date: 2021-06-23 19:41:55
 LastEditors: NEFU AB_IN
-LastEditTime: 2021-06-24 09:33:28
+LastEditTime: 2021-06-24 18:18:19
 '''
 import copy
 class edge:
@@ -32,7 +32,7 @@ for _ in range(n):
         v = edges[i].v
         w = edges[i].w
         if dist[v] > dist[u] + w:
-            dist[v] = min(dist[v], dist[u] + w)
+            dist[v] = dist[u] + w
             cnt[v] = cnt[u] + 1
             if cnt[v] >= n:
                 print("exist cycle of negative weights")
