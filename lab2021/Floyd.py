@@ -4,7 +4,7 @@ Author: NEFU AB_IN
 version: 1.0
 Date: 2021-06-24 16:01:01
 LastEditors: NEFU AB_IN
-LastEditTime: 2021-06-24 17:00:39
+LastEditTime: 2021-06-25 08:46:06
 '''
 ans = []
 def PrintRec(rec, i, j):
@@ -36,9 +36,9 @@ for _ in range(m):
 for k in range(1, n + 1):
     for i in range(1, n + 1):
         for j in range(1, n + 1):
-            if dist[u][v] > dist[u][k] + dist[k][v]:
-                dist[u][v] = dist[u][k] + dist[k][v]
-                rec[u][v] = rec[k][v]
+            if dist[i][j] > dist[i][k] + dist[k][j]:
+                dist[i][j] = dist[i][k] + dist[k][j]
+                rec[i][j] = rec[k][j]
 
 for _ in range(q):
     u, v = map(int, input().split())

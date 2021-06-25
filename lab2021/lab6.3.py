@@ -4,34 +4,16 @@ Author: NEFU AB_IN
 version: 1.0
 Date: 2021-06-11 09:10:18
 LastEditors: NEFU AB_IN
-LastEditTime: 2021-06-11 09:28:04
+LastEditTime: 2021-06-25 10:56:54
 '''
 from queue import PriorityQueue
 
-N = 20
-h = [-1 for _ in range(N)]
-ne = [0 for _ in range(N)]
-e = [0 for _ in range(N)]
-w = [0 for _ in range(N)]
-color = [0 for _ in range(N)] #white = 0, grey = 1, black = 2
-d = [float('inf') for _ in range(N)]
-
-idx = 0
-
-def add(a, b, ww):
-    global idx
-    e[idx] = b
-    ne[idx] = h[a]
-    w[idx] = ww
-    h[a] = idx
-    idx += 1
-
 
 def shortest_path(adj_list, s):
-    d = [float('inf') for _ in range(N)]
-    for i in range(len(adj_list)):
-        for j in adj_list[i]:
-            add(i, j, 1)
+    # 默认边权为1，故只存点
+    n = len(adj_list)
+    color = [0 for _ in range(n)] 
+    d = [float('inf') for _ in range(n)]
     d[s] = 0
     q = PriorityQueue()
     q.put((0, s))
@@ -41,17 +23,14 @@ def shortest_path(adj_list, s):
         if color[x] == 1:
             continue
         color[x] = 1
-        i = h[x]
-        while i != -1:
-            j = e[i]
-            if d[j] > d[x] + w[i]:
-                d[j] = d[x] + w[i]
-                q.put((d[j], j))
-            i = ne[i]
-    return d[:len(adj_list)]
+        for v in adj_list[x]:
+            if d[v] > d[x] + 1:
+                d[v] = d[x] + 1
+                q.put((d[v], v))
+    return d[: n]
 
-adj_list = [[], [2, 3], [1, 4], [1], [2]]
-d = shortest_path(adj_list, 2)
+adj_list = [[1, 2], [0, 2, 3], [0, 1], [1]]
+d = shortest_path(adj_list, 3)
 print(d)
 
     
