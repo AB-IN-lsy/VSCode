@@ -101,20 +101,15 @@ int main(int argc, char *argv[]){
                     char* ptr;
                     for(int i = 1; i <= 3; i ++){
                         if(i == 3) strcat(tmp, "000");
-                        //printf("tmp : %s\n", tmp);
                         token = strsep(&pos, delimiters);
-                        //printf("token : %s\n", token);
                         int p = strtol(token + 1, &ptr, 10);
-                        //printf("p : %d\n", p);
                         strcat(tmp, change3(p));   
                     }
                     //printf("tmp : %s\n", tmp);
                     char* after = con2_16(tmp);
                     char real[4];
                     strcpy(real, after);
-                    //printf("real : %s\n", real);
                     sscanf(real, "%2x%2x", &x, &y);
-                    //printf("%x %x", x, y);
                     fprintf(file_out, "%c%c", x, y);
                 }
                 if(strstr(token, "and") == token){
@@ -122,20 +117,15 @@ int main(int argc, char *argv[]){
                     char* ptr;
                     for(int i = 1; i <= 3; i ++){
                         if(i == 3) strcat(tmp, "000");
-                        //printf("tmp : %s\n", tmp);
                         token = strsep(&pos, delimiters);
-                        //printf("token : %s\n", token);
                         int p = strtol(token + 1, &ptr, 10);
-                        //printf("p : %d\n", p);
                         strcat(tmp, change3(p));   
                     }
                     //printf("tmp : %s\n", tmp);
                     char* after = con2_16(tmp);
                     char real[4];
                     strcpy(real, after);
-                    //printf("real : %s\n", real);
                     sscanf(real, "%2x%2x", &x, &y);
-                    //printf("%x %x", x, y);
                     fprintf(file_out, "%c%c", x, y);
                 }
                 if(strstr(token, "halt") == token){
