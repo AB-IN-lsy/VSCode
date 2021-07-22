@@ -4,7 +4,7 @@
  * @version: 1.0
  * @Date: 2021-07-23 02:12:56
  * @LastEditors: NEFU AB_IN
- * @LastEditTime: 2021-07-23 03:04:28
+ * @LastEditTime: 2021-07-23 03:07:26
  */
 #include<bits/stdc++.h>
 using namespace std;
@@ -31,6 +31,7 @@ int main()
                         dp[mn][mx] = 1; // Alice win, pick A st i ,pick B rd j
                     }
                 }
+                
                 for(int k = 1; j + k <= 5000; k ++){
                     for(int s = 0; i + k * s <= 5000; s ++){
                         int mx = max(i + k * s, j + k);
