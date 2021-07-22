@@ -4,7 +4,7 @@
  * @version: 1.0
  * @Date: 2021-07-22 00:21:21
  * @LastEditors: NEFU AB_IN
- * @LastEditTime: 2021-07-22 00:27:04
+ * @LastEditTime: 2021-07-22 00:32:49
  */
 #include<bits/stdc++.h>
 using namespace std;
@@ -15,11 +15,14 @@ using namespace std;
 typedef pair<int , int>             PII;
 
 class a{
-    public:
+public:
     int name;
-    struct Node { int item; struct Node * next; };
     a(int x):name(x) {};
-	enum { Q_SIZE = 10 };
+
+    void Test_CPP(){
+        printf("CPP:%d \n", this->name);
+    }
+
 };
 
 int main()
