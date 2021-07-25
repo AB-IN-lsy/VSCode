@@ -1,6 +1,0 @@
-# depslib dependency file v1.0
-1600502640 source:f:\code\acm\nefu oj\9.18\c1\main.cpp
-	<cstdio>
-	<algorithm>
-	<string.h>
-

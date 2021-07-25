@@ -1,8 +1,0 @@
-# depslib dependency file v1.0
-1591253479 source:f:\code\acm\test 5.31\xiaoche\main.cpp
-	<iostream>
-	<cstdio>
-	<set>
-	<map>
-	<algorithm>
-

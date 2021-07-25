@@ -1,4 +1,0 @@
-John,7589943,john@amail.com
-Kelly,4344345,kelly@bmail.com
-Nicky,8774104,nicky@cmail.com
-Sam,5723943,sam@dmail.com
