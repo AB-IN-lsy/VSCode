@@ -4,7 +4,7 @@
  * @version: 1.0
  * @Date: 2021-07-24 12:10:41
  * @LastEditors: NEFU AB_IN
- * @LastEditTime: 2021-07-24 13:03:43
+ * @LastEditTime: 2021-07-29 16:11:27
  */
 #include<bits/stdc++.h>
 using namespace std;
@@ -44,7 +44,8 @@ namespace GenHelper
     }
 }
 using namespace GenHelper;
-bool edge[11][11];
+bool edge[5050][5050];
+
 int main() {
     int n, seed;
     cin >> n >> seed;
@@ -52,10 +53,18 @@ int main() {
     for (int i = 0; i < n; i++)
     	for (int j = i + 1; j < n; j++)
         	edge[j][i] = edge[i][j] = read();
-    for (int i = 0; i < n; i++){
-    	for (int j = 0; j < n; j++)
-        	cout << edge[i][j] << " ";
-        cout << endl;
+    
+    LL ans = 1LL * n * (n - 1) * (n - 2) / 6;
+    LL num = 0;
+    for(int i = 0; i < n; i ++){
+        int a = 0, b = 0;
+        for(int j = 0; j < n; j ++){
+            if(i == j) continue;
+            if(edge[i][j]) a ++;
+            else b ++;
+        }
+        num += 1LL * a * b;
     }
+    cout << ans - num / 2 << endl;
     return 0;
 }
