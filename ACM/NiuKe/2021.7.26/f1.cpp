@@ -4,7 +4,7 @@
  * @version: 1.0
  * @Date: 2021-07-26 12:57:24
  * @LastEditors: NEFU AB_IN
- * @LastEditTime: 2021-07-30 02:16:24
+ * @LastEditTime: 2021-08-04 16:21:17
  */
 #include<bits/stdc++.h>
 using namespace std;
@@ -15,7 +15,7 @@ using namespace std;
 #define IOS                         ios::sync_with_stdio(false);cin.tie(0);cout.tie(0);
 typedef pair<int , int>             PII;
 
-const int N = 105;
+const int N = 10;
 int fa[N];
 int sig[N];
 int n, m;
@@ -51,7 +51,43 @@ int main() {
             huan += sig[i];
         }
     }
+    cout << "cnt:" << cnt << '\n';
+    cout << "huan:" << huan << '\n';
+
     if((cnt + huan) & 1) puts("Alice");
     else puts("Bob");
     return 0;
 }
+/*
+5 6
+1 2
+2 3
+1 3
+3 4
+4 5
+3 5
+
+5 6
+1 3
+3 2
+1 2
+3 4
+4 5
+3 5
+
+6 7
+1 2
+2 3
+3 4
+1 4
+3 5
+5 6
+3 6
+
+5 5
+1 2
+3 4
+2 3
+1 4
+3 5
+*/

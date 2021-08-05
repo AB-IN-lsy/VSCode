@@ -4,30 +4,36 @@
  * @version: 1.0
  * @Date: 2021-07-22 00:21:21
  * @LastEditors: NEFU AB_IN
- * @LastEditTime: 2021-07-22 00:32:49
+ * @LastEditTime: 2021-08-05 10:50:25
  */
-#include<bits/stdc++.h>
+#include <iostream>
+#include <algorithm>
 using namespace std;
-#define LL                          long long
-#define ULL                         unsigned long long
-#define SZ(X)                       ((int)(X).size())
-#define IOS                         ios::sync_with_stdio(false);cin.tie(0);cout.tie(0);
-typedef pair<int , int>             PII;
-
-class a{
-public:
-    int name;
-    a(int x):name(x) {};
-
-    void Test_CPP(){
-        printf("CPP:%d \n", this->name);
-    }
-
-};
-
+int b[1000010];
+int a[1000010];
+int st[1000010];
 int main()
 {
-    IOS;
-    a(1);
+    int n,k;
+    cin>>n>>k;
+    for(int i=1;i<=k;i++){
+        int pos;
+        cin>>pos>>a[pos];
+    }
+    for(int i=1;i<=n;i++){
+        if(!a[i])a[i]=a[i-1]+1;
+        else if(a[i]>a[i-1]+1){
+                cout<<"-1"<<endl;
+                return 0;
+        }
+    }
+    int cnt=0,top=0;
+    for(int i=n;i>=1;i--){
+        while(a[i]>top)st[++top]=++cnt;//++cnt能保证先把小的弹出来再把大的弹出来
+        b[i]=st[top];
+        top--;
+    }
+    for(int i=1;i<=n;i++)cout<<b[i]<<' ';
     return 0;
 }
+
