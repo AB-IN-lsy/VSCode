@@ -39,9 +39,9 @@ int main()
             q2[++ r2] = i;
             while(l <= i && a[q1[l1]] - a[q2[l2]] > x){
                 ans += 1LL * (n - i + 1);
-                l ++;
-                while(l1 <= r1 && q1[l1] <l) l1 ++;
-                while(l2 <= r2 && q2[l2] <l) l2 ++;
+                l ++; // 移动左端点
+                while(l1 <= r1 && q1[l1] < l) l1 ++; // 保证队首不滑出l
+                while(l2 <= r2 && q2[l2] < l) l2 ++;
             }
         }	
         cout << ans << '\n';
