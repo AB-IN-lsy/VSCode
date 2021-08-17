@@ -4,25 +4,38 @@
  * @version: 1.0
  * @Date: 2021-08-09 16:20:42
  * @LastEditors: NEFU AB_IN
- * @LastEditTime: 2021-08-09 16:20:42
+ * @LastEditTime: 2021-08-13 02:39:00
  */
-
-#include <bits/stdc++.h>
+#include<bits/stdc++.h>
 using namespace std;
-#define PI acos(-1.0)
+#define LL                          long long
+#define ULL                         unsigned long long
+#define MP                          make_pair
+#define SZ(X)                       ((int)(X).size())
+#define IOS                         ios::sync_with_stdio(false);cin.tie(0);cout.tie(0);
+#define DEBUG(X)                    cout << #X << ": " << X << endl;
+#define PI                          acos(-1)
+typedef pair<int , int>             PII;
+
 int t;
-double w,d;
+double w, d, a, b;
+
 int main()
 {
-    scanf("%d",&t);
-    while(t--){
-        scanf("%lf%lf",&w,&d);
-        double minx=min(w,d);
-        double bei=PI/minx;
-        //cout<<bei<<endl;
-        double hh=sqrt(w*w+d*d);
-        double bei1=PI/hh;
-        printf("%d\n",max((int)floor(bei)*2+4,(int)floor(bei1)*3+4));
+    IOS;
+    cin >> t;
+    while(t --){
+        cin >> w >> d;
+        LL ans = 4;
+        a = min(w, d);
+        b = sqrt(w * w + d * d);
+        for(int x = 0; x <= 100 && a * x <= PI; ++ x){
+            ans = max(ans, (2 * x + 3 * (LL)((PI - x * a) / b) + 4));
+        }
+        for(int y = 0; y <= 100 && b * y <= PI; ++ y){
+            ans = max(ans, (2 * (LL)((PI - y * b) / a) + 3 * y + 4));
+        }
+        cout << ans << '\n';
     }
     return 0;
 }

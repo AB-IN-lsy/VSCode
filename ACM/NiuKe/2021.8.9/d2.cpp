@@ -4,7 +4,7 @@
  * @version: 1.0
  * @Date: 2021-08-09 13:07:58
  * @LastEditors: NEFU AB_IN
- * @LastEditTime: 2021-08-12 00:07:41
+ * @LastEditTime: 2021-08-13 02:39:04
  */
 #include<bits/stdc++.h>
 using namespace std;
@@ -17,7 +17,7 @@ using namespace std;
 typedef pair<int , int>             PII;
 
 const int N = 1e5 + 16;
-int a[N], b[N], c[N], d[N];
+int b[N], c[N], d[N];
 int n;
 
 bool check(int k, int x){
@@ -49,7 +49,7 @@ int main()
              flag2 = check(i, 1);
         if(flag1 && flag2) ans *= 2;
         else if(flag1 || flag2) continue;
-        else return cout << ans << '\n', 0;
+        else return cout << 0 << '\n', 0;
     }
     cout << ans << '\n';
     return 0;

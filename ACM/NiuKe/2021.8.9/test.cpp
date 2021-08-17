@@ -4,7 +4,7 @@
  * @version: 1.0
  * @Date: 2021-08-11 10:50:16
  * @LastEditors: NEFU AB_IN
- * @LastEditTime: 2021-08-11 15:20:49
+ * @LastEditTime: 2021-08-12 20:45:50
  */
 #include<bits/stdc++.h>
 using namespace std;
@@ -18,7 +18,7 @@ typedef pair<int , int>             PII;
 
 LL p;
 const LL N = 1e6 + 10;
-LL fac[N], finv[N];
+LL fac[N];
 LL mul(LL x, LL y){return 1LL * x * y % p;}
 LL dec(LL x, LL y){return x >= y ? x - y : x + p - y;}
 LL add(LL x, LL y){return x + y >= p ? x + y - p : x + y;}
@@ -54,7 +54,9 @@ void init(){
         fac[i] = mul(fac[i - 1], i); 
     }
 }
-LL inv_fm(LL n, LL p) { return qm(n, p - 2, p); }
+LL inv_fm(LL n, LL p) { 
+    return qm(n, p - 2, p); 
+}
 
 LL C(LL n, LL m, LL p){
     return m > n ? 0 : mul(fac[n], mul(inv_fm(fac[m], p), inv_fm(fac[n - m], p)));
@@ -65,7 +67,7 @@ LL lucas(LL n, LL m, LL p){
     if(n < m) return 0;
     if(n == m || m == 0) return 1;
     else{
-        return (C(n % p, m % p, p) * lucas(n / p, m / p, p));
+        return mul(C(n % p, m % p, p), lucas(n / p, m / p, p));
     }
 }
 

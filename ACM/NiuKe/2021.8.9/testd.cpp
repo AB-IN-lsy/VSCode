@@ -1,26 +1,35 @@
-/*
- * @Description: file content
- * @Author: NEFU AB_IN
- * @version: 1.0
- * @Date: 2021-08-11 23:14:09
- * @LastEditors: NEFU AB_IN
- * @LastEditTime: 2021-08-11 23:14:46
- */
-#include<bits/stdc++.h>
+#include<iostream>
+#include<vector>
+#include<cstring>
+#include<string.h>
+#include<cstdio>
+#include<climits>
+#include<cmath>
+#include<algorithm>
+#include<queue>
+#include<deque>
+#include<map>
+#include<set>
+#include<string>
+#include<stack>
 using namespace std;
 #define LL                          long long
-#define ULL                         unsigned long long
-#define MP                          make_pair
-#define SZ(X)                       ((int)(X).size())
+#define uLL                         unsigned long long
+#define ld                          long double
+#define db                          double
+#define aLL(x)                      (x).begin(),(x).end()
+#define F                           first
+#define S                           second
+#define Mp                          make_pair
+#define mset(s, _)                  memset(s, _, sizeof(s))
+#define lowbit(x)                   ((x) &-(x))
 #define IOS                         ios::sync_with_stdio(false);cin.tie(0);cout.tie(0);
-#define DEBUG(X)                    cout << #X << ": " << X << endl;
-typedef pair<int , int>             PII;
+#define endl                        "\n"
+typedef pair<int, int>               pii;
+typedef pair<LL, LL>                 pLL;
 
 int main()
 {
-    IOS;
-    cout << (5 >> 0 & 1) << endl;
-    cout << (4 >> 0 & 1) << endl; 
 
     return 0;
 }
