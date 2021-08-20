@@ -1,5 +1,6 @@
 ﻿param($a, $b)
-$a = Read-Host 'Date?'
+echo 'Do not forget turn VPN on'
+$a = Read-Host 'Commit Info?'
 cd d:\Code\Vscode
 git add .
 git commit -m "$a"
