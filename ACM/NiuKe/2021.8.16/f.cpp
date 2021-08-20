@@ -2,11 +2,16 @@
  * @Author: NEFU AB_IN
  * @Date: 2021-08-16 13:08:25
  * @FilePath: \Vscode\ACM\NiuKe\2021.8.16\f.cpp
- * @LastEditTime: 2021-08-20 02:52:24
+ * @LastEditTime: 2021-08-20 14:22:44
  */
-#include <bits/stdc++.h>
+#include<bits/stdc++.h>
 using namespace std;
-typedef long long ll;
+#define LL                          long long
+#define MP                          make_pair
+#define SZ(X)                       ((int)(X).size())
+#define IOS                         ios::sync_with_stdio(false);cin.tie(0);cout.tie(0);
+#define DEBUG(X)                    cout << #X << ": " << X << endl;
+typedef pair<int , int>             PII;
 const int maxn = 1e6 + 10;
 string parentheses;  //括号序列
 int partp = 0;       //遍历到括号序列的位置

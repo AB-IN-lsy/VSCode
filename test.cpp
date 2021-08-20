@@ -1,33 +1,73 @@
 /*
- * @Description: 
  * @Author: NEFU AB_IN
- * @version: 1.0
- * @Date: 2021-02-16 17:00:46
- * @LastEditors: Please set LastEditors
- * @LastEditTime: 2021-08-17 14:04:14
+ * @Date: 2021-07-16 18:21:31
+ * @FilePath: \Vscode\test.cpp
+ * @LastEditTime: 2021-08-20 15:59:17
  */
 #include<bits/stdc++.h>
 using namespace std;
 #define LL                          long long
-#define ULL                         unsigned long long
 #define MP                          make_pair
 #define SZ(X)                       ((int)(X).size())
 #define IOS                         ios::sync_with_stdio(false);cin.tie(0);cout.tie(0);
+#define DEBUG(X)                    cout << #X << ": " << X << endl;
 typedef pair<int , int>             PII;
-int q1[10], l1 = 1, r1 = 0;
-int main()
-{
-    int a[10] = {0, 5, 3, 2, 1, 0, 7, 6};
-    
-        for(int i = 1; i <= 7; i ++){
-        while(l1 <= r1 && q1[l1] + 2 < i) l1 ++; 
-        
-        while(l1 <= r1 && a[q1[r1]] <= a[i]) r1 --; 
-        
-        q1[++ r1] = i; 
 
-        if(i >= 3) cout << a[q1[l1]] << " ";
-    
-    }	
+const int N = 10;
+struct Edge
+{
+    int u, v, ne;
+}e[N << 2];
+int h[N];
+int cnt;
+void add(int u, int v)
+{
+    e[cnt].u = u;
+    e[cnt].v = v;
+    e[cnt].ne = h[u];
+    h[u] = cnt++;
+}
+void init(){
+    memset(h, -1, sizeof(h));
+    cnt = 0;
+}
+int n, m, u, v, ans;
+int deg[N];
+bitset <N> dp[N];
+
+signed main()
+{
+    IOS;
+    init();
+    cin >> n >> m;
+    for(int i = 1; i <= m; ++ i){
+        cin >> u >> v;
+        add(u, v);
+        deg[v] ++;
+    }
+    queue <int> q;
+    for(int i = 1; i <= n; ++ i){
+        if(!deg[i]) {
+            q.push(i);
+            dp[i][i] = 1; //init
+            ans ++;
+        }
+    }
+    while(q.size()){
+        int tp = q.front();
+        q.pop();
+        for(int i = h[tp]; ~i; i = e[i].ne){
+            v = e[i].v;
+            dp[v] |= dp[tp];
+            if(!--deg[v]){
+                q.push(v);
+                if(dp[v].count() & 1){
+                    dp[v][v] = 1;
+                    ans ++;
+                }
+            }
+        }
+    }
+    cout << ans << '\n';
     return 0;
 }
