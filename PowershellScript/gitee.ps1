@@ -1,5 +1,8 @@
 ﻿param($a, $b)
-echo 'Do not forget turn VPN on'
+echo 'Wait a second, Turnning VPN on'
+cd C:\Users\liusy\Desktop\Daily\
+.\v2rayN.lnk
+echo 'Successful Turning'
 $a = Read-Host 'Commit Info?'
 cd d:\Code\Vscode
 git add .
