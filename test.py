@@ -1,10 +1,8 @@
 '''
-Description: file content
 Author: NEFU AB_IN
-version: 1.0
 Date: 2021-07-16 18:21:31
-LastEditors: Do not edit
-LastEditTime: 2021-08-14 12:27:58
+FilePath: \Vscode\test.py
+LastEditTime: 2021-08-20 21:20:23
 '''
 cnt = 1
 nine = 9
