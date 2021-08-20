@@ -1,3 +1,9 @@
+/*
+ * @Author: NEFU AB_IN
+ * @Date: 2021-08-05 21:36:45
+ * @FilePath: \Vscode\test1.cpp
+ * @LastEditTime: 2021-08-20 23:03:24
+ */
 #include<bits/stdc++.h>
 using namespace std;
 #define LL                          long long
@@ -11,6 +17,6 @@ typedef pair<int , int>             PII;
 int main()
 {
     IOS;
-    
+    cout << "yes" << '\n';
     return 0;
 }
