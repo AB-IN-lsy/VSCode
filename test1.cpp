@@ -11,8 +11,6 @@ typedef pair<int , int>             PII;
 int main()
 {
     IOS;
-    for(int i = 1; i <= 10000; i ++){
-        
-    }   
+    
     return 0;
 }
