@@ -2,7 +2,7 @@
  * @Author: NEFU AB_IN
  * @Date: 2021-07-16 18:21:31
  * @FilePath: \Vscode\test.cpp
- * @LastEditTime: 2021-08-20 15:59:17
+ * @LastEditTime: 2021-08-21 21:17:36
  */
 #include<bits/stdc++.h>
 using namespace std;
@@ -13,61 +13,45 @@ using namespace std;
 #define DEBUG(X)                    cout << #X << ": " << X << endl;
 typedef pair<int , int>             PII;
 
-const int N = 10;
-struct Edge
-{
-    int u, v, ne;
-}e[N << 2];
-int h[N];
-int cnt;
-void add(int u, int v)
-{
-    e[cnt].u = u;
-    e[cnt].v = v;
-    e[cnt].ne = h[u];
-    h[u] = cnt++;
-}
+const int N = 3e3 + 10;
+
+const LL mod = 1e9 + 7;
+LL mul(LL x, LL y){return 1LL * x * y % mod;}
+LL dec(LL x, LL y){return x >= y ? x - y : x + mod - y;}
+LL add(LL x, LL y){return x + y >= mod ? x + y - mod : x + y;}
+LL pmod(LL x) {return (x + mod) % mod;}
+
+LL s[N][N], fac[N];
 void init(){
-    memset(h, -1, sizeof(h));
-    cnt = 0;
+    memset(s,0,sizeof(s));
+    s[1][1]=1;
+    for(int i=2;i<=N-1;i++){
+        for(int j=1;j<=i;j++){
+            s[i][j]=s[i-1][j-1]+j*s[i-1][j];
+            if(s[i][j]>=mod)
+                s[i][j]%=mod;
+        }
+    }
+    fac[0] = 1;
+    for(int i = 1; i <= N; i ++){
+        fac[i] = fac[i - 1] * i % mod;
+    }
 }
-int n, m, u, v, ans;
-int deg[N];
-bitset <N> dp[N];
 
 signed main()
 {
     IOS;
+    int t;
     init();
-    cin >> n >> m;
-    for(int i = 1; i <= m; ++ i){
-        cin >> u >> v;
-        add(u, v);
-        deg[v] ++;
-    }
-    queue <int> q;
-    for(int i = 1; i <= n; ++ i){
-        if(!deg[i]) {
-            q.push(i);
-            dp[i][i] = 1; //init
-            ans ++;
+    cin >> t;
+    while(t --){
+        LL n, k;
+        cin >> n >> k;
+        LL ans = 0;
+        for(int i = 1; i <= n; i ++){
+            ans = add(ans, mul(mul(s[n][i], s[n][i]), mul(fac[i - 1], fac[i - 1])));
         }
+        cout << ans << '\n';
     }
-    while(q.size()){
-        int tp = q.front();
-        q.pop();
-        for(int i = h[tp]; ~i; i = e[i].ne){
-            v = e[i].v;
-            dp[v] |= dp[tp];
-            if(!--deg[v]){
-                q.push(v);
-                if(dp[v].count() & 1){
-                    dp[v][v] = 1;
-                    ans ++;
-                }
-            }
-        }
-    }
-    cout << ans << '\n';
     return 0;
 }
