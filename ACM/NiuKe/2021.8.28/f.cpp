@@ -7,9 +7,24 @@ using namespace std;
 #define DEBUG(X)                    cout << #X << ": " << X << endl;
 typedef pair<int , int>             PII;
 
+void binary_enumeration(int n, int a[]){
+    int sum = 0;
+    for(int i = 0; i < (1 << n); i++){
+        sum = 0;
+        for(int j = 0; j < n; j++){
+            if( i & (1 << j) ){
+                sum += a[j];
+            }
+        }
+        //if() {
+            // 满足什么条件
+        //}
+    }
+}
+
 signed main()
 {
     IOS;
-    
+
     return 0;
 }

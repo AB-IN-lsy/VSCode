@@ -1,3 +1,9 @@
+/*
+ * @Author: NEFU AB_IN
+ * @Date: 2021-08-27 21:43:30
+ * @FilePath: \Vscode\ACM\NiuKe\2021.8.27\h.cpp
+ * @LastEditTime: 2021-08-27 21:43:30
+ */
 #include<bits/stdc++.h>
 using namespace std;
 #define LL                          long long
@@ -10,6 +16,8 @@ typedef pair<int , int>             PII;
 signed main()
 {
     IOS;
-    
+    for(int i = 1; i <= 10; ++ i){
+        cout << (i * log(i)) / (log(log(i))) << '\n';
+    }   
     return 0;
 }
