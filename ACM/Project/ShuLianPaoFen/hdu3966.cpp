@@ -2,7 +2,7 @@
  * @Author: NEFU AB_IN
  * @Date: 2021-09-04 18:43:00
  * @FilePath: \Vscode\ACM\Project\ShuLianPaoFen\hdu3966.cpp
- * @LastEditTime: 2021-09-04 20:10:16
+ * @LastEditTime: 2021-09-04 22:01:11
  */
 #include <bits/stdc++.h>
 using namespace std;
@@ -62,7 +62,7 @@ void dfs1(int u, int fa)
     }
 }
 
-void dfs2(int u, int t) // 因dfs1已经标记了重儿子，按重儿子递归，然后标记每个儿子的头
+void dfs2(int u, int t)
 {
     top[u] = t;
     dfn[u] = ++cnx;
@@ -75,11 +75,11 @@ void dfs2(int u, int t) // 因dfs1已经标记了重儿子，按重儿子递归�
         int v = e[i].v;
         if (v != pre[u] && v != son[u])
         {
-            dfs2(v, v); //标记轻儿子，轻儿子的头就是它本身
+            dfs2(v, v);
         }
     }
 }
-// 重写线段树
+
 struct xds
 {
     int l, r, p, lazy;
@@ -144,17 +144,17 @@ int query(int k, int pos) //单点查询
 
 void mtre(int x, int y, int z)
 {
-    while (top[x] != top[y]) // 一直递归到头不同
+    while (top[x] != top[y])
     {
-        if (deep[top[x]] < deep[top[y]]) // 挑选头重的（即深度大），优先进行操作
+        if (deep[top[x]] < deep[top[y]]) 
         {
             swap(x, y);
         }
-        modify(1, dfn[top[x]], dfn[x], z); // 利用线段树，操作这一个链，（是对dfs序进行操作，而不是节点标号）
-        x = pre[top[x]];                   // x变成x的头
+        modify(1, dfn[top[x]], dfn[x], z); 
+        x = pre[top[x]];                   
     }
     if (deep[x] > deep[y])
-    { // 头相同了，说明在同一条链上，这时挑个头轻的
+    { 
         swap(x, y);
     }
     modify(1, dfn[x], dfn[y], z);

@@ -2,7 +2,7 @@
  * @Author: NEFU AB_IN
  * @Date: 2021-08-27 10:11:04
  * @FilePath: \Vscode\ACM\Project\Trie\poj3764.cpp
- * @LastEditTime: 2021-08-27 11:10:44
+ * @LastEditTime: 2021-09-04 22:28:12
  */
 #include<iostream>
 #include<vector>
@@ -75,7 +75,7 @@ namespace Trie01{
     }
 }
 using namespace Trie01;
-int n, a[N], u, v, w;
+int n, a[N], u, v, w, deg[N];
 
 void dfs(int u, int fa, int dis){
     a[u] = dis;
