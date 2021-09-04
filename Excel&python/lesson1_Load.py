@@ -2,9 +2,9 @@
 Author: NEFU AB_IN
 Date: 2021-08-31 12:20:51
 FilePath: \Vscode\Excel&python\lesson1_Load.py
-LastEditTime: 2021-08-31 12:47:47
+LastEditTime: 2021-09-02 19:37:44
 '''
-from openpyxl import workbook, load_workbook
+from openpyxl import Workbook, load_workbook
 #适用于2010以上excel
 
 wb = load_workbook('test.xlsx') # 读取excel档案
