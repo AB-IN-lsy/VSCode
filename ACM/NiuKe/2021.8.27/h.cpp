@@ -44,7 +44,6 @@ signed main()
     init();
     int t, n = 1e8;
     cin >> t;
-    vector <int> v;
     for(int i = 1; prime[i] * prime[i] <= n; ++ i){
         for(int j = i; prime[i] * prime[j] <= n; ++ j){
             dp[prime[i] * prime[j]] = 1;
