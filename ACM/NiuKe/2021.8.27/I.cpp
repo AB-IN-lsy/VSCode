@@ -2,7 +2,7 @@
  * @Author: NEFU AB_IN
  * @Date: 2021-09-07 20:27:13
  * @FilePath: \Vscode\ACM\NiuKe\2021.8.27\I.cpp
- * @LastEditTime: 2021-09-07 21:09:08
+ * @LastEditTime: 2021-09-08 16:23:46
  */
 #include <bits/stdc++.h>
 using namespace std;
@@ -21,8 +21,9 @@ LL a[N], sum[N];
 LL n, k, m;
 bool check(int x)
 {
-    for (int i = 1, j = i + x - 1; j <= n; ++i)
+    for (int i = 1; i + x - 1 <= n; ++i)
     {
+        int j = i + x - 1;
         m = i + j >> 1; //midian
         LL left = sum[m - 1] - sum[i - 1];
         LL right = sum[j] - sum[m];
