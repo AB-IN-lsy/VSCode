@@ -8,35 +8,40 @@
 using namespace std;
 #define LL long long
 #define MP make_pair
-#define SZ(X) ((int)(X).size())
+#define SZ(X) ((LL)(X).size())
 #define IOS                      \
     ios::sync_with_stdio(false); \
     cin.tie(0);                  \
     cout.tie(0);
 #define DEBUG(X) cout << #X << ": " << X << endl;
-typedef pair<int, int> PII;
+typedef pair<LL, LL> PII;
 
-const int N = 1e3 + 10;
-int a[N][N], row[N], col[N], flag[N][N], r[N], c[N];
+const LL N = 5e6 + 10;
+LL row[N], col[N], r[N], c[N];
 LL k;
 
 signed main()
 {
     IOS;
-    int t;
+    LL t;
     cin >> t;
     while (t--)
     {
-        int n, m;
+        LL n, m;
         memset(col, 0x3f, sizeof col);
+        memset(row, 0, sizeof row);
+
         cin >> n >> m >> k;
-        for (int i = 1; i <= n; ++i)
+        LL ans;
+        for (LL i = 1; i <= n; ++i)
         {
-            for (int j = 1; j <= m; ++j)
+            for (LL j = 1; j <= m; ++j)
             {
-                cin >> a[i][j];
-                row[i] = max(row[i], a[i][j]);
-                col[j] = min(col[j], a[i][j]);
+                LL x;
+                cin >> x;
+                if(i == 1 && j == 1) ans = x;
+                row[i] = max(row[i], x);
+                col[j] = min(col[j], x);
             }
         }
         if (k == 1)
@@ -45,21 +50,21 @@ signed main()
         }
         else if (k & 1)
         {
-            int maxx = 0x3f3f3f3f;
-            for (int i = 1; i <= n; ++i)
+            LL maxx = 0x3f3f3f3f;
+            for (LL i = 1; i <= n; ++i)
             {
                 maxx = min(maxx, row[i]);
             }
-            cout << maxx << '\n';
+            cout << max(maxx, ans) << '\n';
         }
         else
         {
-            int minn = 0;
-            for (int i = 1; i <= m; ++i)
+            LL minn = 0;
+            for (LL i = 1; i <= m; ++i)
             {
                 minn = max(minn, col[i]);
             }
-            cout << minn << '\n';
+            cout << max(minn, ans) << '\n';
         }
     }
     return 0;
