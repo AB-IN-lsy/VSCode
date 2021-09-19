@@ -1,8 +1,8 @@
 /*
  * @Author: NEFU AB_IN
  * @Date: 2021-09-04 18:43:00
- * @FilePath: \Vscode\ACM\Project\ShuLianPaoFen\hdu3966.cpp
- * @LastEditTime: 2021-09-04 22:01:11
+ * @FilePath: \ACM\Project\ShuLianPaoFen\hdu3966.cpp
+ * @LastEditTime: 2021-09-19 18:44:40
  */
 #include <bits/stdc++.h>
 using namespace std;
@@ -35,50 +35,54 @@ void init()
     cnt = 0;
 }
 
-int w[N];
-int pre[N], sizx[N], son[N], deep[N];
-int dfn[N], top[N], a[N];
-int cnx; // dfs2 pool
-
-void dfs1(int u, int fa)
+namespace TreeChain
 {
-    pre[u] = fa;
-    deep[u] = deep[fa] + 1;
-    sizx[u] = 1;
-    int maxson = -1;
-    for (int i = h[u]; ~i; i = e[i].ne)
+    int w[N];
+    int pre[N], sizx[N], son[N], deep[N];
+    int dfn[N], top[N], a[N];
+    int cnx; // dfs2 pool
+
+    void dfs1(int u, int fa)
     {
-        int v = e[i].v;
-        if (v != fa)
+        pre[u] = fa;
+        deep[u] = deep[fa] + 1;
+        sizx[u] = 1;
+        int maxson = -1;
+        for (int i = h[u]; ~i; i = e[i].ne)
         {
-            dfs1(v, u);
-            sizx[u] += sizx[v];
-            if (maxson < sizx[v])
+            int v = e[i].v;
+            if (v != fa)
             {
-                maxson = sizx[v];
-                son[u] = v;
+                dfs1(v, u);
+                sizx[u] += sizx[v];
+                if (maxson < sizx[v])
+                {
+                    maxson = sizx[v];
+                    son[u] = v;
+                }
+            }
+        }
+    }
+
+    void dfs2(int u, int t)
+    {
+        top[u] = t;
+        dfn[u] = ++cnx;
+        a[cnx] = w[u];
+        if (!son[u])
+            return;
+        dfs2(son[u], t);
+        for (int i = h[u]; ~i; i = e[i].ne)
+        {
+            int v = e[i].v;
+            if (v != pre[u] && v != son[u])
+            {
+                dfs2(v, v);
             }
         }
     }
 }
-
-void dfs2(int u, int t)
-{
-    top[u] = t;
-    dfn[u] = ++cnx;
-    a[cnx] = w[u];
-    if (!son[u])
-        return;
-    dfs2(son[u], t);
-    for (int i = h[u]; ~i; i = e[i].ne)
-    {
-        int v = e[i].v;
-        if (v != pre[u] && v != son[u])
-        {
-            dfs2(v, v);
-        }
-    }
-}
+using namespace TreeChain;
 
 struct xds
 {
@@ -146,15 +150,15 @@ void mtre(int x, int y, int z)
 {
     while (top[x] != top[y])
     {
-        if (deep[top[x]] < deep[top[y]]) 
+        if (deep[top[x]] < deep[top[y]])
         {
             swap(x, y);
         }
-        modify(1, dfn[top[x]], dfn[x], z); 
-        x = pre[top[x]];                   
+        modify(1, dfn[top[x]], dfn[x], z);
+        x = pre[top[x]];
     }
     if (deep[x] > deep[y])
-    { 
+    {
         swap(x, y);
     }
     modify(1, dfn[x], dfn[y], z);
@@ -182,20 +186,24 @@ signed main()
         dfs1(1, 0);
         dfs2(1, 1);
         build(1, 1, n);
-        while(q --){
+        while (q--)
+        {
             char c;
             cin >> c;
-            if(c == 'I'){
+            if (c == 'I')
+            {
                 int u, v, w;
                 cin >> u >> v >> w;
                 mtre(u, v, w);
             }
-            if(c == 'D'){
+            if (c == 'D')
+            {
                 int u, v, w;
                 cin >> u >> v >> w;
                 mtre(u, v, -w);
             }
-            if(c == 'Q'){
+            if (c == 'Q')
+            {
                 int u;
                 cin >> u;
                 cout << query(1, dfn[u]) << '\n';
