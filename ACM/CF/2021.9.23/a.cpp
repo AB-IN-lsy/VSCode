@@ -74,7 +74,6 @@ void bfs(int x)
         pos += cnt1;
     }
 }
-
 signed main()
 {
     IOS;
