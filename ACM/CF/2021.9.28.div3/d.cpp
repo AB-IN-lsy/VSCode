@@ -2,27 +2,18 @@
  * @Author: NEFU AB-IN
  * @Date: 2021-09-28 23:44:08
  * @FilePath: \ACM\CF\2021.9.28.div3\d.cpp
- * @LastEditTime: 2021-09-29 00:08:35
+ * @LastEditTime: 2021-09-29 15:45:11
  */
 #include <bits/stdc++.h>
 using namespace std;
 #define LL long long
-#define uLL unsigned long long
-#define ld long double
-#define db double
-#define aLL(x) (x).begin(), (x).end()
 #define MP make_pair
-#define PB emplace_back
 #define SZ(X) ((int)(X).size())
-#define mset(s, _) memset(s, _, sizeof(s))
 #define IOS                      \
     ios::sync_with_stdio(false); \
     cin.tie(0);                  \
     cout.tie(0);
-#define endl "\n"
-#define forn(i, l, r) for (int i = l; i <= r; i++)
 typedef pair<int, int> PII;
-typedef pair<LL, LL> pLL;
 const int INF = 0x3f3f3f3f;
 
 void solve()

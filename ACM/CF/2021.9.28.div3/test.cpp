@@ -1,32 +1,54 @@
+/*
+ * @Author: NEFU AB-IN
+ * @Date: 2021-09-29 00:39:46
+ * @FilePath: \ACM\CF\2021.9.28.div3\test.cpp
+ * @LastEditTime: 2021-09-29 20:07:44
+ */
 #include <bits/stdc++.h>
+#define lowbit(x) ((x) & -(x))
+#define rep(i, x, y) for (int i = (x); i <= (y); i++)
 using namespace std;
-#define LL long long
-#define MP make_pair
-#define SZ(X) ((int)(X).size())
-#define IOS                      \
-    ios::sync_with_stdio(false); \
-    cin.tie(0);                  \
-    cout.tie(0);
-typedef pair<int, int> pII;
-const int INF = 0x3f3f3f3f;
-
-const int N = 1e6 + 10;
-int a[N];
-
-void solve()
+const int maxn = 10;
+int n, a[maxn], t[maxn], tree[maxn];
+void add(int x, int d)
 {
-    int n;
-    cin >> n;
+    while (x <= n)
+    {
+        tree[x] += d;
+        x += lowbit(x);
+    }
+}
+int sum(int x)
+{
+    int sum = 0;
+    while (x > 0)
+    {
+        sum += tree[x];
+        x -= lowbit(x);
+    }
+    return sum;
 }
 
-signed main()
+long long ans;
+
+int main()
 {
-    IOS;
-    int t;
-    cin >> t;
-    while (t--)
+    cin >> n;
+    rep(i, 1, n)
     {
-        solve();
+        cin >> a[i];
+        t[i] = a[i];
     }
-    return 0;
+    sort(t + 1, t + 1 + n);
+    int m = unique(t + 1, t + 1 + n) - t - 1;
+    rep(i, 1, n)
+    {
+        a[i] = lower_bound(t + 1, t + 1 + m, a[i]) - t;
+    }
+    rep(i, 1, n)
+    {
+        add(a[i], 1);
+        ans += (i - sum(a[i]));
+    }
+    cout << ans << '\n';
 }
