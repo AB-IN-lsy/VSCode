@@ -2,16 +2,16 @@
  * @Author: NEFU AB-IN
  * @Date: 2021-10-03 22:34:47
  * @FilePath: \ACM\CF\2021.10.3.div2\b.cpp
- * @LastEditTime: 2021-10-03 23:38:24
+ * @LastEditTime: 2021-10-07 19:47:23
  */
 #include <bits/stdc++.h>
 using namespace std;
 #define LL long long
 #define MP make_pair
 #define SZ(X) ((int)(X).size())
-#define IOS                      \
-    ios::sync_with_stdio(false); \
-    cin.tie(0);                  \
+#define IOS                                                                                                            \
+    ios::sync_with_stdio(false);                                                                                       \
+    cin.tie(0);                                                                                                        \
     cout.tie(0);
 typedef pair<int, int> PII;
 const int INF = 0x3f3f3f3f;
