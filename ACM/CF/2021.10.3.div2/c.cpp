@@ -15,7 +15,7 @@ using namespace std;
     cout.tie(0);
 typedef pair<int, int> PII;
 const int INF = 0x3f3f3f3f;
-const int N = 1e5 + 10;
+const int N = 1e6 + 10;
 int a[N];
 struct Edge
 {
