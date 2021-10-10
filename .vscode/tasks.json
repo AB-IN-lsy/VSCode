@@ -3,14 +3,14 @@
         {
             "type": "cppbuild",
             "label": "G++",
-            "command": "C:\\Program Files\\CodeBlocks\\MinGW\\bin\\g++.exe",
+            "command": "D:\\msys64\\mingw64\\bin\\g++.exe",
             "args": [
                 "-g",
                 "${file}",
                 "-o",
                 "${fileDirname}\\${fileBasenameNoExtension}.exe",
                 "-static-libgcc",
-                "-std=c++11"
+                "-std=c++17"
             ],
             "options": {
                 "cwd": "${fileDirname}"
