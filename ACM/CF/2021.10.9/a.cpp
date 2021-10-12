@@ -2,7 +2,7 @@
  * @Author: NEFU AB-IN
  * @Date: 2021-10-09 16:20:21
  * @FilePath: \ACM\CF\2021.10.9\a.cpp
- * @LastEditTime: 2021-10-09 17:09:04
+ * @LastEditTime: 2021-10-10 09:40:36
  */
 #include <bits/stdc++.h>
 using namespace std;
@@ -24,7 +24,6 @@ struct sa
 {
     string s;
     int xianhou, cnt;
-
     bool operator<(const sa &a) const
     {
         if (cnt != a.cnt)
