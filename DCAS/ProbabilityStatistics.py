@@ -2,7 +2,7 @@
 Author: NEFU AB-IN
 Date: 2021-12-01 20:54:51
 FilePath: \DCAS\ProbabilityStatistics.py
-LastEditTime: 2021-12-01 21:06:31
+LastEditTime: 2021-12-02 09:42:52
 '''
 s = input()
 cnt = 0
@@ -19,4 +19,4 @@ for i in dict_cnt:
     lst.append((i, dict_cnt[i] / cnt))
 lst.sort(key=lambda x: x[1], reverse=True)
 for i in lst:
-    print(f'{i[0]} : {i[1]:.3f}')
+    print(f'{i[0]} : {i[1] * 100:.2f}%')
