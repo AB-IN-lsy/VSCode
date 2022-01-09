@@ -2,9 +2,9 @@
 Author: NEFU AB-IN
 Date: 2021-12-01 20:53:21
 FilePath: \DCAS\caesar.py
-LastEditTime: 2021-12-01 21:17:33
+LastEditTime: 2021-12-18 19:33:01
 '''
-s = input()
+s = input("The plain text is : ")
 for i in range(0, 26):
     ss = list()
     for j in s:

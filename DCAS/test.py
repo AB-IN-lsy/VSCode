@@ -1,23 +1,38 @@
-'''
-Author: NEFU AB-IN
-Date: 2021-12-01 22:39:31
-FilePath: \DCAS\test.py
-LastEditTime: 2021-12-16 11:28:04
-'''
+import math
 
 
-def f(x):
-    ans = 1
-    for i in range(1, x + 1):
-        ans *= i
-    return ans
+def solve():
+    a, s = input().split()
+    index_a = len(a) - 1
+    index_s = len(s) - 1
+    b = ""
+    stack_a = a[len(a) - 1]
+    stack_s = s[len(s) - 1]
+    while index_s >= 0 and index_a >= 0:
+        if int(stack_s) >= int(stack_a):
+            tmp = int(stack_s) - int(stack_a)
+            if tmp > 9:
+                print("-1")
+                return
+            b = str(tmp) + b
+            index_a -= 1
+            index_s -= 1
+            stack_a = a[index_a]
+            stack_s = s[index_s]
+        else:
+            index_s -= 1
+            stack_s = s[index_s] + stack_s
+    if index_s >= 0:
+        b = s[:index_s + 1] + b
+        index_s = -1
+    if index_a >= 0 or index_s >= 0:
+        print("-1")
+    else:
+        for i in range(len(b)):
+            if b[i] != '0':
+                print(b[i:])
+                return
 
 
-# print(f(26))
-
-# print(len(str(403291461126605635584000000)))
-
-for i in range(20):
-    print(7**i % 13)
-
-print(7**(16 * 11) % 13)
+for _ in range(int(input())):
+    solve()
