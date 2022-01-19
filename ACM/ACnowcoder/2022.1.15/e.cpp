@@ -1,8 +1,8 @@
 /*
  * @Author: NEFU AB-IN
- * @Date: 2021-10-25 10:13:38
- * @FilePath: \ACM\test.cpp
- * @LastEditTime: 2022-01-07 21:35:15
+ * @Date: 2022-01-15 13:38:35
+ * @FilePath: \ACM\ACnowcoder\2022.1.15\e.cpp
+ * @LastEditTime: 2022-01-15 13:46:19
  */
 #include <bits/stdc++.h>
 using namespace std;
@@ -16,30 +16,28 @@ using namespace std;
 #define DEBUG(X) cout << #X << ": " << X << endl;
 typedef pair<int, int> PII;
 const int INF = 0x3f3f3f3f;
+const int N = 1e4 + 10;
 
-struct sa
-{
-    int w, to;
-    bool operator<(const sa &a) const
-    {
-        return w > a.w;
-    }
-};
-
-sa a[100];
-
+int c[N], w[N], dp[N];
+int n, v;
 
 signed main()
 {
     IOS;
-    for (int i = 1; i <= 10; ++i)
+
+    cin >> n >> v;
+    for (int i = 1; i <= n; ++i)
     {
-        cin >> a[i].w >> a[i].to;
+        cin >> c[i] >> w[i];
     }
-    sort(a + 1, a + 11);
-    for (int i = 1; i <= 10; ++i)
+    for (int i = 1; i <= n; i++)
     {
-        cout << a[i].w << a[i].to << '\n';
+        for (int j = c[i]; j <= v; j++)
+        {
+            dp[j] = max(dp[j], dp[j - c[i]] + w[i]);
+        }
     }
+
+    cout << dp[v] << '\n';
     return 0;
 }

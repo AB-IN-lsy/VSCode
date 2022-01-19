@@ -1,8 +1,8 @@
 /*
  * @Author: NEFU AB-IN
- * @Date: 2021-10-25 10:13:38
- * @FilePath: \ACM\test.cpp
- * @LastEditTime: 2022-01-07 21:35:15
+ * @Date: 2022-01-15 13:21:18
+ * @FilePath: \ACM\ACnowcoder\2022.1.15\h.cpp
+ * @LastEditTime: 2022-01-15 13:22:21
  */
 #include <bits/stdc++.h>
 using namespace std;
@@ -17,29 +17,14 @@ using namespace std;
 typedef pair<int, int> PII;
 const int INF = 0x3f3f3f3f;
 
-struct sa
-{
-    int w, to;
-    bool operator<(const sa &a) const
-    {
-        return w > a.w;
-    }
-};
-
-sa a[100];
-
-
 signed main()
 {
     IOS;
-    for (int i = 1; i <= 10; ++i)
-    {
-        cin >> a[i].w >> a[i].to;
-    }
-    sort(a + 1, a + 11);
-    for (int i = 1; i <= 10; ++i)
-    {
-        cout << a[i].w << a[i].to << '\n';
-    }
+    unsigned LL n;
+    cin >> n;
+    if (n % 2)
+        cout << n;
+    else
+        cout << -1;
     return 0;
 }
