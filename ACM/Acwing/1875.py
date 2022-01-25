@@ -1,8 +1,8 @@
 '''
 Author: NEFU AB-IN
 Date: 2022-01-24 19:26:58
-FilePath: \ACM\Acwing\tempCodeRunnerFile.py
-LastEditTime: 2022-01-24 23:54:39
+FilePath: \ACM\Acwing\1875.py
+LastEditTime: 2022-01-25 00:09:06
 '''
 from collections import Counter, defaultdict
 

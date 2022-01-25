@@ -2,7 +2,7 @@
 Author: NEFU AB-IN
 Date: 2022-01-17 20:05:02
 FilePath: \ACM\Acwing\2060.py
-LastEditTime: 2022-01-17 22:31:33
+LastEditTime: 2022-01-20 00:28:13
 '''
 # DFS
 
@@ -24,7 +24,7 @@ vis = [[0 for _ in range(m + 1)] for _ in range(n + 1)]
 point = [[] for _ in range(2)]
 dx = [-1, 0, 1, 0]
 dy = [0, 1, 0, -1]
-# 左上右下
+# 上右下左
 
 
 def dfs(x, y, p):

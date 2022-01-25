@@ -28,7 +28,7 @@ signed main()
     cin >> n >> v;
     for (int i = 1; i <= n; ++i)
     {
-        cin >> c[i] >> w[i];
+        cin >> c[i] >> w[i];   
     }
     for (int i = 1; i <= n; i++)
     {
