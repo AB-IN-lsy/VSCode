@@ -2,55 +2,35 @@
 Author: NEFU AB-IN
 Date: 2022-01-18 12:50:31
 FilePath: \ACM\Acwing\1934.py
-LastEditTime: 2022-01-18 23:10:20
+LastEditTime: 2022-02-18 20:30:00
 '''
-
-import heapq
-
-D = []
-T = []
+a = []  #时间
+b = []  #路程
 
 if __name__ == "__main__":
     n = int(input())
     for i in range(n):
         op, x = input().split()
         x = int(x)
-        heapq.heapify(D)
-        heapq.heapify(T)
         if op == 'T':
-            heapq.heappush(T, x)
+            a.append(x)
         else:
-            heapq.heappush(D, x)
-    cnt = 1
-    v = 1 / cnt
-    tot = 1000
-    res = 0
-    while len(D) and len(T):
-        d = heapq.heappop(D)  # d的路程
-        t = heapq.heappop(T)
-        s = v * t  # t的路程
-        if s > d:
-            tmp = d / v
-            res += tmp
-            heapq.heappush(T, t - tmp)
-        elif s == d:
-            res += d / v
+            b.append(x)
+    b.append(1000)  #添加终点
+    a.sort()
+    b.sort()
+
+    t, s, v = 0, 0, 1  #v时速度的倒数
+    i, j = 0, 0
+    while i < len(a) or j < len(b):
+        if j == len(b) or i < len(a) and a[i] - t < (b[j] - s) * v:
+            s += (a[i] - t) / v
+            t = a[i]
+            v += 1
+            i += 1
         else:
-            res += t
-            heapq.heappush(D, d - v * t)
-        tot -= min(d, s)
-        cnt += 1
-        v = 1 / cnt
-    while len(D):
-        d = heapq.heappop(D)
-        tot -= d
-        res += d / v
-        cnt += 1
-        v = 1 / cnt
-    while len(T):
-        t = heapq.heappop(T)
-        tot -= t * v
-        res += t
-        cnt += 1
-        v = 1 / cnt
-    print(int(res + tot / v))
+            t += (b[j] - s) * v
+            s = b[j]
+            v += 1
+            j += 1
+    print(round(t))

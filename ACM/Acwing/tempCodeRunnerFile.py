@@ -1,8 +1,2 @@
-'''
-Author: NEFU AB-IN
-Date: 2022-01-16 00:23:00
-FilePath: \ACM\Acwing\tempCodeRunnerFile.py
-LastEditTime: 2022-02-04 19:49:28
-'''
-if (9, 3) > (6, 6):
-    print(1)
+        # if a[i][0] != a[i + 1][0]:  #相同时不更新，要等到不相同时才更新
+        #     res = max(res, cnt)
