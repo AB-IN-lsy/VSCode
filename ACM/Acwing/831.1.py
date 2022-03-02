@@ -34,8 +34,3 @@ for i in range(1, m + 1):
     if j == n:
         print(i - n, end=" ")
         j = ne[j]
-
-lyr
-wyp
-my
-lsy

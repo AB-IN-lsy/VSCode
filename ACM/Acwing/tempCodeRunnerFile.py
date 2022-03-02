@@ -1,22 +1,7 @@
-'''
-Author: NEFU AB-IN
-Date: 2022-01-16 00:23:00
-FilePath: \ACM\Acwing\tempCodeRunnerFile.py
-LastEditTime: 2022-03-01 19:31:16
-'''
-from collections import deque
-
-N = int(1e6) + 10
-
-n, k = map(int, input().split())
-a = list(map(int, input().split()))
-q = deque()
-
-for i in range(n):
-    while q and i - q[0] + 1 > k:
-        q.popleft()
-    while q and a[i] <= a[q[-1]]:
-        q.pop()
-    q.append(i)
-    if i >= k - 1:
-        print(a[q[0]])
+if g[x2][y2] != s[i]:  #如果不和规定的相同，那么路程为1
+                    w = 1
+                if dist[x1][y1] > dist[x][y] + w:
+                    if w:
+                        q.append([x1, y1])
+                    else:
+                        q.appendleft([x1, y1])
