@@ -1,89 +1,64 @@
-/*
- * @Author: NEFU AB-IN
- * @Date: 2021-10-25 10:13:38
- * @FilePath: \ACM\test.cpp
- * @LastEditTime: 2022-03-04 17:04:05
- */
-#include <bits/stdc++.h>
+#include <algorithm>
+#include <cmath>
+#include <iostream>
+
 using namespace std;
 
-typedef long long ll;
-#define endl "\n"
-#define IOS                                                                                                            \
-    ios::sync_with_stdio(false);                                                                                       \
-    cin.tie(0)
-#define inf 0x3f3f3f3f
-#define pii pair<int, int>
-#define pll pair<ll, ll>
-#define pdd pair<double, double>
-#define debug(a) cout << "\tdebug:" << a << endl
-const double PI = acos(-1.0);
-const int mod = 998244353;
-const int eps = 1e-8;
-const int N = 10 + 2e5;
-
-void slove();
-template <typename T> void read(T &x)
-{
-    x = 0;
-    char ch = getchar();
-    ll f = 1;
-    while (!isdigit(ch))
-    {
-        if (ch == '-')
-            f *= -1;
-        ch = getchar();
-    }
-    while (isdigit(ch))
-    {
-        x = x * 10 + ch - 48;
-        ch = getchar();
-    }
-    x *= f;
+int get(int n)
+{ // 求数n的位数
+    int res = 0;
+    while (n)
+        res++, n /= 10;
+    return res;
 }
-template <typename T> void print(T x)
-{
-    if (x < 0)
-        putchar('-'), x = -x;
-    if (x >= 10)
-        print(x / 10);
-    putchar(x % 10 + '0');
+
+int count(int n, int i)
+{ // 求从1到数n中数i出现的次数
+    int res = 0, dgt = log10(n) + 1;
+
+    for (int j = 1; j <= dgt; ++j)
+    {
+        /* p为当前遍历位次(第j位)的数大小 <10^(右边的数的位数)>, Ps:从左往右(从高位到低位)
+            l为第j位的左边的数，r为右边的数，dj为第j位上的数 */
+        int p = pow(10, dgt - j), l = n / p / 10, r = n % p, dj = n / p % 10;
+
+        // ps:下文的xxx、yyy均只为使读者眼熟，并不严格只是三位数啊~ 然后后续的...就代表省略的位数啦~
+        /* 求要选的数在i的左边的数小于l的情况：
+（即视频中的xxx1yyy中的xxx的选法） --->
+    1)、当i不为0时 xxx : 0...0 ~ l - 1, 即 l * (右边的数的位数) == l * p 种选法
+    2)、当1位0时 由于不能有前导零 故xxx: 0....1 ~ l - 1,
+                    即 (l-1) * (右边的数的位数) == (l-1) * p 种选法 */
+        if (i)
+            res += l * p;
+        else
+            res += (l - 1) * p;
+
+        /* 求要选的数在i的左边的数等于l的情况：(即视频中的xxx == l 时)
+    （即视频中的xxx1yyy中的yyy的选法）--->
+                        1)、i > dj时 0种选法
+                        2)、i == dj时 yyy : 0...0 ~ r 即 r + 1 种选法
+                        3)、i < dj时 yyy : 0...0 ~ 9...9 即 10^(右边的数的位数) == p 种选法 */
+        if (i == dj)
+            res += r + 1;
+        if (i < dj)
+            res += p;
+    }
+
+    return res; // 返回结果
 }
 
 int main()
 {
-
-    IOS;
-    slove();
-    return 0;
-}
-
-ll a[N];
-
-void slove()
-{
-    int T;
-    cin >> T;
-    while (T--)
-    {
-        ll n, x;
-        cin >> n >> x;
-        map<ll, ll> mp;
-        mp.clear();
-        for (int i = 0; i < n; i++)
-        {
-            cin >> a[i];
-            mp[a[i]]++;
-        }
-        ll cnt = 0;
-        for (auto i : mp)
-        {
-            if (mp[i.first] > 0 && mp[i.first * x] > 0)
-            {
-                ll minn = min(mp[i.first], mp[i.first * x]);
-                mp[i.first] -= minn, mp[i.first * x] -= minn, cnt += 2 * minn;
-            }
-        }
-        cout << n - cnt << endl;
+    int a, b;
+    while (cin >> a >> b, a)
+    { // 输入处理，直到输入为0停止
+        if (a > b)
+            swap(a, b); // 预处理-->让a为较小值，b为较大值
+        for (int i = 0; i <= 9; ++i)
+            cout << count(b, i) - count(a - 1, i) << ' ';
+        // 输出每一位数字(0 ~ 9)分别在[a,b]中出现的次数<利用前缀和思想：[l,r]的和=s[r] - s[l - 1]>
+        cout << endl; //换行
     }
+
+    return 0; // 惯例：结束快乐~
 }
