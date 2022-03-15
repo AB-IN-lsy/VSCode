@@ -2,7 +2,7 @@
 Author: NEFU AB-IN
 Date: 2022-03-13 21:36:50
 FilePath: \ACM\Acwing\285.py
-LastEditTime: 2022-03-14 08:09:37
+LastEditTime: 2022-03-15 20:01:27
 '''
 import sys
 
@@ -16,6 +16,9 @@ deg = [0] * N
 
 
 def dfs(u):
+    dp[u][0] = 0
+    dp[u][1] = w[u]
+
     for v in g[u]:
         dfs(v)
         dp[u][0] += max(dp[v][0], dp[v][1])
@@ -25,11 +28,12 @@ def dfs(u):
 n = int(input())
 for i in range(1, n + 1):
     w[i] = int(input())
-    dp[i][1] = w[i]
+
 for i in range(n - 1):
     v, u = map(int, input().split())
     g[u].append(v)
     deg[v] += 1
+
 for i in range(1, n + 1):
     if deg[i] == 0:
         dfs(i)
