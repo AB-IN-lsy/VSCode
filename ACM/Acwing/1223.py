@@ -1,47 +1,36 @@
 '''
 Author: NEFU AB-IN
-Date: 2022-03-29 17:23:48
+Date: 2022-04-01 17:33:21
 FilePath: \ACM\Acwing\1223.py
-LastEditTime: 2022-03-29 17:25:34
+LastEditTime: 2022-04-01 17:33:21
 '''
-N = int(1e3 + 10)
-g = []
-st = [[0] * N for _ in range(N)]
-ans = 0
-dir = [[-1, 0], [1, 0], [0, 1], [0, -1]]
 
 
-def judge(x, y):
-    for i in range(4):
-        a = x + dir[i][0]
-        b = y + dir[i][1]
-        if g[a][b] == '.':
-            return 0
-    return 1
+def gcd(a, b):
+    return gcd(b, a % b) if b else a
 
 
-def dfs(sx, sy):
-    global ans, flag
-    st[sx][sy] = 1
-    if judge(sx, sy):
-        flag = 1
-    for i in range(4):
-        x = sx + dir[i][0]
-        y = sy + dir[i][1]
-        if x >= 0 and x < n and y >= 0 and y < n and g[x][y] == '#' and st[x][
-                y] == 0:
-            dfs(x, y)
+def gcd_sub(a, b):
+    if a < b:
+        a, b = b, a
+    if b == 1: return a
+    return gcd_sub(b, a // b)
 
 
+fz, fm = [], []
 n = int(input())
-for i in range(n):
-    g.append(list(input()))
+a = list(map(int, input().split()))
 
-for i in range(n):
-    for j in range(n):
-        if g[i][j] == '#' and st[i][j] == 0:
-            flag = 0
-            dfs(i, j)
-            if flag == 0: ans += 1
+a = sorted(list(set(a)))
 
-print(ans)
+for i in range(1, len(a)):
+    d = gcd(a[i - 1], a[i])
+    fz.append(a[i] // d)
+    fm.append(a[i - 1] // d)
+
+up, down = fz[0], fm[0]
+for i in range(1, len(fz)):
+    up = gcd_sub(up, fz[i])
+    down = gcd_sub(down, fm[i])
+
+print(f"{up}/{down}")
