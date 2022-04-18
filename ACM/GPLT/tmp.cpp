@@ -2,7 +2,7 @@
  * @Author: NEFU AB-IN
  * @Date: 2022-04-13 21:51:51
  * @FilePath: \ACM\GPLT\tmp.cpp
- * @LastEditTime: 2022-04-13 21:51:51
+ * @LastEditTime: 2022-04-18 19:51:56
  */
 #include <bits/stdc++.h>
 using namespace std;
@@ -20,6 +20,36 @@ const int INF = 0x3f3f3f3f;
 signed main()
 {
     IOS;
-    cout << -1 / 20;
+    int t;
+    cin >> t;
+    while (t--)
+    {
+        string s;
+        cin >> s;
+        int flag = 0;
+        for (int i = 0; i < SZ(s) - 1; ++i)
+        {
+            if (s[i] >= 'A' && s[i] <= 'Z')
+            {
+                if (s[i] == 'Z' && s[i] + 32 != s[i + 1])
+                    flag = 1;
+                else if (s[i] + 32 != s[i + 1] && s[i] + 1 != s[i + 1])
+                    flag = 1;
+            }
+            else
+            {
+                if (s[i] == 'a' && s[i] - 32 != s[i + 1])
+                    flag = 1;
+                else if (s[i] - 32 != s[i + 1] && s[i] - 1 != s[i + 1])
+                    flag = 1;
+            }
+            if (flag)
+                break;
+        }
+        if (flag)
+            puts("N");
+        else
+            puts("Y");
+    }
     return 0;
 }
