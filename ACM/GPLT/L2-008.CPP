@@ -1,8 +1,8 @@
 /*
  * @Author: NEFU AB-IN
- * @Date: 2021-11-02 23:17:07
- * @FilePath: \ACM\test1.cpp
- * @LastEditTime: 2022-04-21 23:56:05
+ * @Date: 2022-04-20 17:29:32
+ * @FilePath: \ACM\GPLT\L2-008.CPP
+ * @LastEditTime: 2022-04-20 17:53:50
  */
 #include <bits/stdc++.h>
 using namespace std;
@@ -17,42 +17,31 @@ using namespace std;
 typedef pair<int, int> PII;
 const int INF = 0x3f3f3f3f;
 
-const int N = 2e5 + 10;
-int a[N], s[50];
-void solve()
-{
-    int n, k, ans = 0;
-    cin >> n >> k;
-    for (int i = 1; i <= n; ++i)
-        cin >> a[i];
-    memset(s, 0, sizeof s);
-    for (int i = 1; i <= n; ++i)
-    {
-        for (int j = 0; j <= 30; ++j)
-        {
-            s[j] += (a[i] >> j) & 1;
-        }
-    }
-    for (int i = 30; i >= 0; --i)
-    {
-        if (k >= n - s[i])
-        {
-            ans = ans | (1 << i);
-            k -= (n - s[i]);
-        }
-    }
-    cout << ans << '\n';
-    return;
-}
+const int N = 1010;
+int dp[N][N];
 
 signed main()
 {
     IOS;
-    int t;
-    cin >> t;
-    while (t--)
+    string s, t;
+    getline(cin, s);
+    t = s;
+    reverse(t.begin(), t.end());
+
+    s = " " + s;
+    t = " " + t;
+    for (int i = 1; i < SZ(s); ++i)
     {
-        solve();
+        for (int j = 1; j < SZ(t); ++j)
+        {
+            dp[i][j] = max(dp[i - 1][j], dp[i][j - 1]);
+            if (s[i] == t[j])
+            {
+                dp[i][j] = max(dp[i][j], dp[i - 1][j - 1] + 1);
+            }
+        }
     }
+    cout << dp[SZ(s) - 1][SZ(s) - 1];
+
     return 0;
 }

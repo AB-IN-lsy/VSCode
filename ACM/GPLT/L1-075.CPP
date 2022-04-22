@@ -1,8 +1,8 @@
 /*
  * @Author: NEFU AB-IN
- * @Date: 2021-11-02 23:17:07
- * @FilePath: \ACM\test1.cpp
- * @LastEditTime: 2022-04-21 23:56:05
+ * @Date: 2022-04-22 16:45:11
+ * @FilePath: \ACM\GPLT\L1-075.CPP
+ * @LastEditTime: 2022-04-22 17:06:26
  */
 #include <bits/stdc++.h>
 using namespace std;
@@ -17,42 +17,26 @@ using namespace std;
 typedef pair<int, int> PII;
 const int INF = 0x3f3f3f3f;
 
-const int N = 2e5 + 10;
-int a[N], s[50];
-void solve()
-{
-    int n, k, ans = 0;
-    cin >> n >> k;
-    for (int i = 1; i <= n; ++i)
-        cin >> a[i];
-    memset(s, 0, sizeof s);
-    for (int i = 1; i <= n; ++i)
-    {
-        for (int j = 0; j <= 30; ++j)
-        {
-            s[j] += (a[i] >> j) & 1;
-        }
-    }
-    for (int i = 30; i >= 0; --i)
-    {
-        if (k >= n - s[i])
-        {
-            ans = ans | (1 << i);
-            k -= (n - s[i]);
-        }
-    }
-    cout << ans << '\n';
-    return;
-}
-
 signed main()
 {
     IOS;
-    int t;
-    cin >> t;
-    while (t--)
+    string s, year, month;
+    cin >> s;
+    if (SZ(s) == 6)
     {
-        solve();
+        year = s.substr(0, 4);
+        month = s.substr(4, 2);
+        printf("%s-%s", year.c_str(), month.c_str());
+    }
+    else
+    {
+        year = s.substr(0, 2);
+        month = s.substr(2, 2);
+        int y = stoll(year);
+        if (y < 22)
+            printf("20%s-%s", year.c_str(), month.c_str());
+        else
+            printf("19%s-%s", year.c_str(), month.c_str());
     }
     return 0;
 }

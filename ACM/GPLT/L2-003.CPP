@@ -1,8 +1,8 @@
 /*
  * @Author: NEFU AB-IN
- * @Date: 2021-11-02 23:17:07
- * @FilePath: \ACM\test1.cpp
- * @LastEditTime: 2022-04-21 23:56:05
+ * @Date: 2022-04-19 17:35:45
+ * @FilePath: \ACM\GPLT\L2-003.CPP
+ * @LastEditTime: 2022-04-19 17:59:52
  */
 #include <bits/stdc++.h>
 using namespace std;
@@ -16,43 +16,45 @@ using namespace std;
 #define DEBUG(X) cout << #X << ": " << X << endl;
 typedef pair<int, int> PII;
 const int INF = 0x3f3f3f3f;
-
-const int N = 2e5 + 10;
-int a[N], s[50];
-void solve()
+const int N = 1010;
+struct sa
 {
-    int n, k, ans = 0;
-    cin >> n >> k;
-    for (int i = 1; i <= n; ++i)
-        cin >> a[i];
-    memset(s, 0, sizeof s);
-    for (int i = 1; i <= n; ++i)
-    {
-        for (int j = 0; j <= 30; ++j)
-        {
-            s[j] += (a[i] >> j) & 1;
-        }
-    }
-    for (int i = 30; i >= 0; --i)
-    {
-        if (k >= n - s[i])
-        {
-            ans = ans | (1 << i);
-            k -= (n - s[i]);
-        }
-    }
-    cout << ans << '\n';
-    return;
-}
+    long double v, w;
+};
+long double w[N], v[N];
 
+int n, m;
 signed main()
 {
     IOS;
-    int t;
-    cin >> t;
-    while (t--)
+    vector<sa> g;
+    cin >> n >> m;
+    for (int i = 1; i <= n; ++i)
+        cin >> v[i];
+    for (int i = 1; i <= n; ++i)
     {
-        solve();
+        long double x;
+        cin >> x;
+        w[i] = x / v[i];
+        g.push_back(sa{v[i], w[i]});
     }
+
+    sort(g.begin(), g.end(), [&](sa a, sa b) { return a.w > b.w; });
+    long double ans = 0;
+    for (auto [v, w] : g)
+    {
+        if (v <= m)
+        {
+            ans += v * w;
+            m -= v;
+        }
+        else
+        {
+            ans += m * w;
+            break;
+        }
+    }
+    printf("%.2Lf", ans);
+
     return 0;
 }

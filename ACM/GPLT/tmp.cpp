@@ -1,8 +1,8 @@
 /*
  * @Author: NEFU AB-IN
- * @Date: 2022-04-13 21:51:51
+ * @Date: 2022-04-19 17:55:57
  * @FilePath: \ACM\GPLT\tmp.cpp
- * @LastEditTime: 2022-04-18 19:51:56
+ * @LastEditTime: 2022-04-21 21:12:14
  */
 #include <bits/stdc++.h>
 using namespace std;
@@ -17,39 +17,56 @@ using namespace std;
 typedef pair<int, int> PII;
 const int INF = 0x3f3f3f3f;
 
+int months[13] = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+
+bool check_run(int year)
+{
+    return (year % 100 && year % 4 == 0) || year % 400 == 0;
+}
+
+bool check(int year, int month, int day)
+{
+    if (year < 1900 || year > 2050)
+        return false;
+    if (month != 2)
+    {
+        return (1 <= month && month <= 12) && (0 < day && day <= months[month]);
+    }
+    else
+    {
+        bool leap = check_run(year);
+        return day <= months[2] + leap;
+    }
+}
+
 signed main()
 {
-    IOS;
-    int t;
-    cin >> t;
-    while (t--)
+    int year, month, day;
+    printf("Please input the date (format as xxxx-xx-xx): ");
+    scanf("%lld-%lld-%lld", &year, &month, &day);
+    if (!check(year, month, day))
     {
-        string s;
-        cin >> s;
-        int flag = 0;
-        for (int i = 0; i < SZ(s) - 1; ++i)
+        printf("0-%lld-%lld\n", month, day);
+        return 0;
+    }
+    day -= 1;
+    if (day == 0)
+    {
+        month -= 1;
+        if (month == 0)
         {
-            if (s[i] >= 'A' && s[i] <= 'Z')
-            {
-                if (s[i] == 'Z' && s[i] + 32 != s[i + 1])
-                    flag = 1;
-                else if (s[i] + 32 != s[i + 1] && s[i] + 1 != s[i + 1])
-                    flag = 1;
-            }
-            else
-            {
-                if (s[i] == 'a' && s[i] - 32 != s[i + 1])
-                    flag = 1;
-                else if (s[i] - 32 != s[i + 1] && s[i] - 1 != s[i + 1])
-                    flag = 1;
-            }
-            if (flag)
-                break;
+            year -= 1;
+            month = 12;
         }
-        if (flag)
-            puts("N");
-        else
-            puts("Y");
+        day = months[month] + (month == 2 ? check_run(year) : 0);
+    }
+    if (check(year, month, day))
+    {
+        printf("%lld-%lld-%lld\n", year, month, day);
+    }
+    else
+    {
+        printf("0-%lld-%lld\n", month, day);
     }
     return 0;
 }

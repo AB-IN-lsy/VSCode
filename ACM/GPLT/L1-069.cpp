@@ -1,8 +1,8 @@
 /*
  * @Author: NEFU AB-IN
- * @Date: 2021-11-02 23:17:07
- * @FilePath: \ACM\test1.cpp
- * @LastEditTime: 2022-04-21 23:56:05
+ * @Date: 2022-04-22 15:07:41
+ * @FilePath: \ACM\GPLT\L1-069.cpp
+ * @LastEditTime: 2022-04-22 16:16:49
  */
 #include <bits/stdc++.h>
 using namespace std;
@@ -17,42 +17,32 @@ using namespace std;
 typedef pair<int, int> PII;
 const int INF = 0x3f3f3f3f;
 
-const int N = 2e5 + 10;
-int a[N], s[50];
-void solve()
-{
-    int n, k, ans = 0;
-    cin >> n >> k;
-    for (int i = 1; i <= n; ++i)
-        cin >> a[i];
-    memset(s, 0, sizeof s);
-    for (int i = 1; i <= n; ++i)
-    {
-        for (int j = 0; j <= 30; ++j)
-        {
-            s[j] += (a[i] >> j) & 1;
-        }
-    }
-    for (int i = 30; i >= 0; --i)
-    {
-        if (k >= n - s[i])
-        {
-            ans = ans | (1 << i);
-            k -= (n - s[i]);
-        }
-    }
-    cout << ans << '\n';
-    return;
-}
+int mn, leap;
 
 signed main()
 {
     IOS;
-    int t;
-    cin >> t;
-    while (t--)
+    vector<int> v(4);
+    for (int i = 0; i < 4; ++i)
     {
-        solve();
+        cin >> v[i];
     }
+    cin >> mn >> leap;
+    int mx = *max_element(v.begin(), v.end());
+    int ans = -1, cnt = 0;
+    for (int i = 0; i < 4; ++i)
+    {
+        if (mx - v[i] > leap && mx - v[i] < mn)
+        {
+            ans = i + 1;
+            cnt++;
+        }
+    }
+    if (ans == -1)
+        cout << "Normal\n";
+    else if (cnt > 1)
+        cout << "Warning: please check all the tires!\n";
+    else
+        printf("Warning: please check #%lld!", ans);
     return 0;
 }

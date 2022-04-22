@@ -1,37 +1,26 @@
 '''
 Author: NEFU AB-IN
-Date: 2021-11-05 19:16:12
-FilePath: \ACM\test.py
-LastEditTime: 2021-11-05 19:37:19
+Date: 2021-11-05 19:37:21
+FilePath: \ACM\tempCodeRunnerFile.py
+LastEditTime: 2022-04-21 22:38:56
 '''
+# Problem: A. Division?
+# Contest: Codeforces Round #784 (Div. 4)
+# Author: NEFU AB-IN
+# Edit Time:2022-04-21 22:36:00
+# URL: https://codeforces.com/contest/1669/problem/A
+# Memory Limit: 256 MB
+# Time Limit: 1000 ms
 
-
-def f(x):
-    if x == '1':
-        return '0'
+for _ in range(int(input())):
+    n = int(input())
+    x = 1
+    if n <= 1900:
+        x = 1
+    elif 1600 <= n <= 1899:
+        x = 2
+    elif 1400 <= n <= 1599:
+        x = 3
     else:
-        return '1'
-
-
-for i in range(100):
-    s = list(str(bin(i))[2:])
-    x = i
-    cnt = 0
-    while x:
-        if s.count('1') & 1:
-            s[len(s) - 1] = f(s[len(s) - 1])
-        else:
-            s[0] = f(s[0])
-        count = 0
-        if s != ['0']:
-            for i in range(len(s)):
-                if s[i] == '0':
-                    count += 1
-                else:
-                    break
-        s = s[count:]
-        s = "".join(s)
-        x = int(s, 2)
-        s = list(s)
-        cnt += 1
-    print(f'{i} :{cnt}')
+        x = 4
+    print(f"Division {x}")

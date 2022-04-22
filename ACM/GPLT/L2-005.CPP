@@ -1,8 +1,8 @@
 /*
  * @Author: NEFU AB-IN
- * @Date: 2021-11-02 23:17:07
- * @FilePath: \ACM\test1.cpp
- * @LastEditTime: 2022-04-21 23:56:05
+ * @Date: 2022-04-20 12:16:10
+ * @FilePath: \ACM\GPLT\L2-005.CPP
+ * @LastEditTime: 2022-04-20 20:42:37
  */
 #include <bits/stdc++.h>
 using namespace std;
@@ -17,42 +17,36 @@ using namespace std;
 typedef pair<int, int> PII;
 const int INF = 0x3f3f3f3f;
 
-const int N = 2e5 + 10;
-int a[N], s[50];
-void solve()
-{
-    int n, k, ans = 0;
-    cin >> n >> k;
-    for (int i = 1; i <= n; ++i)
-        cin >> a[i];
-    memset(s, 0, sizeof s);
-    for (int i = 1; i <= n; ++i)
-    {
-        for (int j = 0; j <= 30; ++j)
-        {
-            s[j] += (a[i] >> j) & 1;
-        }
-    }
-    for (int i = 30; i >= 0; --i)
-    {
-        if (k >= n - s[i])
-        {
-            ans = ans | (1 << i);
-            k -= (n - s[i]);
-        }
-    }
-    cout << ans << '\n';
-    return;
-}
-
+const int N = 60;
+set<int> s[N];
+int n;
 signed main()
 {
     IOS;
-    int t;
-    cin >> t;
-    while (t--)
+    cin >> n;
+    for (int i = 1; i <= n; ++i)
     {
-        solve();
+        int m;
+        cin >> m;
+        for (int j = 1; j <= m; ++j)
+        {
+            int x;
+            cin >> x;
+            s[i].insert(x);
+        }
+    }
+    int q;
+    cin >> q;
+    while (q--)
+    {
+        int a, b, cnt = 0;
+        cin >> a >> b;
+        for (auto x : s[a])
+        {
+            if (s[b].find(x) != s[b].end())
+                cnt += 1;
+        }
+        printf("%.2lf%%\n", 100.0 * cnt / (SZ(s[a]) + SZ(s[b]) - cnt));
     }
     return 0;
 }

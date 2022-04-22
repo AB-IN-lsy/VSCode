@@ -27,7 +27,9 @@
         "bitset": "cpp",
         "utility": "cpp",
         "random": "cpp",
-        "tuple": "cpp"
+        "tuple": "cpp",
+        "ranges": "cpp",
+        "span": "cpp"
     },
     "git.ignoreLimitWarning": true,
     "python.pythonPath": "C:\\Users\\qpliu\\AppData\\Local\\Programs\\Python\\Python38\\python.exe",

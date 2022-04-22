@@ -1,8 +1,8 @@
 /*
  * @Author: NEFU AB-IN
- * @Date: 2021-11-02 23:17:07
- * @FilePath: \ACM\test1.cpp
- * @LastEditTime: 2022-04-21 23:56:05
+ * @Date: 2022-04-20 18:04:25
+ * @FilePath: \ACM\GPLT\L2-008_1.CPP
+ * @LastEditTime: 2022-04-20 19:24:01
  */
 #include <bits/stdc++.h>
 using namespace std;
@@ -17,42 +17,24 @@ using namespace std;
 typedef pair<int, int> PII;
 const int INF = 0x3f3f3f3f;
 
-const int N = 2e5 + 10;
-int a[N], s[50];
-void solve()
-{
-    int n, k, ans = 0;
-    cin >> n >> k;
-    for (int i = 1; i <= n; ++i)
-        cin >> a[i];
-    memset(s, 0, sizeof s);
-    for (int i = 1; i <= n; ++i)
-    {
-        for (int j = 0; j <= 30; ++j)
-        {
-            s[j] += (a[i] >> j) & 1;
-        }
-    }
-    for (int i = 30; i >= 0; --i)
-    {
-        if (k >= n - s[i])
-        {
-            ans = ans | (1 << i);
-            k -= (n - s[i]);
-        }
-    }
-    cout << ans << '\n';
-    return;
-}
-
 signed main()
 {
     IOS;
-    int t;
-    cin >> t;
-    while (t--)
+    string s;
+    getline(cin, s);
+    int ans = 1;
+    for (int i = 0; i < SZ(s); ++i)
     {
-        solve();
+        int l = i - 1, r = i + 1;
+        while (l >= 0 && r < SZ(s) && s[l] == s[r])
+            l--, r++;
+        ans = max(ans, r - l - 1);
+
+        l = i, r = i + 1;
+        while (l >= 0 && r < SZ(s) && s[l] == s[r])
+            l--, r++;
+        ans = max(ans, r - l - 1);
     }
+    cout << ans;
     return 0;
 }

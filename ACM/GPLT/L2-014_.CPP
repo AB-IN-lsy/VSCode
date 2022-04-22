@@ -1,8 +1,8 @@
 /*
  * @Author: NEFU AB-IN
- * @Date: 2021-11-02 23:17:07
- * @FilePath: \ACM\test1.cpp
- * @LastEditTime: 2022-04-21 23:56:05
+ * @Date: 2022-04-21 11:37:00
+ * @FilePath: \ACM\GPLT\L2-014_.CPP
+ * @LastEditTime: 2022-04-21 11:40:30
  */
 #include <bits/stdc++.h>
 using namespace std;
@@ -17,42 +17,23 @@ using namespace std;
 typedef pair<int, int> PII;
 const int INF = 0x3f3f3f3f;
 
-const int N = 2e5 + 10;
-int a[N], s[50];
-void solve()
-{
-    int n, k, ans = 0;
-    cin >> n >> k;
-    for (int i = 1; i <= n; ++i)
-        cin >> a[i];
-    memset(s, 0, sizeof s);
-    for (int i = 1; i <= n; ++i)
-    {
-        for (int j = 0; j <= 30; ++j)
-        {
-            s[j] += (a[i] >> j) & 1;
-        }
-    }
-    for (int i = 30; i >= 0; --i)
-    {
-        if (k >= n - s[i])
-        {
-            ans = ans | (1 << i);
-            k -= (n - s[i]);
-        }
-    }
-    cout << ans << '\n';
-    return;
-}
+set<int> s;
+int n;
 
 signed main()
 {
     IOS;
-    int t;
-    cin >> t;
-    while (t--)
+    cin >> n;
+    for (int i = 1; i <= n; ++i)
     {
-        solve();
+        int x;
+        cin >> x;
+        if (s.upper_bound(x) != s.end())
+        {
+            s.erase(s.upper_bound(x));
+        }
+        s.insert(x);
     }
+    cout << SZ(s);
     return 0;
 }
