@@ -1,9 +1,11 @@
-/*
- * @Author: NEFU AB-IN
- * @Date: 2022-04-22 19:22:10
- * @FilePath: \ACM\GPLT\L1-080.cpp
- * @LastEditTime: 2022-04-22 19:30:12
- */
+// Problem: B. Triple
+// Contest: Codeforces Round #784 (Div. 4)
+// Author: NEFU AB-IN
+// Edit Time:2022-04-21 22:45:28
+// URL: https://codeforces.com/contest/1669/problem/B
+// Memory Limit: 256 MB
+// Time Limit: 1000 ms
+
 #include <bits/stdc++.h>
 using namespace std;
 #define int long long
@@ -17,39 +19,39 @@ using namespace std;
 typedef pair<int, int> PII;
 const int INF = 0x3f3f3f3f;
 
-int a1, a2, n;
-vector<int> v;
+map<int, int> vis;
 
-void cale(int x)
+void solve()
 {
-    vector<int> tmp;
-    while (x)
-    {   
-        tmp.push_back(x % 10);
-        x /= 10;
+    int n;
+    vis.clear();
+    cin >> n;
+    for (int i = 1; i <= n; ++i)
+    {
+        int x;
+        cin >> x;
+        vis[x] += 1;
     }
-    reverse(tmp.begin(), tmp.end());
-    v.insert(v.end(), tmp.begin(), tmp.end());
+    for (auto [k, v] : vis)
+    {
+        if (v >= 3)
+        {
+            cout << k << '\n';
+            return;
+        }
+    }
+    cout << "-1\n";
+    return;
 }
 
 signed main()
 {
     IOS;
-    cin >> a1 >> a2 >> n;
-    v.push_back(a1);
-    v.push_back(a2);
-    int p1 = 0, p2 = 1;
-    while (SZ(v) < n)
+    int t;
+    cin >> t;
+    while (t--)
     {
-        int x = v[p1], y = v[p2];
-        int ans = x * y;
-        cale(ans);
-        p1++;
-        p2++;
-    }
-    for (int i = 0; i < n; ++i)
-    {
-        cout << v[i] << " "[i == n - 1];
+        solve();
     }
     return 0;
 }

@@ -1,8 +1,8 @@
 /*
  * @Author: NEFU AB-IN
- * @Date: 2022-04-22 19:22:10
- * @FilePath: \ACM\GPLT\L1-080.cpp
- * @LastEditTime: 2022-04-22 19:30:12
+ * @Date: 2021-11-02 23:17:07
+ * @FilePath: \ACM\test1.cpp
+ * @LastEditTime: 2022-04-21 23:56:05
  */
 #include <bits/stdc++.h>
 using namespace std;
@@ -17,39 +17,42 @@ using namespace std;
 typedef pair<int, int> PII;
 const int INF = 0x3f3f3f3f;
 
-int a1, a2, n;
-vector<int> v;
-
-void cale(int x)
+const int N = 2e5 + 10;
+int a[N], s[50];
+void solve()
 {
-    vector<int> tmp;
-    while (x)
-    {   
-        tmp.push_back(x % 10);
-        x /= 10;
+    int n, k, ans = 0;
+    cin >> n >> k;
+    for (int i = 1; i <= n; ++i)
+        cin >> a[i];
+    memset(s, 0, sizeof s);
+    for (int i = 1; i <= n; ++i)
+    {
+        for (int j = 0; j <= 30; ++j)
+        {
+            s[j] += (a[i] >> j) & 1;
+        }
     }
-    reverse(tmp.begin(), tmp.end());
-    v.insert(v.end(), tmp.begin(), tmp.end());
+    for (int i = 30; i >= 0; --i)
+    {
+        if (k >= n - s[i])
+        {
+            ans = ans | (1 << i);
+            k -= (n - s[i]);
+        }
+    }
+    cout << ans << '\n';
+    return;
 }
 
 signed main()
 {
     IOS;
-    cin >> a1 >> a2 >> n;
-    v.push_back(a1);
-    v.push_back(a2);
-    int p1 = 0, p2 = 1;
-    while (SZ(v) < n)
+    int t;
+    cin >> t;
+    while (t--)
     {
-        int x = v[p1], y = v[p2];
-        int ans = x * y;
-        cale(ans);
-        p1++;
-        p2++;
-    }
-    for (int i = 0; i < n; ++i)
-    {
-        cout << v[i] << " "[i == n - 1];
+        solve();
     }
     return 0;
 }
