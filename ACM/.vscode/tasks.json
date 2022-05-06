@@ -1,16 +1,42 @@
 {
+    "options": {
+        "cwd": "${workspaceRoot}"
+    },
     "tasks": [
         {
+            "type": "shell",
+            "label": "CreateNewFile",
+            "command": "cd.",
+            "windows": {
+                "options": {
+                    "shell": {
+                        "executable": "cmd.exe",
+                        "args": [
+                            "/d",
+                            "/c"
+                        ]
+                    }
+                }
+            },
+            "args": [
+                ">${input:variableID}"
+            ],
+            "options": {
+                "cwd": "${fileDirname}"
+            },
+            "problemMatcher": [],
+            "group": "build"
+        },
+        {
             "type": "cppbuild",
-            "label": "G++",
+            "label": "C/C++: g++.exe 生成活动文件",
             "command": "D:\\msys64\\mingw64\\bin\\g++.exe",
             "args": [
+                "-fdiagnostics-color=always",
                 "-g",
                 "${file}",
                 "-o",
-                "${fileDirname}\\${fileBasenameNoExtension}.exe",
-                "-static-libgcc",
-                "-std=c++20"
+                "${fileDirname}\\${fileBasenameNoExtension}.exe"
             ],
             "options": {
                 "cwd": "${fileDirname}"
@@ -23,6 +49,14 @@
                 "isDefault": true
             },
             "detail": "调试器生成的任务。"
+        }
+    ],
+    "inputs": [
+        {
+            "id": "variableID",
+            "type": "promptString",
+            "description": "Please input the file name: ",
+            "default": "main.cpp"
         }
     ],
     "version": "2.0.0"

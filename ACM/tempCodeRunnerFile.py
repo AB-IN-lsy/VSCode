@@ -1,9 +1,3 @@
-'''
-Author: NEFU AB-IN
-Date: 2021-11-05 19:37:21
-FilePath: \ACM\tempCodeRunnerFile.py
-LastEditTime: 2022-04-21 22:38:56
-'''
 # Problem: A. Division?
 # Contest: Codeforces Round #784 (Div. 4)
 # Author: NEFU AB-IN

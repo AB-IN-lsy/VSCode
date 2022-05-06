@@ -1,0 +1,5 @@
+ctrl + alt          选中一段文字，可以出现多个光标
+ctrl + alt + l      格式化
+ctrl + alt + i      头文件加入
+ctrl + alt + z      创建文件 (自己设定的脚本)
+ctrl + shift + p    出现任务行
