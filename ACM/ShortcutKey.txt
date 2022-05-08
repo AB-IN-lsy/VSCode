@@ -3,3 +3,4 @@ ctrl + alt + l      格式化
 ctrl + alt + i      头文件加入
 ctrl + alt + z      创建文件 (自己设定的脚本)
 ctrl + shift + p    出现任务行
+alt + F9            ICIE找比赛
