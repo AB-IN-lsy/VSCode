@@ -47,7 +47,7 @@ int main()
 
             cout << i << " " << j << '\n';
             return 0;
-        }
+        }   
     }
     cout << "No Solution";
 

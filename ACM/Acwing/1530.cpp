@@ -5,7 +5,6 @@
 #define SZ(X) ((int)X.size())
 
 using namespace std;
-
 signed main()
 {
     int n;

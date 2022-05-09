@@ -1,125 +1,68 @@
-//#pragma GCC optimize("Ofast")
 #include <bits/stdc++.h>
+
 using namespace std;
-typedef long long ll;
-template <class T> void _R(T &x)
-{
-    cin >> x;
-}
-void _R(int &x)
-{
-    scanf("%d", &x);
-}
-void _R(long long &x)
-{
-    scanf("%lld", &x);
-}
-void _R(double &x)
-{
-    scanf("%lf", &x);
-}
-void _R(char &x)
-{
-    scanf(" %c", &x);
-}
-void _R(char *x)
-{
-    scanf("%s", x);
-}
-template <class T> void _W(const T &x)
-{
-    cout << x;
-}
-void _W(const int &x)
-{
-    printf("%d", x);
-}
-void _W(const long long &x)
-{
-    printf("%lld", x);
-}
-void _W(const double &x)
-{
-    printf("%.16f", x);
-}
-void _W(const char &x)
-{
-    putchar(x);
-}
-void _W(const char *x)
-{
-    printf("%s", x);
-}
-string str[] = {"#*********#####*****##*##*****#***####*#****#*#*###**#########**###*####*#####*######*****#***######*#"
-                "*#*############*##*###*#***#***************##*******#*****#***#*#####***#*********************###**###"
-                "*###*#*###*#*#*######*###*#***#*###*#*###*#*#**********#**********##*#*#****##*####*##*###*##**###*###"
-                "####*******##***###***####*####*##*****",
-                "#*##**###*#########*##*##*###*#*#*###**#*###***###**#####*#####**##*###**####**######*#####*#########*"
-                "**######*****#*###*###**#*#**####*####*########**###******##*##*#######*#*######*##*###**###*#*#*#*###"
-                "*###*##*#*#*#*####*##**#**###*#**##**#*#**#*#**###**###*###*#*###*******#######*###*##*###*###*##*#*##"
-                "########***#*##**##*#####*#*####*#*####",
-                "#*##******#####**********###**##*#*##*##*###**####*#############*##*####*###*#*######*******##########"
-                "*##*****#####*####*****#***#***************####*****#**#**##*##*######**#*#***##*##*#*#**###*##*##*###"
-                "*###*###*############**#**###***#*#*###*#*#*#*****#****###*##*****#*#*##***########*###*#*############"
-                "########*##*####**#*#####***#####**####",
-                "#*##**###*#########*##*####**##*#*##**##*###***###**#####*#####**##*####*##*****#########*#*######*##*"
-                "**######*****#*###*###*##*#**###**####*########**###******##*##*#########*#*#*##*##*##***###*#*#*#*###"
-                "*#*#*###*#########*##*#*#*###*#*##**#####*#*#**#*##*#####*#######******####*###########*#*############"
-                "########*#*#**###***####*###*###*#*####",
-                "#*********#####*****##*##*****#***##*###****#*#*###**#########**###*##*****###*###*##*****#***###**#*#"
-                "*#*############*##*###*#***#******####*****##*******#*****#***#*****##*##*****##*##***********###*****"
-                "*#***###*#########*##*#*#*#***#*###*######*#*#*##*#*####***********#*###***########*####*############*"
-                "****####**##**####***###*###*##*##*****"};
-map<char, vector<string>> m;
+#define int long long
+#define lowbit(x) x & -x
+#define SZ(X) ((int)X.size())
+const int N = 1e6 + 10;
+int tr[N];
+const int INF = 0x3f3f3f3f;
+typedef pair<int, int> PII;
 
-string s[5];
-vector<string> tmp;
-
-int main()
+void add(int x)
 {
-    // freopen("","r",stdin);
-    // freopen("","w",stdout);
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL);
-    cout.tie(NULL);
-    string in = "08 3+2&/DK(:)|14.5{,*-=<H$6FE]B@IL?GTQOXUJY\";M}N~WRPZ9#S`!V'^_7%\\[A>C";
-    for (int i = 0; i < in.size(); i++)
+    for (int i = x; i < N; i += lowbit(i))
     {
-        // l=i r=i*5-1
-        for (int j = 0; j < 5; j++)
-        {
-            m[in[i]].push_back(str[j].substr(i * 5, 5));
-        }
+        tr[i] += 1;
+    }
+}
+int query(int x)
+{
+    int res = 0;
+    for (int i = x; i; i -= lowbit(i))
+    {
+        res += tr[i];
+    }
+    return res;
+}
+vector<PII> g[N];
+vector<int> alls = {-INF}; // 存储所有待离散化的值
+signed main()
+{
+    int n;
+    scanf("%lld", &n);
+    vector<int> a(n + 1);
+    for (int i = 1; i <= n; ++i)
+    {
+        scanf("%lld", &a[i]);
+        a[i]++;
+        alls.push_back(a[i]);
+    }
+    // 离散化
+    sort(alls.begin(), alls.end());                           // 将所有值排序
+    alls.erase(unique(alls.begin(), alls.end()), alls.end()); // 去掉重复元素
+
+    for (int i = 1; i <= n; ++i)
+    {
+        int id = lower_bound(alls.begin(), alls.end(), a[i]) - alls.begin();
+        add(id);
+        int num = (i - query(id - 1));
+        g[id].push_back({num - i, i});
     }
 
-    for (int i = 0; i < 5; i++)
+    int ans = 0;
+    for (auto lst : g)
     {
-        cin >> s[i];
-    }
-    for (int i = 0; i < s[0].size(); i += 5)
-    {
-        tmp.clear();
-        for (int j = 0; j < 5; j++)
+        sort(lst.begin(), lst.end());
+        int l = 0, r = 0;
+        while (l <= r && l < SZ(lst))
         {
-            tmp.push_back(s[j].substr(i, 5));
-        }
-        for (auto it : m)
-        {
-            vector<string> here = it.second;
-            int flag = 1;
-            for (int j = 0; j < 5; j++)
-            {
-                if (here[j] != tmp[j])
-                {
-                    flag = 0;
-                }
-            }
-            if (flag)
-            {
-                cout << it.first;
-                break;
-            }
+            while (r < SZ(lst) && lst[l].first == lst[r].first)
+                r++;
+            ans = max(ans, lst[r - 1].second - lst[l].second);
+            l = r;
         }
     }
+    printf("%lld\n", ans);
     return 0;
 }
