@@ -1,66 +1,20 @@
-/*
- * @Author: NEFU AB-IN
- * @Date: 2021-10-25 10:13:38
- * @FilePath: \ACM\test.cpp
- * @LastEditTime: 2022-05-03 15:57:10
- */
 #include <bits/stdc++.h>
 using namespace std;
-#define LL long long
-#define MP make_pair
 #define SZ(X) ((int)(X).size())
 #define IOS                                                                                                            \
     ios::sync_with_stdio(false);                                                                                       \
     cin.tie(0);                                                                                                        \
     cout.tie(0);
+#define DEBUG(X) cout << #X << ": " << X << endl;
 typedef pair<int, int> PII;
-const int INF = 0x3f3f3f3f;
 
-const int N = 100;
-char a[N][N];
-
-void solve()
-{
-    int n, m;
-    scanf("%d%d", &n, &m);
-    for (int i = 1; i <= n; ++i)
-    {
-        scanf("%s", a[i] + 1);
-    }
-    for (int i = 1; i <= m; ++i)
-    {
-        a[n + 1][i] = 'o';
-    }
-    for (int i = n; i >= 1; --i)
-    {
-        for (int j = 1; j <= m; ++j)
-        {
-            if (a[i][j] == '*')
-            {
-                for (int k = i + 1; k <= n + 1; ++k)
-                {
-                    if (a[k][j] == 'o' || a[k][j] == '*')
-                        break;
-                    a[i][j] = '.';
-                    a[k][j] = '*';
-                }
-            }
-        }
-    }
-    for (int i = 1; i <= n; ++i)
-    {
-        printf("%s\n", a[i] + 1);
-    }
-    printf("\n");
-}
-
+const int N = 1e6 + 10;
 signed main()
 {
-    int t;
-    scanf("%d", &t);
-    while (t--)
-    {
-        solve();
-    }
+    IOS;
+    vector<int> a(13, 3);
+    iota(a.begin(), a.end(), 2);
+    for (auto i : a)
+        cout << i << " ";
     return 0;
 }
