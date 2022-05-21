@@ -1,20 +1,31 @@
-#include <bits/stdc++.h>
+/*
+ * @Author: NEFU AB-IN
+ * @Date: 2021-10-25 10:13:38
+ * @FilePath: \ACM\test.cpp
+ * @LastEditTime: 2022-05-20 14:27:26
+ */
+#include <iostream>
 using namespace std;
-#define SZ(X) ((int)(X).size())
-#define IOS                                                                                                            \
-    ios::sync_with_stdio(false);                                                                                       \
-    cin.tie(0);                                                                                                        \
-    cout.tie(0);
-#define DEBUG(X) cout << #X << ": " << X << endl;
-typedef pair<int, int> PII;
 
-const int N = 1e6 + 10;
-signed main()
+int rSum(int j)
 {
-    IOS;
-    vector<int> a(13, 3);
-    iota(a.begin(), a.end(), 2);
-    for (auto i : a)
-        cout << i << " ";
+    int sum = 0;
+    while (j != 0)
+    {
+        sum = sum * 10 + (j % 10);
+        j = j / 10;
+    }
+    return sum;
+}
+
+int main()
+{
+    int n, m, i;
+
+    cin >> n >> m;
+    for (i = n; i < m; i++)
+        if (i == rSum(i))
+            cout << i << ' ';
+    cout << 56 * 1344;
     return 0;
 }

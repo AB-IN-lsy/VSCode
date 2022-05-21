@@ -2,7 +2,7 @@
  * @Author: NEFU AB-IN
  * @Date: 2022-04-19 22:39:04
  * @FilePath: \ACM\Acwing\1631.cpp
- * @LastEditTime: 2022-04-19 22:50:00
+ * @LastEditTime: 2022-05-20 14:22:21
  */
 #include <algorithm>
 #include <cstring>
@@ -27,6 +27,7 @@ void build(int il, int ir, int pl, int pr)
         build(k + 1, ir, pl + 1 + k - 1 - il + 1, pr);
     if (!post)
         post = root;
+    // cout << root;
 }
 
 int main()
@@ -44,3 +45,9 @@ int main()
     build(0, n - 1, 0, n - 1);
     cout << post;
 }
+
+// 先序遍历是GDAFEMHZ，中序遍历是ADEFGHMZ
+//         5 2 1 4 3 7 6 8           1 2 3 4 5 6 7 8
+// ADEFGHMZ
+// 12345678
+// aefd
