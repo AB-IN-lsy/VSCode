@@ -7,8 +7,8 @@ $d = $?
 if ($d -eq $false){
     continue
 }
-cd D:\v2rayN\
-.\v2rayN.exe
+cd D:\Program Files\Clash for Windows
+.\Clash for Windows.exe
 echo 'Wait a second, Turnning VPN on'
 Start-Sleep -s 1
 echo 'Successful Turning'
