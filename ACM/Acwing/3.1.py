@@ -2,7 +2,7 @@
 Author: NEFU AB-IN
 Date: 2022-03-06 12:10:10
 FilePath: \ACM\Acwing\3.1.py
-LastEditTime: 2022-03-06 12:10:10
+LastEditTime: 2022-06-20 23:12:03
 '''
 n, m = map(int, input().split())
 

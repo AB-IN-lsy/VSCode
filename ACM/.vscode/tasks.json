@@ -2,11 +2,10 @@
     "options": {
         "cwd": "${workspaceRoot}"
     },
-    "tasks": [
-        {
+    "tasks": [{
             "type": "shell",
-            "label": "CreateNewFile",
-            "command": "cd.",
+            "label": "CreateFolder",
+            "command": "md ${input:folderName} && cd ${input:folderName} && type C:\\Users\\liusy\\AppData\\Roaming\\Code\\User\\snippets\\templete.cpp > ${input:folderName}.${input:typeName}",
             "windows": {
                 "options": {
                     "shell": {
@@ -18,9 +17,6 @@
                     }
                 }
             },
-            "args": [
-                ">${input:variableID}"
-            ],
             "options": {
                 "cwd": "${fileDirname}"
             },
@@ -54,13 +50,19 @@
             "detail": "调试器生成的任务。"
         }
     ],
-    "inputs": [
-        {
-            "id": "variableID",
+    "inputs": [{
+            "id": "folderName",
             "type": "promptString",
-            "description": "Please input the file name: ",
-            "default": "main.cpp"
+            "description": "Please input the folder name",
+            "default": "Main"
+        },
+        {
+            "id": "typeName",
+            "type": "promptString",
+            "description": "Please input the type name (*.cpp, *.py, *.java)",
+            "default": "cpp"
         }
     ],
+
     "version": "2.0.0"
 }
