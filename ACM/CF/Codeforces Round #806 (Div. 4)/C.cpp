@@ -1,10 +1,10 @@
-// Problem: G. Good Key, Bad Key
+// Problem: C. Cypher
 // Contest: Codeforces Round #806 (Div. 4)
 // Author: NEFU AB-IN
-// Edit Time:2022-07-12 22:36:40
-// URL: https://codeforces.com/contest/1703/problem/G
+// Edit Time:2022-07-12 22:36:36
+// URL: https://codeforces.com/contest/1703/problem/C
 // Memory Limit: 256 MB
-// Time Limit: 3000 ms
+// Time Limit: 1000 ms
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -20,41 +20,34 @@ typedef pair<int, int> PII;
 const int INF = INT_MAX;
 const int N = 1e6 + 10;
 
-int dp[N][41];
-
 void solve()
 {
-    int n, m;
-    cin >> n >> m;
-    for (int i = 1; i <= n; ++i)
-        for (int j = 0; j < 40; ++j)
-            dp[i][j] = -INF;
-
-    vector<int> a(n + 1);
-    for (int i = 1; i <= n; ++i)
+    int n;
+    cin >> n;
+    vector<int> a(n);
+    for (int i = 0; i < n; ++i)
     {
         cin >> a[i];
     }
-    for (int i = 1; i <= n; ++i)
+    for (int i = 0; i < n; ++i)
     {
-        for (int j = 0; j < 40; ++j)
+        int k;
+        string s;
+        cin >> k >> s;
+        for (auto j : s)
         {
-            dp[i][j] = max(dp[i][j], dp[i - 1][j] + (a[i] >> j) - m);
-            if (j > 0)
-                dp[i][j] = max(dp[i][j], dp[i - 1][j - 1] + (a[i] >> j));
-            if (j >= 32)
-            {
-                dp[i][j] = max(dp[i][j], dp[i - 1][j]);
-            }
+            if (j == 'D')
+                a[i] = (a[i] + 1) % 10;
+            else
+                a[i] = (a[i] - 1 + 10) % 10;
         }
     }
 
-    int ans = 0;
-    for (int j = 0; j < 40; ++j)
-    {
-        ans = max(ans, dp[n][j]);
-    }
-    cout << ans << '\n';
+    for (auto i : a)
+        cout << i << " ";
+    cout << '\n';
+
+    return;
 }
 
 signed main()

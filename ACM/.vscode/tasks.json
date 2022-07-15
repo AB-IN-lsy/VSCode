@@ -5,7 +5,7 @@
     "tasks": [{
             "type": "shell",
             "label": "CreateFolder",
-            "command": "md ${input:folderName} && cd ${input:folderName} && type C:\\Users\\liusy\\AppData\\Roaming\\Code\\User\\snippets\\templete.cpp > ${input:folderName}.${input:typeName}",
+            "command": "cd .. && md ${input:folderName} && cd ${input:folderName} && type C:\\Users\\liusy\\AppData\\Roaming\\Code\\User\\snippets\\templete.cpp > ${input:folderName}.${input:typeName}",
             "windows": {
                 "options": {
                     "shell": {

@@ -1,8 +1,8 @@
 /*
  * @Author: NEFU AB-IN
- * @Date: 2022-03-25 20:05:38
- * @FilePath: \ACM\Acwing\TMP.CPP
- * @LastEditTime: 2022-06-29 20:53:21
+ * @Date: 2022-06-27 16:06:31
+ * @FilePath: \ACM\Acwing\4367\4367.cpp
+ * @LastEditTime: 2022-06-27 16:51:35
  */
 #include <bits/stdc++.h>
 using namespace std;
@@ -21,10 +21,24 @@ const int N = 1e6 + 10;
 signed main()
 {
     IOS;
-    float you = 90.6 * 0.85 + 10 * 0.15;
-    float me = 89.77 * 0.85 + (2 + 2.5 + 1 + 1.75 / 2 + 1.5 / 2 + 10) * 0.15;
+    int n, a;
+    cin >> n;
 
-    DEBUG(you);
-    DEBUG(me);
+    vector<int> b(n);
+    for (int i = 0; i < n; i++)
+        cin >> b[i];
+
+    set<int> st;
+    for (int i = 0, j = 0; i < n; i++)
+    {
+        cin >> a;
+        while (st.count(b[j]))
+            j++;
+        if (b[j] == a)
+            j++;
+        else
+            st.insert(a);
+    }
+    cout << st.size() << "\n";
     return 0;
 }

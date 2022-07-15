@@ -1,8 +1,8 @@
 /*
  * @Author: NEFU AB-IN
- * @Date: 2022-03-25 20:05:38
- * @FilePath: \ACM\Acwing\TMP.CPP
- * @LastEditTime: 2022-06-29 20:53:21
+ * @Date: 2022-06-23 09:44:55
+ * @FilePath: \ACM\Acwing\4262\4262.cpp
+ * @LastEditTime: 2022-06-23 09:48:39
  */
 #include <bits/stdc++.h>
 using namespace std;
@@ -21,10 +21,31 @@ const int N = 1e6 + 10;
 signed main()
 {
     IOS;
-    float you = 90.6 * 0.85 + 10 * 0.15;
-    float me = 89.77 * 0.85 + (2 + 2.5 + 1 + 1.75 / 2 + 1.5 / 2 + 10) * 0.15;
+    int n;
+    cin >> n;
 
-    DEBUG(you);
-    DEBUG(me);
+    vector<int> a(n + 1), b(n + 1);
+    for (int i = 1; i <= n; ++i)
+    {
+        cin >> a[i];
+    }
+    for (int i = 1; i <= n; ++i)
+    {
+        cin >> b[i];
+        b[i] = a[i] - b[i];
+    }
+
+    vector<int> c(n + 1);
+    int neg = 0, pos = 0;
+    for (int i = 1; i <= n; ++i)
+    {
+        c[i] = b[i] - b[i - 1];
+        if (c[i] < 0)
+            neg -= c[i];
+        else
+            pos += c[i];
+    }
+
+    cout << max(pos, neg) << '\n';
     return 0;
 }

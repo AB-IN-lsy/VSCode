@@ -18,7 +18,7 @@ using namespace std;
 typedef pair<int, int> PII;
 
 const int INF = INT_MAX;
-const int N = 1e6 + 10;
+const int N = 1e5 + 10;
 
 int dp[N][41];
 
@@ -39,17 +39,18 @@ void solve()
     {
         for (int j = 0; j < 40; ++j)
         {
-            dp[i][j] = max(dp[i][j], dp[i - 1][j] + (a[i] >> j) - m);
             if (j > 0)
                 dp[i][j] = max(dp[i][j], dp[i - 1][j - 1] + (a[i] >> j));
+            if (j == 0)
+                dp[i][j] = dp[i - 1][j] + a[i] - m;
+            else
+                dp[i][j] = max(dp[i][j], dp[i - 1][j] + (a[i] >> j) - m);
             if (j >= 32)
-            {
                 dp[i][j] = max(dp[i][j], dp[i - 1][j]);
-            }
         }
     }
 
-    int ans = 0;
+    int ans = -INF;
     for (int j = 0; j < 40; ++j)
     {
         ans = max(ans, dp[n][j]);

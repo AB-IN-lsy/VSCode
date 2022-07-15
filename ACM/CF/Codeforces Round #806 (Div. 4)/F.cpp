@@ -1,10 +1,10 @@
-// Problem: G. Good Key, Bad Key
+// Problem: F. Yet Another Problem About Pairs Satisfying an Inequality
 // Contest: Codeforces Round #806 (Div. 4)
 // Author: NEFU AB-IN
-// Edit Time:2022-07-12 22:36:40
-// URL: https://codeforces.com/contest/1703/problem/G
+// Edit Time:2022-07-12 22:36:39
+// URL: https://codeforces.com/contest/1703/problem/F
 // Memory Limit: 256 MB
-// Time Limit: 3000 ms
+// Time Limit: 2000 ms
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -20,41 +20,37 @@ typedef pair<int, int> PII;
 const int INF = INT_MAX;
 const int N = 1e6 + 10;
 
-int dp[N][41];
-
 void solve()
 {
-    int n, m;
-    cin >> n >> m;
-    for (int i = 1; i <= n; ++i)
-        for (int j = 0; j < 40; ++j)
-            dp[i][j] = -INF;
-
-    vector<int> a(n + 1);
+    int n;
+    cin >> n;
+    vector<int> a(n + 1), st(n + 1), b(n + 1);
     for (int i = 1; i <= n; ++i)
     {
         cin >> a[i];
-    }
-    for (int i = 1; i <= n; ++i)
-    {
-        for (int j = 0; j < 40; ++j)
+        if (a[i] < i)
         {
-            dp[i][j] = max(dp[i][j], dp[i - 1][j] + (a[i] >> j) - m);
-            if (j > 0)
-                dp[i][j] = max(dp[i][j], dp[i - 1][j - 1] + (a[i] >> j));
-            if (j >= 32)
-            {
-                dp[i][j] = max(dp[i][j], dp[i - 1][j]);
-            }
+            st[i] = 1; // 记录是否有资格进行配对
+            b[1]++;
+            b[a[i]]--;
         }
+        // cout << st1[i] << " ";
     }
 
-    int ans = 0;
-    for (int j = 0; j < 40; ++j)
+    for (int i = 1; i <= n; ++i)
     {
-        ans = max(ans, dp[n][j]);
+        b[i] += b[i - 1];
+    }
+    int ans = 0;
+    for (int i = 1; i <= n; ++i)
+    {
+        if (st[i])
+        {
+            ans += b[i];
+        }
     }
     cout << ans << '\n';
+    return;
 }
 
 signed main()

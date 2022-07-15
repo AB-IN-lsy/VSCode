@@ -1,0 +1,135 @@
+Test 1 Passed
+
+Input 1: 
+20 100
+13 9
+20 5
+10 11
+5 8
+14 12
+20 8
+1 20
+18 10
+14 17
+16 3
+9 16
+17 4
+15 16
+2 8
+7 14
+11 2
+7 17
+1 7
+3 17
+12 20
+6 18
+1 4
+18 12
+15 17
+15 13
+9 7
+9 15
+16 8
+20 9
+3 2
+11 6
+12 2
+12 15
+13 4
+3 11
+14 16
+7 16
+1 14
+3 7
+17 6
+8 13
+8 6
+3 10
+15 20
+8 11
+18 20
+17 19
+20 11
+14 6
+4 18
+3 18
+12 1
+1 10
+15 18
+15 1
+15 19
+19 20
+18 19
+4 9
+15 8
+13 19
+3 9
+6 20
+14 20
+3 5
+7 19
+12 16
+17 12
+2 1
+20 2
+10 4
+20 13
+9 1
+6 10
+7 4
+17 11
+17 8
+4 3
+20 16
+8 1
+6 4
+19 5
+14 4
+12 10
+18 11
+1 3
+17 13
+7 18
+9 10
+16 4
+11 7
+13 16
+8 4
+17 10
+16 1
+2 7
+9 14
+5 11
+13 1
+2 10
+7
+2 12 14
+5 6 17 4 8 2
+3 20 5 11
+2 6 3
+4 11 5 20 9
+3 16 12 14
+2 13 5
+
+
+Expected Output : 
+Area 1 may invite more people, such as 1.
+Area 2 needs help.
+Area 3 may invite more people, such as 8.
+Area 4 needs help.
+Area 5 needs help.
+Area 6 may invite more people, such as 1.
+Area 7 needs help.
+
+Obtained Output : 
+Area 1 may invite more people, such as 1.
+Area 2 needs help.
+Area 3 may invite more people, such as 8.
+Area 4 needs help.
+Area 5 needs help.
+Area 6 may invite more people, such as 1.
+Area 7 needs help.
+
+
+________________________________________________________
+

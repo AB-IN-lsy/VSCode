@@ -1,10 +1,10 @@
-// Problem: G. Good Key, Bad Key
+// Problem: E. Mirror Grid
 // Contest: Codeforces Round #806 (Div. 4)
 // Author: NEFU AB-IN
-// Edit Time:2022-07-12 22:36:40
-// URL: https://codeforces.com/contest/1703/problem/G
+// Edit Time:2022-07-12 22:36:38
+// URL: https://codeforces.com/contest/1703/problem/E
 // Memory Limit: 256 MB
-// Time Limit: 3000 ms
+// Time Limit: 2000 ms
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -18,50 +18,52 @@ using namespace std;
 typedef pair<int, int> PII;
 
 const int INF = INT_MAX;
-const int N = 1e6 + 10;
+const int N = 110;
 
-int dp[N][41];
+char a[N][N];
+int st[N][N];
 
 void solve()
 {
-    int n, m;
-    cin >> n >> m;
-    for (int i = 1; i <= n; ++i)
-        for (int j = 0; j < 40; ++j)
-            dp[i][j] = -INF;
-
-    vector<int> a(n + 1);
+    int n;
+    scanf("%lld", &n);
     for (int i = 1; i <= n; ++i)
     {
-        cin >> a[i];
+        scanf("%s", a[i] + 1);
     }
     for (int i = 1; i <= n; ++i)
     {
-        for (int j = 0; j < 40; ++j)
+        for (int j = 1; j <= n; ++j)
         {
-            dp[i][j] = max(dp[i][j], dp[i - 1][j] + (a[i] >> j) - m);
-            if (j > 0)
-                dp[i][j] = max(dp[i][j], dp[i - 1][j - 1] + (a[i] >> j));
-            if (j >= 32)
-            {
-                dp[i][j] = max(dp[i][j], dp[i - 1][j]);
-            }
+            st[i][j] = 0;
         }
     }
-
     int ans = 0;
-    for (int j = 0; j < 40; ++j)
+    for (int i = 1; i <= n; ++i)
     {
-        ans = max(ans, dp[n][j]);
+        for (int j = 1; j <= n; ++j)
+        {
+            if (st[i][j])
+                continue;
+            // 统计1的个数
+            int cnt1 = (a[i][j] == '1') + (a[n - j + 1][i] == '1') + (a[n - i + 1][n - j + 1] == '1') +
+                       (a[j][n - i + 1] == '1');
+            if (cnt1 >= 2)
+                ans += (4 - cnt1);
+            else
+                ans += cnt1;
+
+            st[i][j] = st[n - j + 1][i] = st[n - i + 1][n - j + 1] = st[j][n - i + 1] = 1;
+        }
     }
-    cout << ans << '\n';
+    printf("%lld\n", ans);
+    return;
 }
 
 signed main()
 {
-    IOS;
     int T;
-    cin >> T;
+    scanf("%lld", &T);
     while (T--)
     {
         solve();

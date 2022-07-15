@@ -1,10 +1,10 @@
-// Problem: G. Good Key, Bad Key
-// Contest: Codeforces Round #806 (Div. 4)
+// Problem: F. 3SUM
+// Contest: Codeforces Round #799 (Div. 4)
 // Author: NEFU AB-IN
-// Edit Time:2022-07-12 22:36:40
-// URL: https://codeforces.com/contest/1703/problem/G
+// Edit Time:2022-06-29 22:47:32
+// URL: https://codeforces.com/contest/1692/problem/F
 // Memory Limit: 256 MB
-// Time Limit: 3000 ms
+// Time Limit: 1000 ms
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -20,41 +20,37 @@ typedef pair<int, int> PII;
 const int INF = INT_MAX;
 const int N = 1e6 + 10;
 
-int dp[N][41];
-
 void solve()
 {
-    int n, m;
-    cin >> n >> m;
-    for (int i = 1; i <= n; ++i)
-        for (int j = 0; j < 40; ++j)
-            dp[i][j] = -INF;
-
-    vector<int> a(n + 1);
-    for (int i = 1; i <= n; ++i)
+    int n, x;
+    cin >> n;
+    unordered_map<int, int> d;
+    vector<int> a;
+    for (int i = 0; i < n; ++i)
     {
-        cin >> a[i];
+        cin >> x;
+        x %= 10;
+        if (++d[x] > 3)
+            d[x] = 3;
+        else
+            a.push_back(x);
     }
-    for (int i = 1; i <= n; ++i)
+    for (int i = 0; i < SZ(a); ++i)
     {
-        for (int j = 0; j < 40; ++j)
+        for (int j = i + 1; j < SZ(a); ++j)
         {
-            dp[i][j] = max(dp[i][j], dp[i - 1][j] + (a[i] >> j) - m);
-            if (j > 0)
-                dp[i][j] = max(dp[i][j], dp[i - 1][j - 1] + (a[i] >> j));
-            if (j >= 32)
+            for (int k = j + 1; k < SZ(a); ++k)
             {
-                dp[i][j] = max(dp[i][j], dp[i - 1][j]);
+                if ((a[i] + a[j] + a[k]) % 10 == 3)
+                {
+                    puts("YES");
+                    return;
+                }
             }
         }
     }
-
-    int ans = 0;
-    for (int j = 0; j < 40; ++j)
-    {
-        ans = max(ans, dp[n][j]);
-    }
-    cout << ans << '\n';
+    puts("NO");
+    return;
 }
 
 signed main()
