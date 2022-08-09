@@ -1,47 +1,21 @@
 '''
 Author: NEFU AB-IN
-Date: 2022-04-12 11:51:51
-FilePath: \ACM\Acwing\204.1.py
-LastEditTime: 2022-04-12 14:41:02
+Date: 2022-03-07 22:28:25
+FilePath: \Acwing\tempCodeRunnerFile.py
+LastEditTime: 2022-08-05 21:47:54
 '''
+N = 1100
+MOD = int(1e9 + 7)
+dp = [[0] * N for _ in range(N)]  # 表示总和为i, 并且恰好为j个数的方案
 
-
-def gcd(a, b):
-    return gcd(b, a % b) if b else a
-
-
-def exgcd(a, b):
-    global x, y
-    if b == 0:
-        x, y = 1, 0
-        return a
-    d = exgcd(b, a % b)
-    x, y = y, x
-    y -= (a // b) * x
-    return d
-
-
-d = []
 n = int(input())
+dp[0][0] = 1  #总和为0，恰好0个数的方案有一个
 
-for _ in range(n):
-    m, a = map(int, input().split())
-    d.append([m, a])
+for i in range(1, n + 1):
+    for j in range(1, n + 1):
+        dp[i][j] = (dp[i - 1][j - 1] + dp[i - j][j]) % MOD
 
-i = 0
-while i < n:
-    m, a = d[i]
-    if i == 0:
-        lcm, ans = m, a
-    x, y = 0, 0
-    dd = exgcd(lcm, m)
-    if (a - ans) % dd:
-        print(-1)
-        exit(0)
-    if ans % m == a:
-        lcm = lcm // gcd(lcm, m) * m
-        i += 1
-    else:
-        ans += (x * lcm + y * m) % m
-
-print(ans)
+res = 0
+for i in range(1, n + 1):
+    res = (res + dp[n][i]) % MOD
+print(res)

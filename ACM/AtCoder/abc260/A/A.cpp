@@ -1,8 +1,8 @@
 /*
  * @Author: NEFU AB-IN
- * @Date: 2022-04-19 21:41:40
- * @FilePath: \Acwing\tempCodeRunnerFile.cpp
- * @LastEditTime: 2022-08-04 10:36:43
+ * @Date: 2022-07-17 19:59:16
+ * @FilePath: \abc260\A\A.cpp
+ * @LastEditTime: 2022-07-17 20:02:10
  */
 #include <bits/stdc++.h>
 using namespace std;
@@ -21,6 +21,25 @@ const int N = 1e6 + 10;
 signed main()
 {
     IOS;
-    cout << (10 << 1);
+    string s;
+    cin >> s;
+
+    map<char, int> st;
+    for (auto i : s)
+    {
+        st[i]++;
+    }
+    int flag = 0;
+    for (auto [a, b] : st)
+    {
+        if (b == 1)
+        {
+            flag = 1;
+            cout << a << " ";
+            return 0;
+        }
+    }
+    if (!flag)
+        cout << "-1\n";
     return 0;
 }

@@ -1,0 +1,15 @@
+Test 1 Passed
+
+Input 1: 
+pop
+
+
+Expected Output : 
+o
+
+
+Obtained Output : 
+o 
+
+________________________________________________________
+

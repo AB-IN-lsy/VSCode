@@ -1,8 +1,8 @@
 /*
  * @Author: NEFU AB-IN
- * @Date: 2022-04-19 21:41:40
- * @FilePath: \Acwing\tempCodeRunnerFile.cpp
- * @LastEditTime: 2022-08-04 10:36:43
+ * @Date: 2022-07-17 20:39:13
+ * @FilePath: \abc260\C\C.cpp
+ * @LastEditTime: 2022-07-17 20:46:18
  */
 #include <bits/stdc++.h>
 using namespace std;
@@ -21,6 +21,17 @@ const int N = 1e6 + 10;
 signed main()
 {
     IOS;
-    cout << (10 << 1);
+    int n, x, y;
+    cin >> n >> x >> y;
+    int ans = 0;
+    function<void(int, int)> dfs = [&](int n, int k) {
+        if (n == 1)
+            return;
+        ans += (k * x * y);
+        dfs(n - 1, k * (x + 1));
+    };
+
+    dfs(n, 1);
+    cout << ans << '\n';
     return 0;
 }

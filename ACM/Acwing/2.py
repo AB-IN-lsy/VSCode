@@ -1,8 +1,8 @@
 '''
 Author: NEFU AB-IN
 Date: 2022-03-05 16:18:39
-FilePath: \ACM\Acwing\2.py
-LastEditTime: 2022-03-05 16:26:57
+FilePath: \Acwing\2.py
+LastEditTime: 2022-07-23 14:09:05
 '''
 
 N = 1010

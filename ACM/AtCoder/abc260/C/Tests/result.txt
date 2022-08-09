@@ -1,0 +1,46 @@
+Test 1 Passed
+
+Input 1: 
+2 3 4
+
+
+Expected Output : 
+12
+
+Obtained Output : 
+12
+
+
+________________________________________________________
+
+Test 2 Failed
+
+Input 2: 
+10 5 5
+
+
+Expected Output : 
+3942349900
+
+
+Obtained Output : 
+50388475
+
+
+________________________________________________________
+
+Test 3 Passed
+
+Input 3: 
+1 5 5
+
+
+Expected Output : 
+0
+
+Obtained Output : 
+0
+
+
+________________________________________________________
+

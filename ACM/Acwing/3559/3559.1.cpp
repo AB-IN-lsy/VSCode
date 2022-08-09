@@ -1,8 +1,8 @@
 /*
  * @Author: NEFU AB-IN
- * @Date: 2022-04-19 21:41:40
- * @FilePath: \Acwing\tempCodeRunnerFile.cpp
- * @LastEditTime: 2022-08-04 10:36:43
+ * @Date: 2022-07-29 22:54:45
+ * @FilePath: \Acwing\3559\3559.1.cpp
+ * @LastEditTime: 2022-07-29 22:57:34
  */
 #include <bits/stdc++.h>
 using namespace std;
@@ -18,9 +18,43 @@ typedef pair<int, int> PII;
 const int INF = INT_MAX;
 const int N = 1e6 + 10;
 
+void solve()
+{
+
+    int n;
+    cin >> n;
+
+    queue<int> q;
+    for (int i = 1; i <= n; ++i)
+    {
+        q.push(i);
+    }
+    int cnt = 0;
+    while (SZ(q))
+    {
+        auto t = q.front();
+        q.pop();
+        cnt++;
+        if (cnt == 3)
+        {
+            cnt = 0;
+            cout << t << " ";
+            continue;
+        }
+        q.push(t);
+    }
+    cout << '\n';
+    return;
+}
+
 signed main()
 {
     IOS;
-    cout << (10 << 1);
+    int T;
+    cin >> T;
+    while (T--)
+    {
+        solve();
+    }
     return 0;
 }
