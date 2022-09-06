@@ -1,8 +1,8 @@
 /*
  * @Author: NEFU AB-IN
  * @Date: 2022-03-25 20:05:38
- * @FilePath: \ACM\Acwing\TMP.CPP
- * @LastEditTime: 2022-06-29 20:53:21
+ * @FilePath: \Acwing\TMP.CPP
+ * @LastEditTime: 2022-09-05 16:20:15
  */
 #include <bits/stdc++.h>
 using namespace std;
@@ -21,10 +21,9 @@ const int N = 1e6 + 10;
 signed main()
 {
     IOS;
-    float you = 90.6 * 0.85 + 10 * 0.15;
-    float me = 89.77 * 0.85 + (2 + 2.5 + 1 + 1.75 / 2 + 1.5 / 2 + 10) * 0.15;
-
-    DEBUG(you);
+    double you = 91.04 * 0.85 + (11 + 0.4) * 0.15;
+    double me = 79.002;
     DEBUG(me);
+    DEBUG(you);
     return 0;
 }

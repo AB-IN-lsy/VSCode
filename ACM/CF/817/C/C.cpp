@@ -1,9 +1,3 @@
-/*
- * @Author: NEFU AB-IN
- * @Date: 2022-08-24 14:36:35
- * @FilePath: \LeetCode\test.cpp
- * @LastEditTime: 2022-09-06 16:35:49
- */
 #include <bits/stdc++.h>
 using namespace std;
 #define N n + 100
@@ -13,13 +7,22 @@ using namespace std;
     ios::sync_with_stdio(false);                                                                                       \
     cin.tie(nullptr);                                                                                                  \
     cout.tie(nullptr)
-#define DEBUG(X) cout << #X << ": " << X << endl
+#define DEBUG(X) cout << #X << ": " << X << '\n'
 typedef pair<int, int> PII;
+
+void solve()
+{
+    int n;
+    cin >> n;
+    return;
+}
 
 signed main()
 {
     IOS;
-    cout << (0 ^ 1) << (1 ^ 1);
-
+    int T;
+    cin >> T;
+    while (T--)
+        solve();
     return 0;
 }
