@@ -2,6 +2,12 @@
  * @Author: NEFU AB-IN
  * @Date: 2022-09-06 18:34:53
  * @FilePath: \LeetCode\1371\1371.cpp
+ * @LastEditTime: 2022-09-07 15:43:59
+ */
+/*
+ * @Author: NEFU AB-IN
+ * @Date: 2022-09-06 18:34:53
+ * @FilePath: \LeetCode\1371\1371.cpp
  * @LastEditTime: 2022-09-06 19:50:48
  */
 #include <bits/stdc++.h>
