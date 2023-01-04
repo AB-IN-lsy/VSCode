@@ -1,8 +1,8 @@
 /*
  * @Author: NEFU AB-IN
- * @Date: 2022-03-25 20:05:38
- * @FilePath: \Acwing\TMP.CPP
- * @LastEditTime: 2023-01-04 09:36:17
+ * @Date: 2023-01-03 11:29:30
+ * @FilePath: \Acwing\4644\4644.cpp
+ * @LastEditTime: 2023-01-03 11:31:40
  */
 #include <bits/stdc++.h>
 using namespace std;
@@ -13,7 +13,7 @@ using namespace std;
     ios::sync_with_stdio(false);                                                                                       \
     cin.tie(nullptr);                                                                                                  \
     cout.tie(nullptr)
-#define DEBUG(X) cout << #X << ": " << X << endl
+#define DEBUG(X) cout << #X << ": " << X << '\n'
 typedef pair<int, int> PII;
 
 // #undef N
@@ -24,6 +24,19 @@ typedef pair<int, int> PII;
 signed main()
 {
     IOS;
-    cout << log(10000);
+    int n;
+    cin >> n;
+    vector<int> a(N), b(N);
+    for (int i = 1; i <= n; ++i)
+    {
+        cin >> a[i];
+        b[i] = b[i - 1] + a[i];
+    }
+    int ans = 0;
+    for (int i = 1; i <= n; ++i)
+    {
+        ans += a[i] * (b[n] - b[i]);
+    }
+    cout << ans;
     return 0;
 }
