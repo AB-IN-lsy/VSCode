@@ -1,29 +1,39 @@
 /*
  * @Author: NEFU AB-IN
- * @Date: 2022-03-25 20:05:38
- * @FilePath: \Acwing\TMP.CPP
- * @LastEditTime: 2023-01-13 18:52:08
+ * @Date: 2023-01-10 19:18:03
+ * @FilePath: \Acwing\4454\4454.cpp
+ * @LastEditTime: 2023-01-10 19:40:12
  */
 #include <bits/stdc++.h>
 using namespace std;
-#define N n + 100
 #define int long long
+#undef int
+
 #define SZ(X) ((int)(X).size())
+#define ALL(X) (X).begin(), (X).end()
 #define IOS                                                                                                            \
     ios::sync_with_stdio(false);                                                                                       \
     cin.tie(nullptr);                                                                                                  \
     cout.tie(nullptr)
-#define DEBUG(X) cout << #X << ": " << X << endl
+#define DEBUG(X) cout << #X << ": " << X << '\n'
 typedef pair<int, int> PII;
 
-// #undef N
-// const int N = 1e5 + 10;
-
-// #undef int
+const int N = 1e5 + 10, INF = 0x3f3f3f3f;
 
 signed main()
 {
     IOS;
-    cout << (1 << 30);
+    int n, k, cnt = 0;
+    cin >> n >> k;
+    unordered_map<int, int> mp;
+    for (int i = 1; i <= k; ++i)
+    {
+        int l, r;
+        cin >> l >> r;
+        if (!mp.count(r) && r)
+            cnt++;
+        mp[l] = 1;
+    }
+    cout << cnt;
     return 0;
 }
