@@ -1,8 +1,8 @@
 /*
  * @Author: NEFU AB-IN
- * @Date: 2023-01-14 21:16:39
- * @FilePath: \Acwing\4455\4455.cpp
- * @LastEditTime: 2023-01-15 11:06:53
+ * @Date: 2023-01-18 12:22:11
+ * @FilePath: \Acwing\3422\3422.cpp
+ * @LastEditTime: 2023-01-28 10:44:41
  */
 #include <bits/stdc++.h>
 using namespace std;
@@ -17,30 +17,34 @@ using namespace std;
     cout.tie(nullptr)
 #define DEBUG(X) cout << #X << ": " << X << '\n'
 typedef pair<int, int> PII;
-const int N = 2e5 + 10;
 
-int n, m, k;
-int d[N];
+const int N = 1e5 + 10, INF = 0x3f3f3f3f;
+
+int n;
+vector<int> g[N];
+int dp[N], num[N];
+
+void dfs(int u)
+{
+    for (auto v : g[u])
+    {
+        dfs(v);
+        dp[u] = max(dp[u], dp[v] + num[u]);
+    }
+}
 
 signed main()
 {
-    scanf("%d%d%d", &n, &m, &k);
-    for (int i = 1; i <= n; i++)
+    IOS;
+    cin >> n;
+    for (int i = 2; i <= n; ++i)
     {
-        int t, c;
-        scanf("%d%d", &t, &c);
-        d[max(1, t - k - c + 1)]++;
-        d[max(1, t - k + 1)]--;
+        int x;
+        cin >> x;
+        g[x].push_back(i);
+        num[x]++;
     }
-    for (int i = 1; i <= N; i++)
-    {
-        d[i] += d[i - 1];
-    }
-    for (int i = 1; i <= m; i++)
-    {
-        int q;
-        scanf("%d", &q);
-        printf("%d\n", d[q]);
-    }
+    dfs(1);
+    cout << dp[1];
     return 0;
 }
