@@ -1,13 +1,6 @@
-/*
- * @Author: NEFU AB-IN
- * @Date: 2023-02-02 18:39:23
- * @FilePath: \Acwing\85cp\b\b.cpp
- * @LastEditTime: 2023-02-02 19:09:55
- */
 #include <bits/stdc++.h>
 using namespace std;
 #define int long long
-#undef int
 
 #define SZ(X) ((int)(X).size())
 #define ALL(X) (X).begin(), (X).end()
@@ -18,35 +11,42 @@ using namespace std;
 #define DEBUG(X) cout << #X << ": " << X << '\n'
 typedef pair<int, int> PII;
 
-const int N = 1e5 + 10, INF = 0x3f3f3f3f;
+const int N = 2e5 + 10, INF = 0x3f3f3f3f;
 
-string s;
-int k, mx;
-unordered_map<char, int> mp;
+int dp[N], v[N], V;
+
+void solve()
+{
+    int n;
+    cin >> n >> V;
+    for (int i = 1; i <= n; ++i)
+    {
+        cin >> v[i];
+        v[i] += i;
+    }
+
+    sort(v + 1, v + n + 1);
+    int ans = 0;
+    for (int i = 1; i <= n; ++i)
+    {
+        if (V >= v[i])
+        {
+            V -= v[i];
+            ans++;
+        }
+        else
+            break;
+    }
+    cout << ans << '\n';
+    return;
+}
 
 signed main()
 {
     IOS;
-    cin >> s >> k;
-    for (char i = 'a'; i <= 'z'; ++i)
-    {
-        int x;
-        cin >> x;
-        mp[i] = x;
-        mx = max(mx, x);
-    }
-
-    int ans = 0;
-    for (int i = 0; i < SZ(s); ++i)
-    {
-        ans += (i + 1) * mp[s[i]];
-    }
-    // DEBUG(ans);
-    for (int i = SZ(s) + 1; i < SZ(s) + 1 + k; ++i)
-    {
-        ans += i * mx;
-    }
-
-    cout << ans;
+    int T;
+    cin >> T;
+    while (T--)
+        solve();
     return 0;
 }

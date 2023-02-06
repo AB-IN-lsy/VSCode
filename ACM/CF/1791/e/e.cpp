@@ -1,8 +1,8 @@
 /*
  * @Author: NEFU AB-IN
- * @Date: 2023-02-02 18:39:23
- * @FilePath: \Acwing\85cp\c\c.cpp
- * @LastEditTime: 2023-02-02 19:18:19
+ * @Date: 2023-02-03 22:35:26
+ * @FilePath: \CF\1791\e\e.cpp
+ * @LastEditTime: 2023-02-04 11:07:18
  */
 #include <bits/stdc++.h>
 using namespace std;
@@ -17,38 +17,39 @@ using namespace std;
 #define DEBUG(X) cout << #X << ": " << X << '\n'
 typedef pair<int, int> PII;
 
-const int N = 100, INF = 0x3f3f3f3f;
+const int N = 2e5 + 10, INF = 0x3f3f3f3f;
 
-int fa[N], n, m;
+int dp[N][2], a[N];
 
-int find(int x)
+void solve()
 {
-    if (fa[x] == x)
-        return x;
-    return fa[x] = find(fa[x]);
+    memset(a, 0, sizeof a);
+    memset(dp, 0, sizeof dp);
+    int n;
+    cin >> n;
+    for (int i = 1; i <= n; ++i)
+    {
+        cin >> a[i];
+    }
+
+    dp[1][0] = a[1], dp[1][1] = -a[1];
+    dp[2][0] = a[1] + a[2], dp[2][1] = -a[1] - a[2];
+    for (int i = 3; i <= n; ++i)
+    {
+        dp[i][0] = a[i] + max(dp[i - 1][0], dp[i - 1][1]);
+        dp[i][1] = -a[i] + max(dp[i - 1][0] - 2 * a[i - 1], dp[i - 1][1] + 2 * a[i - 1]);
+    }
+
+    cout << max(dp[n][0], dp[n][1]) << '\n';
+    return;
 }
 
 signed main()
 {
     IOS;
-    cin >> n >> m;
-    for (int i = 1; i <= n; ++i)
-        fa[i] = i;
-
-    for (int i = 1; i <= m; ++i)
-    {
-        int x, y;
-        cin >> x >> y;
-        if (find(x) != find(y))
-            fa[find(x)] = find(y);
-    }
-    int cnt = 0;
-    for (int i = 1; i <= n; ++i)
-    {
-        if (fa[i] == i)
-            cnt++;
-    }
-
-    cout << (int)pow(2, n - cnt);
+    int T;
+    cin >> T;
+    while (T--)
+        solve();
     return 0;
 }

@@ -1,8 +1,8 @@
 /*
  * @Author: NEFU AB-IN
- * @Date: 2023-02-02 18:39:23
- * @FilePath: \Acwing\85cp\b\b.cpp
- * @LastEditTime: 2023-02-02 19:09:55
+ * @Date: 2023-02-03 22:35:26
+ * @FilePath: \CF\1791\c\c.cpp
+ * @LastEditTime: 2023-02-03 22:46:12
  */
 #include <bits/stdc++.h>
 using namespace std;
@@ -20,33 +20,37 @@ typedef pair<int, int> PII;
 
 const int N = 1e5 + 10, INF = 0x3f3f3f3f;
 
-string s;
-int k, mx;
-unordered_map<char, int> mp;
+void solve()
+{
+    int n;
+    cin >> n;
+    string s;
+    cin >> s;
+    int ans = n;
+    for (int i = 0; i < SZ(s); ++i)
+    {
+        if (ans == 0)
+            break;
+        if (s[i] == '0' && s[SZ(s) - i - 1] == '1')
+            ans -= 2;
+        else if (s[i] == '1' && s[SZ(s) - i - 1] == '0')
+            ans -= 2;
+        else
+        {
+            cout << ans << '\n';
+            return;
+        }
+    }
+    cout << ans << '\n';
+    return;
+}
 
 signed main()
 {
     IOS;
-    cin >> s >> k;
-    for (char i = 'a'; i <= 'z'; ++i)
-    {
-        int x;
-        cin >> x;
-        mp[i] = x;
-        mx = max(mx, x);
-    }
-
-    int ans = 0;
-    for (int i = 0; i < SZ(s); ++i)
-    {
-        ans += (i + 1) * mp[s[i]];
-    }
-    // DEBUG(ans);
-    for (int i = SZ(s) + 1; i < SZ(s) + 1 + k; ++i)
-    {
-        ans += i * mx;
-    }
-
-    cout << ans;
+    int T;
+    cin >> T;
+    while (T--)
+        solve();
     return 0;
 }
