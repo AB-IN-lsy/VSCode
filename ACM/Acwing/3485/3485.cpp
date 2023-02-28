@@ -1,8 +1,8 @@
 /*
  * @Author: NEFU AB-IN
- * @Date: 2023-01-30 11:32:05
- * @FilePath: \Acwing\test\test.cpp
- * @LastEditTime: 2023-02-28 15:22:17
+ * @Date: 2023-02-27 09:36:13
+ * @FilePath: \Acwing\3485\3485.cpp
+ * @LastEditTime: 2023-02-27 20:03:43
  */
 #include <bits/stdc++.h>
 using namespace std;
@@ -20,18 +20,9 @@ typedef pair<int, int> PII;
 
 const int N = 1e5 + 10, M = N * 32, INF = 0x3f3f3f3f;
 
-namespace Trie01Plus
-{
 int ver[M], root[N], son[M][2], idx;
 int n, m;
 int a[N];
-
-void init()
-{
-    root[0] = ++idx;
-    ver[0] = -1;
-    insert(root[0], 0, 0);
-}
 
 void insert(int x, int y, int k)
 // x为当前树的根节点编号，y为上一个树的根节点编号，k为第几棵树
@@ -55,25 +46,33 @@ int query(int x, int L, int v)
     {
         int u = v >> i & 1;
         if (ver[son[x][!u]] >= L)
-            x = son[x][!u]; // res += 1 << i;
+            x = son[x][!u];
         else
             x = son[x][u];
     }
     return a[ver[x]] ^ v;
 }
-} // namespace Trie01Plus
 
 signed main()
 {
     IOS;
-    int n;
-    cin >> n;
-    vector<int> s(n);
-    for (int i = 0; i < n; ++i)
-        cin >> s[i];
-
-    int k = upper_bound(ALL(s), 0) - s.begin();
-
-    cout << k << '\n';
+    cin >> n >> m;
+    // init
+    root[0] = ++idx;
+    ver[0] = -1;
+    insert(root[0], 0, 0);
+    for (int i = 1; i <= n; ++i)
+    {
+        cin >> a[i];
+        a[i] ^= a[i - 1];
+        root[i] = ++idx;
+        insert(root[i], root[i - 1], i);
+    }
+    int res = 0;
+    for (int i = 1; i <= n; ++i)
+    {
+        res = max(res, query(root[i], max(0, i - m), a[i]));
+    }
+    cout << res << '\n';
     return 0;
 }

@@ -1,3 +1,3 @@
-echo param %0 
-echo param %1
-echo param %2
+rem echo param %0 
+rem echo param %1
+rem echo param %2

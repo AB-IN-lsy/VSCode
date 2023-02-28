@@ -1,15 +1,15 @@
 '''
 Author: NEFU AB-IN
 Date: 2022-02-11 16:24:27
-FilePath: \ACM\Acwing\844.py
-LastEditTime: 2022-02-11 16:37:41
+FilePath: \Acwing\844\844.py
+LastEditTime: 2023-02-27 21:31:02
 '''
 
 from collections import deque
 
 N = 110
 g = []
-vis = [[0 for _ in range(N)] for _ in range(N)]
+vis = [[0] * N for _ in range(N)]
 
 dx = [-1, 0, 1, 0]
 dy = [0, 1, 0, -1]
@@ -21,9 +21,7 @@ def bfs(x, y):
     vis[x][y] = 1
     while len(q):
         t = q.pop()
-        x = t[0]
-        y = t[1]
-        cnt = t[2]
+        (x, y, cnt) = t
         if x == n - 1 and y == m - 1:
             return cnt
         for i in range(4):
@@ -35,9 +33,8 @@ def bfs(x, y):
                 vis[a][b] = 1
 
 
-if __name__ == "__main__":
-    n, m = map(int, input().split())
-    for i in range(n):
-        g.append(list(map(int, input().split())))
+n, m = map(int, input().split())
+for i in range(n):
+    g.append(list(map(int, input().split())))
 
-    print(bfs(0, 0))
+print(bfs(0, 0))
