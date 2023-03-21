@@ -5,7 +5,7 @@ $c = $c.Path
 # 判断是否有git仓库
 git branch
 $d = $?
-if ($d -eq $false){
+if ($d -eq $false) {
     echo 'Do not have git repository'
     continue
 }
@@ -14,7 +14,7 @@ if ($d -eq $false){
 cd 'D:\Program Files\Clash for Windows\'
 & '.\Clash for Windows.exe'
 echo 'Wait a second, Turnning VPN on'
-Start-Sleep -s 1
+Start-Sleep -s 8
 echo 'Successful Turning'
 cd "$c"
 
