@@ -1,18 +1,17 @@
 '''
 Author: NEFU AB-IN
-Date: 2023-03-21 21:12:31
-FilePath: \Acwing\893\893.py
-LastEditTime: 2023-03-22 22:16:00
+Date: 2023-03-22 22:16:04
+FilePath: \Acwing\894\894.py
+LastEditTime: 2023-03-22 22:23:37
 '''
 read = lambda: map(int, input().split())
 from collections import Counter, deque
 from heapq import heappop, heappush
 from itertools import permutations
 
-N = int(1e5 + 10)
+N = int(2e3 + 10)
 INF = int(2e9)
 f = [-1] * N
-# f 代表状态 因为S集合中的数的值最大为10000
 
 
 def sg(x):
@@ -20,9 +19,9 @@ def sg(x):
         return f[x]
 
     d = Counter()
-    for i in s:
-        if x >= i:
-            d[sg(x - i)] = 1
+    for i in range(x):
+        for j in range(i + 1):
+            d[sg(i) ^ sg(j)] = 1
 
     for i in range(INF):
         if d[i] == 0:
@@ -30,14 +29,11 @@ def sg(x):
             return f[x]
 
 
-k = int(input())
-s = list(read())
-
 n = int(input())
-h = list(read())
-
 res = 0
-for i in h:
+
+lst = list(read())
+for i in lst:
     res ^= sg(i)
 
 print("Yes" if res != 0 else "No")

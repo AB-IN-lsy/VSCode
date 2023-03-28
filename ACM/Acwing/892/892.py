@@ -20,4 +20,4 @@ for i in range(1, len(lst)):
     if i & 1:
         ans ^= lst[i]
 
-print("Yes" if ans != 0 else "No")893
+print("Yes" if ans != 0 else "No")
