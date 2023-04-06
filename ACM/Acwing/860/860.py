@@ -1,8 +1,8 @@
 '''
 Author: NEFU AB-IN
 Date: 2022-03-04 15:38:45
-FilePath: \ACM\Acwing\860.py
-LastEditTime: 2022-03-04 16:08:53
+FilePath: \Acwing\860\860.py
+LastEditTime: 2023-03-31 15:34:41
 '''
 import sys
 
