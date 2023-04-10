@@ -1,3 +1,9 @@
+'''
+Author: NEFU AB-IN
+Date: 2023-04-09 17:18:04
+FilePath: \Acwing\98cp\b\b.py
+LastEditTime: 2023-04-09 17:27:36
+'''
 # import
 import sys, math, os
 from io import BytesIO, IOBase
@@ -69,18 +75,10 @@ read = lambda: map(int, input().split())
 
 # —————————————————————Division line ————————————————————————————————————————
 
-time1 = datetime(2001, 8, 31, 12, 10, 10)
+n, = read()
+a = list(read())
+ans = 1
+for i in a:
+    ans *= i
 
-time = time1 + timedelta(days=10)
-print(time.year, time.month, time.day)
-print(time)
-
-q = deque()
-
-fa = [0] * N
-
-
-def find(x):
-    if fa[x] != x:
-        fa[x] = find(fa[x])
-    return fa[x]
+print(ans)

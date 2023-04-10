@@ -1,3 +1,9 @@
+'''
+Author: NEFU AB-IN
+Date: 2023-04-09 17:18:04
+FilePath: \Acwing\98cp\c\c.py
+LastEditTime: 2023-04-09 17:58:25
+'''
 # import
 import sys, math, os
 from io import BytesIO, IOBase
@@ -68,19 +74,17 @@ input = lambda: sys.stdin.readline().rstrip("\r\n")
 read = lambda: map(int, input().split())
 
 # —————————————————————Division line ————————————————————————————————————————
+# ans = 1
+# for i in range(1, 100):
+#     ans *= i
+#     print(ans)
 
-time1 = datetime(2001, 8, 31, 12, 10, 10)
+m, = read()
 
-time = time1 + timedelta(days=10)
-print(time.year, time.month, time.day)
-print(time)
+if m <= 5:
+    print(0)
+    exit(0)
 
-q = deque()
-
-fa = [0] * N
-
-
-def find(x):
-    if fa[x] != x:
-        fa[x] = find(fa[x])
-    return fa[x]
+print(5)
+for i in range(5 * m, 5 * m + 1):
+    print(i, )
