@@ -1,8 +1,8 @@
 /*
  * @Author: NEFU AB-IN
  * @Date: 2023-01-30 11:32:05
- * @FilePath: \Acwing\test\test.cpp
- * @LastEditTime: 2023-04-18 19:30:13
+ * @FilePath: \Acwing\3384\3384.cpp
+ * @LastEditTime: 2023-04-18 19:35:05
  */
 #include <bits/stdc++.h>
 using namespace std;
@@ -24,10 +24,11 @@ unordered_map<char, char> l, r;
 int id;
 string s;
 
+// 根据节点的值进行建树，而不是节点的下标
 char dfs()
 {
     char rt = s[++id];
-    if (rt == '#' || id > SZ(s))
+    if (rt == '#' || id >= SZ(s))
         return '1';
     l[rt] = dfs();
     r[rt] = dfs();

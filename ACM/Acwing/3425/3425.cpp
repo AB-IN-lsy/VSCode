@@ -1,8 +1,8 @@
 /*
  * @Author: NEFU AB-IN
- * @Date: 2023-01-30 11:32:05
- * @FilePath: \Acwing\test\test.cpp
- * @LastEditTime: 2023-04-18 19:30:13
+ * @Date: 2023-04-25 16:20:00
+ * @FilePath: \Acwing\3425\3425.cpp
+ * @LastEditTime: 2023-04-25 17:35:59
  */
 #include <bits/stdc++.h>
 using namespace std;
@@ -18,38 +18,35 @@ using namespace std;
 #define DEBUG(X) cout << #X << ": " << X << '\n'
 typedef pair<int, int> PII;
 
-const int N = 1e2 + 10, INF = 0x3f3f3f3f;
+const int N = 1e5 + 10, INF = 0x3f3f3f3f;
 
-unordered_map<char, char> l, r;
-int id;
-string s;
-
-char dfs()
+struct sa
 {
-    char rt = s[++id];
-    if (rt == '#' || id > SZ(s))
-        return '1';
-    l[rt] = dfs();
-    r[rt] = dfs();
-    return rt;
-}
+    int num;
+    string color;
 
-void dfs2(char root)
-{
-    if (root == '1')
-        return;
-    dfs2(l[root]);
-    cout << root << " ";
-    dfs2(r[root]);
-    return;
-}
+    bool operator<(const sa a)
+    {
+        return num > a.num;
+    }
+};
+
+sa a[N];
 
 signed main()
 {
-    cin >> s;
-    s = " " + s;
+    IOS;
+    int n;
+    cin >> n;
+    for (int i = 1; i <= n; ++i)
+    {
+        cin >> a[i].num >> a[i].color;
+    }
+    sort(a + 1, a + 1 + n);
 
-    char root = dfs();
-    dfs2(root);
+    for (int i = 1; i <= n; ++i)
+    {
+        cout << a[i].color << '\n';
+    }
     return 0;
 }
