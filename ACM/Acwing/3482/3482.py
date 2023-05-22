@@ -1,17 +1,16 @@
 '''
 Author: NEFU AB-IN
-Date: 2023-03-26 10:40:31
-FilePath: \Acwing\test\test.py
-LastEditTime: 2023-05-18 18:45:06
+Date: 2023-05-18 17:00:39
+FilePath: \Acwing\3482\3482.py
+LastEditTime: 2023-05-18 17:01:16
 '''
 # import
-import sys, math, os
-from io import BytesIO, IOBase
+import sys, math
 from collections import Counter, deque
 from heapq import heapify, heappop, heappush, nlargest, nsmallest
 from bisect import bisect_left, bisect_right
 from datetime import datetime, timedelta
-from typing import *
+from string import ascii_lowercase, ascii_uppercase
 
 
 class sa:
@@ -29,9 +28,14 @@ INF = int(2e9)
 
 # Define
 sys.setrecursionlimit(INF)
-input = lambda: sys.stdin.readline().rstrip("\r\n")
+input = lambda: sys.stdin.readline().rstrip("\r\n")  # Remove when Mutiple data
 read = lambda: map(int, input().split())
+letterTonumber = lambda x: ord(x.upper()) - 64
 
 # —————————————————————Division line ——————————————————————
 
-d1 = datetime(year=99998, month=1, day=1)
+a, = read()
+b, = read()
+print(a + b)
+print(a - b)
+print(a * b)

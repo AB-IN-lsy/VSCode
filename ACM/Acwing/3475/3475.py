@@ -1,17 +1,10 @@
-'''
-Author: NEFU AB-IN
-Date: 2023-03-26 10:40:31
-FilePath: \Acwing\test\test.py
-LastEditTime: 2023-05-18 18:45:06
-'''
 # import
-import sys, math, os
-from io import BytesIO, IOBase
+import sys, math
 from collections import Counter, deque
 from heapq import heapify, heappop, heappush, nlargest, nsmallest
 from bisect import bisect_left, bisect_right
 from datetime import datetime, timedelta
-from typing import *
+from string import ascii_lowercase, ascii_uppercase
 
 
 class sa:
@@ -29,9 +22,27 @@ INF = int(2e9)
 
 # Define
 sys.setrecursionlimit(INF)
-input = lambda: sys.stdin.readline().rstrip("\r\n")
 read = lambda: map(int, input().split())
+LTN = lambda x: ord(x.upper()) - 65  # A -> 0
+NTL = lambda x: ascii_uppercase[x]  # 0 -> A
 
 # —————————————————————Division line ——————————————————————
 
-d1 = datetime(year=99998, month=1, day=1)
+while True:
+    try:
+        st = input()
+        if st == 'ENDOFINPUT':
+            break
+        s = input()
+        ed = input()
+
+        for i in s:
+            if i >= 'A' and i <= 'Z':
+                ii = NTL((LTN(i) - 5 + 26) % 26)
+                print(ii, end="")
+            else:
+                print(i, end="")
+        print()
+
+    except:
+        break
