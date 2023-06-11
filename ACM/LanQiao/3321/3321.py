@@ -1,8 +1,8 @@
 '''
 Author: NEFU AB-IN
-Date: 2023-05-24 12:47:50
-FilePath: \LanQiao\2172\2172.py
-LastEditTime: 2023-06-09 13:45:29
+Date: 2023-06-09 15:54:35
+FilePath: \LanQiao\3321\3321.py
+LastEditTime: 2023-06-09 16:10:50
 '''
 # import
 from sys import setrecursionlimit, stdin, stdout, exit
@@ -24,7 +24,7 @@ class sa:
 
 
 # Final
-N = int(1e5 + 10)
+N = int(2e6 + 10)
 M = 20
 INF = int(2e9)
 
@@ -36,54 +36,53 @@ LTN = lambda x: ord(x.upper()) - 65  # A -> 0
 NTL = lambda x: ascii_uppercase[x]  # 0 -> A
 
 # —————————————————————Division line ——————————————————————
-a = [0] * N
-dp = [[0] * M for _ in range(N)]
-Log = [0] * N
+st, prime = [0] * N, [0] * N
+cnt = 0
 
 
 def init():
-    for j in range(M):
-        i = 1
-        while i + (1 << j) - 1 <= n:
-            if j == 0:
-                dp[i][j] = a[i]
-            else:
-                dp[i][j] = gcd(dp[i][j - 1], dp[i + (1 << (j - 1))][j - 1])
-            i += 1
-    Log[1] = 0
+    global cnt
+    st[0] = st[1] = 1
     for i in range(2, N):
-        Log[i] = Log[i >> 1] + 1
+        if st[i] == 0:
+            prime[cnt] = i
+            cnt += 1
+        j = 0
+        while i * prime[j] < N:
+            st[i * prime[j]] = 1
+            if i % prime[j] == 0:
+                break
+            j += 1
+    for i in range(1, N):
+        st[i] += st[i - 1]
 
-
-def query(l, r):
-    k = Log[r - l + 1]
-    return gcd(dp[l][k], dp[r - (1 << k) + 1][k])
-
-
-n, = read()
-a[1:] = read()
 
 init()
-cnt = sum(i == 1 for i in a)
-if cnt > 0:
-    print(n - cnt)
-    exit(0)
-
-if query(1, n) != 1:
+a, b, k = read()
+if k > b - a + 1:
     print(-1)
     exit(0)
 
-ans = INF
 
-for i in range(1, n + 1):
-    l, r = i, n
-    while l < r:
-        mid = (l + r) >> 1
-        if query(i, mid) == 1:
-            r = mid
-        else:
-            l = mid + 1
-    if query(i, r) == 1:
-        ans = min(ans, r - i)
+def check(x):
+    for i in range(a, b + 1):
+        l, r = i, i + x - 1
+        if r > b:
+            break
+        if st[r] - st[l - 1] > (r - l + 1) - k:
+            return False
+    return True
 
-print(ans + n - 1)
+
+l, r = 1, b - a + 1
+while l < r:
+    mid = l + r >> 1
+    if check(mid):
+        r = mid
+    else:
+        l = mid + 1
+
+if check(l):
+    print(l)
+else:
+    print(-1)

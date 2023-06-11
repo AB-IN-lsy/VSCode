@@ -1,8 +1,8 @@
 '''
 Author: NEFU AB-IN
-Date: 2023-05-24 12:47:50
-FilePath: \LanQiao\2172\2172.py
-LastEditTime: 2023-06-09 13:45:29
+Date: 2023-06-09 18:00:12
+FilePath: \LanQiao\2940\2940.py
+LastEditTime: 2023-06-09 20:26:52
 '''
 # import
 from sys import setrecursionlimit, stdin, stdout, exit
@@ -20,11 +20,11 @@ class sa:
         self.y = y
 
     def __lt__(self, a):
-        return self.x < a.x
+        return self.y < a.y
 
 
 # Final
-N = int(1e5 + 10)
+N = int(2e5 + 10)
 M = 20
 INF = int(2e9)
 
@@ -36,9 +36,9 @@ LTN = lambda x: ord(x.upper()) - 65  # A -> 0
 NTL = lambda x: ascii_uppercase[x]  # 0 -> A
 
 # —————————————————————Division line ——————————————————————
-a = [0] * N
 dp = [[0] * M for _ in range(N)]
 Log = [0] * N
+a = [0] * N
 
 
 def init():
@@ -50,9 +50,8 @@ def init():
             else:
                 dp[i][j] = gcd(dp[i][j - 1], dp[i + (1 << (j - 1))][j - 1])
             i += 1
-    Log[1] = 0
     for i in range(2, N):
-        Log[i] = Log[i >> 1] + 1
+        Log[i] = Log[i // 2] + 1
 
 
 def query(l, r):
@@ -63,27 +62,28 @@ def query(l, r):
 n, = read()
 a[1:] = read()
 
+ans = []
 init()
-cnt = sum(i == 1 for i in a)
-if cnt > 0:
-    print(n - cnt)
-    exit(0)
-
-if query(1, n) != 1:
-    print(-1)
-    exit(0)
-
-ans = INF
 
 for i in range(1, n + 1):
     l, r = i, n
     while l < r:
-        mid = (l + r) >> 1
-        if query(i, mid) == 1:
-            r = mid
+        mid = l + r + 1 >> 1
+        if query(i, mid) >= mid - i + 1:
+            l = mid
         else:
-            l = mid + 1
-    if query(i, r) == 1:
-        ans = min(ans, r - i)
+            r = mid - 1
+    if query(i, l) == l - i + 1:
+        ans.append(sa(i, l))
 
-print(ans + n - 1)
+cnt = 1
+if len(ans) == 0:
+    print(0)
+else:
+    ans.sort()
+    tmp = ans[0].y
+    for i in ans:
+        if i.x > tmp:
+            cnt += 1
+            tmp = i.y
+    print(cnt)

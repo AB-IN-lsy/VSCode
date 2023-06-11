@@ -18,7 +18,7 @@ class sa:
 
 
 # Final
-N = int(1e5 + 10)
+N = int(2e5 + 10)
 M = 20
 INF = int(2e9)
 
@@ -31,3 +31,29 @@ NTL = lambda x: ascii_uppercase[x]  # 0 -> A
 
 # —————————————————————Division line ——————————————————————
 
+a, q, p = [0] * N, [0] * N, [0] * N
+
+n, = read()
+a[1:] = read()
+
+for i in range(1, n + 1):
+    q[i] = q[i - 1] + a[i]
+    p[i] = p[i - 1] ^ a[i]
+
+
+def check(l, r):
+    return q[r] - q[l - 1] == p[r] ^ p[l - 1]
+
+
+ans = 0
+for i in range(1, n + 1):
+    l, r = i, n
+    while l < r:
+        mid = l + r + 1 >> 1
+        if check(i, mid):
+            l = mid
+        else:
+            r = mid - 1
+    if check(i, r):
+        ans += (r - i + 1)
+print(ans)

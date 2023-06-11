@@ -1,3 +1,9 @@
+'''
+Author: NEFU AB-IN
+Date: 2023-06-09 23:17:53
+FilePath: \LanQiao\2954\2954.py
+LastEditTime: 2023-06-09 23:46:30
+'''
 # import
 from sys import setrecursionlimit, stdin, stdout, exit
 from collections import Counter, deque
@@ -30,4 +36,3 @@ LTN = lambda x: ord(x.upper()) - 65  # A -> 0
 NTL = lambda x: ascii_uppercase[x]  # 0 -> A
 
 # —————————————————————Division line ——————————————————————
-
