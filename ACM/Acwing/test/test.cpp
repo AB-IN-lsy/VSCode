@@ -2,7 +2,7 @@
  * @Author: NEFU AB-IN
  * @Date: 2023-01-30 11:32:05
  * @FilePath: \Acwing\test\test.cpp
- * @LastEditTime: 2023-04-18 19:30:13
+ * @LastEditTime: 2023-07-17 08:30:46
  */
 #include <bits/stdc++.h>
 using namespace std;
@@ -18,38 +18,59 @@ using namespace std;
 #define DEBUG(X) cout << #X << ": " << X << '\n'
 typedef pair<int, int> PII;
 
-const int N = 1e2 + 10, INF = 0x3f3f3f3f;
+const int N = 1e5 + 10, INF = 0x3f3f3f3f;
 
-unordered_map<char, char> l, r;
-int id;
-string s;
-
-char dfs()
+std::string solution(int num)
 {
-    char rt = s[++id];
-    if (rt == '#' || id > SZ(s))
-        return '1';
-    l[rt] = dfs();
-    r[rt] = dfs();
-    return rt;
+    std::string s = "";
+
+    while (num > 0)
+    {
+        int r = (num - 1) % 26;
+        char l = 'A' + r;
+        s = l + s;
+        num = (num - 1) / 26;
+    }
+
+    return s;
 }
 
-void dfs2(char root)
+class Solution
 {
-    if (root == '1')
-        return;
-    dfs2(l[root]);
-    cout << root << " ";
-    dfs2(r[root]);
-    return;
-}
+  public:
+    int maxSubArray(std::vector<int> &nums)
+    {
+        // 请实现函数
+        vector<int> dp(nums.size());
+        for (int i = 0; i < nums.size(); ++i)
+        {
+            if (i == 0)
+                dp[i] = max(0, nums[i]);
+            else
+                dp[i] = max(0, dp[i - 1] + nums[i]);
+        }
+        int mx = dp[0];
+        for (auto i : dp)
+        {
+            mx = max(mx, i);
+        }
+        return mx;
+    }
+};
 
 signed main()
 {
-    cin >> s;
-    s = " " + s;
+    IOS;
+    cout << solution(700) << '\n';
+    cout << solution(30) << '\n';
+    cout << solution(28) << '\n';
+    cout << solution(27) << '\n';
+    cout << solution(26) << '\n';
+    cout << solution(24) << '\n';
+    cout << solution(1) << '\n';
 
-    char root = dfs();
-    dfs2(root);
+    Solution solution;
+    vector<int> v{1, -2, 3, 10, -4, 7, 2, -5};
+    cout << solution.maxSubArray(v);
     return 0;
 }

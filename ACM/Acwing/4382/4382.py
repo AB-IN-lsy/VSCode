@@ -1,8 +1,8 @@
 '''
 Author: NEFU AB-IN
-Date: 2023-03-26 10:40:31
-FilePath: \Acwing\test\test.py
-LastEditTime: 2023-07-17 08:35:42
+Date: 2023-07-08 21:41:05
+FilePath: \Acwing\4382\4382.py
+LastEditTime: 2023-07-09 00:24:30
 '''
 # import
 from sys import setrecursionlimit, stdin, stdout, exit
@@ -24,7 +24,7 @@ class sa:
 
 
 # Final
-N = int(1e3 + 10)
+N = int(1e5 + 10)
 M = 20
 INF = int(2e9)
 
@@ -36,5 +36,22 @@ AR = lambda x=0: [x] * N
 
 # —————————————————————Division line ——————————————————————
 
-print(800 % 26)
-print((800 - (800 % 26)) % 26)
+t, = read()
+
+for _ in range(t):
+    I = input()
+    p = input()
+
+    j, cnt, flag = 0, 0, 0
+    for i in range(len(I)):
+        while j < len(p) and I[i] != p[j]:
+            j += 1
+            cnt += 1
+        if j >= len(p):
+            flag = 1
+            print(f"Case #{_ + 1}: IMPOSSIBLE")
+            break
+        if I[i] == p[j]:
+            j += 1
+    if flag == 0:
+        print(f"Case #{_ + 1}: {cnt + len(p) - j}")

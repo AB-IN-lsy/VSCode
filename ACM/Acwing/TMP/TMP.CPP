@@ -1,29 +1,41 @@
 /*
  * @Author: NEFU AB-IN
  * @Date: 2022-03-25 20:05:38
- * @FilePath: \Acwing\TMP.CPP
- * @LastEditTime: 2023-01-13 18:52:08
+ * @FilePath: \Acwing\TMP\TMP.CPP
+ * @LastEditTime: 2023-07-17 08:38:47
  */
-#include <bits/stdc++.h>
-using namespace std;
-#define N n + 100
-#define int long long
-#define SZ(X) ((int)(X).size())
-#define IOS                                                                                                            \
-    ios::sync_with_stdio(false);                                                                                       \
-    cin.tie(nullptr);                                                                                                  \
-    cout.tie(nullptr)
-#define DEBUG(X) cout << #X << ": " << X << endl
-typedef pair<int, int> PII;
+#include <iostream>
+#include <string>
 
-// #undef N
-// const int N = 1e5 + 10;
-
-// #undef int
-
-signed main()
+std::string convertToTitle(int n)
 {
-    IOS;
-    cout << (1 << 30);
+    std::string result = "";
+
+    while (n > 0)
+    {
+        // 将 n 转换为 0-25 的数，表示 A-Z
+        int digit = (n - 1) % 26;
+
+        // 将数字转换为对应的大写字母
+        char c = digit + 'A';
+
+        // 将字符插入到结果字符串的开头
+        result = c + result;
+
+        // 更新 n，去除已经处理的部分
+        n = (n - 1) / 26;
+    }
+
+    return result;
+}
+
+int main()
+{
+    int n;
+    std::cin >> n;
+
+    std::string excelColumn = convertToTitle(n);
+    std::cout << excelColumn << std::endl;
+
     return 0;
 }
