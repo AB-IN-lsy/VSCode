@@ -1,8 +1,8 @@
 /*
  * @Author: NEFU AB-IN
  * @Date: 2023-08-06 09:44:15
- * @FilePath: \GoTest\1.go
- * @LastEditTime: 2023-08-06 22:57:59
+ * @FilePath: \GoTest\1\1.go
+ * @LastEditTime: 2023-08-22 11:36:37
  */
 package main
 

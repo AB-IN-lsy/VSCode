@@ -1,33 +1,34 @@
+/*
+ * @Author: NEFU AB-IN
+ * @Date: 2023-08-06 23:17:06
+ * @FilePath: \GoTest\2\2.go
+ * @LastEditTime: 2023-08-22 11:42:20
+ */
 package main
 
 import (
-	"bufio"
+	"encoding/json"
 	"fmt"
-	"os"
 )
 
-var (
-	in  = bufio.NewReader(os.Stdin)
-	out = bufio.NewWriter(os.Stdout)
-)
-
-func Read[T any]() T {
-	var i T
-	fmt.Fscan(in, &i)
-	return i
-}
-
-const N int = 1e5 + 10
-
-func solve() {
-
+type Student struct {
+	Name string `json:"name"`
+	Sid  string `json:"sid"`
 }
 
 func main() {
-	defer out.Flush()
-	T := Read[int]()
-	for T > 0 {
-		solve()
-		T--
+	s := Student{Name: "jonh", Sid: "10323"}
+	//序列化
+	p, err := json.Marshal(s)
+	if err != nil {
+		panic(err)
 	}
+	fmt.Println(p)
+
+	//反序列化
+	err = json.Unmarshal(p, &s)
+	if err != nil {
+		panic(err)
+	}
+	fmt.Printf("%#v\n", s)
 }
