@@ -1,0 +1,32 @@
+Test 1 Failed
+
+Input 1: 
+2
+*nnNpRNP
+BNKNKQRq
+Rp*QpNnq
+QpPpqNq*
+pRrBkRbR
+KpPbbPRR
+*rNnRkRb
+npBqbQpr
+*nnNpRNP
+BNKNKQRq
+Rp*QpNnq
+QpPpqNq*
+pRrBkRbR
+KpPbbPRR
+*rNnRkRb
+npBqbQpr
+
+Expected Output : 
+1
+2
+
+Obtained Output : 
+1
+1
+
+
+________________________________________________________
+

@@ -2,7 +2,7 @@
  * @Author: NEFU AB-IN
  * @Date: 2023-08-23 10:35:07
  * @FilePath: \GoTest\5\5.go
- * @LastEditTime: 2023-08-23 15:20:30
+ * @LastEditTime: 2023-08-23 23:16:12
  */
 package main
 
@@ -102,7 +102,7 @@ func query(word string) {
 	}
 
 	var dictResponse DictResponse
-	err = json.Unmarshal(bodyText, &dictResponse)
+	err = json.Unmarshal(bodyText, dictResponse)
 	if err != nil {
 		log.Fatal(err)
 	}
