@@ -2,14 +2,14 @@
  * @Author: NEFU AB-IN
  * @Date: 2023-08-23 17:28:10
  * @FilePath: \Acwing\5081\5081.cpp
- * @LastEditTime: 2023-08-23 19:16:21
+ * @LastEditTime: 2023-09-01 20:54:37
  */
 #include <bits/stdc++.h>
 using namespace std;
 #define int long long
 #undef int
 
-#define SZ(X) ((int)(X).size())
+#define SZ(X) ((int)(X).size())·
 #define ALL(X) (X).begin(), (X).end()
 #define IOS                                                                                                            \
     ios::sync_with_stdio(false);                                                                                       \

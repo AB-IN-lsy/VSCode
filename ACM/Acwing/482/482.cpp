@@ -1,12 +1,10 @@
 /*
  * @Author: NEFU AB-IN
- * @Date: 2022-03-25 20:05:38
- * @FilePath: \Acwing\TMP\TMP.CPP
- * @LastEditTime: 2023-09-09 18:53:56
+ * @Date: 2023-09-07 17:07:57
+ * @FilePath: \Acwing\482\482.cpp
+ * @LastEditTime: 2023-09-07 18:35:39
  */
 #include <bits/stdc++.h>
-#include <stack>
-#include <unordered_map>
 using namespace std;
 #define int long long
 #undef int
@@ -18,11 +16,10 @@ using namespace std;
     cin.tie(nullptr);                                                                                                  \
     cout.tie(nullptr)
 #define DEBUG(X) cout << #X << ": " << X << '\n'
-typedef pair<int, int> PII;
 
 const int N = 1e5 + 10, INF = 0x3f3f3f3f;
 
-int dp[N];
+int a[N], f[N], g[N];
 
 signed main()
 {
@@ -31,45 +28,34 @@ signed main()
 
     int n;
     cin >> n;
+    for (int i = 1; i <= n; ++i)
+        cin >> a[i];
 
-    unordered_map<char, PII> mp;
-
-    char A = 'A';
     for (int i = 1; i <= n; ++i)
     {
-        int x, y;
-        cin >> x >> y;
-        mp[A] = {x, y};
-        A = A + 1;
+        f[i] = 1;
+        for (int j = 1; j < i; ++j)
+        {
+            if (a[j] < a[i])
+                f[i] = max(f[i], f[j] + 1);
+        }
     }
 
-    int ans = 0;
-    string s;
-    cin >> s;
-    stack<PII> st;
-
-    for (auto i : s)
+    for (int i = n; i; --i)
     {
-        if (i == '(')
-            continue;
-        else if (i == ')')
-        {
-
-            auto a = st.top();
-            st.pop();
-            auto b = st.top();
-            st.pop();
-
-            ans += a.first * a.second * b.first;
-            st.push({b.first, a.second});
-        }
-        else
-        {
-            st.push({mp[i].first, mp[i].second});
-        }
+        g[i] = 1;
+        for (int j = n; j > i; --j)
+            if (a[j] < a[i])
+                g[i] = max(g[i], g[j] + 1);
     }
 
-    cout << ans;
+    int mx = 0;
+    for (int i = 1; i <= n; ++i)
+    {
+        mx = max(mx, f[i] + g[i] - 1);
+    }
+
+    cout << n - mx;
 
     return 0;
 }

@@ -20,6 +20,7 @@ cd %1
 if not exist %1.%3 (
 	type %TemplatePath%\template%2.%3 > %1.%3 
 	echo The %1.%3 creation completed.
+	code %1.%3 
 ) else (
 	echo Warning. The %1.%3 has already been created.
 )
