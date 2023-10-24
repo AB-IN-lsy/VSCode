@@ -7,8 +7,12 @@ rem Last edit: 2023/5/4
 
 D:
 cd "D:\Code\Hexo"
-set /p type=请输入文章类型 (cp, pb): 
-set /p platform=请输入平台 (Acwing, Article, AtCoder, Codeforces, GPLT, LanQiao, Leetcode, Nowcoder, etc): 
+set /p type=Please input article type (cp, pb): 
+set /p platform=Please input the platform (Acwing, Article, AtCoder, Codeforces, GPLT, LanQiao, Leetcode, Nowcoder, Luogu, etc): 
 set d=%date:~0,10%
+set da=%d:/=-%
 
-hexo new %type% %platform%%d%
+echo %d%
+
+hexo new %type% %platform%%da%
+code %platform%%da%.md

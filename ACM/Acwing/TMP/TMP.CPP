@@ -24,6 +24,34 @@ const int N = 1e5 + 10, INF = 0x3f3f3f3f;
 
 int dp[N];
 
+#define int long long
+#undef int
+
+#define SZ(X) ((int)(X).size())
+
+class Solution {
+public:
+
+    cosnt int N = 1e5 + 10, M = 18;
+    int dp[N][M], Log[N];
+
+    void init(int n, vector<int>& nums){
+        nums.insert(nums.begin(), 0);
+        for(int j = 0; j < M; ++ j){
+            for(int i = 1; i + (1 << j) - 1 <= n; ++ i){
+                if(j == 0) dp[i][j] = nums[i];
+                else dp[i][j] = max(dp[i][j - 1], dp[i + (1 << (j - 1))][j - 1])
+            }
+        }
+        for(int i = 2; i < N; ++ i) Log[i] = Log[i >> 1] + 1;
+    }
+
+    int jump(vector<int>& nums) {
+        init(SZ(nums), nums);
+    }
+};
+
+
 signed main()
 {
     // freopen("Tests/input_1.txt", "r", stdin);
