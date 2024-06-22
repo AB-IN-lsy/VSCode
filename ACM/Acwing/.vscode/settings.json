@@ -95,5 +95,7 @@
     "git.ignoreLimitWarning": true,
     "python.pythonPath": "C:\\Users\\qpliu\\AppData\\Local\\Programs\\Python\\Python38\\python.exe",
     "C_Cpp.errorSquiggles": "Enabled",
-    "vue.codeActions.enabled": false
+    "vue.codeActions.enabled": false,
+    "python.analysis.typeCheckingMode": "off",
+    "python.analysis.autoImportCompletions": true
 }

@@ -1,27 +1,36 @@
 @echo off
 
-rem vscode task CreateFolder
-rem Powered by AB-IN
-rem Rewrite the previous Code and implement them through scripts
-rem Last edit: 2023/2/23
+:: VSCode Task: CreateFolder
+:: Powered by AB-IN
+:: Rewrite the previous code and implement them through scripts
+:: Last edit: 2024/6/22
 
-rem %1: folderName
-rem %2: typeName
-rem %3: suffixName
+:: Arguments:
+:: %1: folderName
+:: %2: typeName
+:: %3: suffixName
 
-if not exist %1 (
-	md %1	
+:: Set descriptive variable names
+set "folderName=%~1"
+set "typeName=%~2"
+set "suffixName=%~3"
+
+:: Check if the folder exists, if not, create it
+IF NOT EXIST "%folderName%" (
+    MD "%folderName%"
 )
 
-rem echo Now we enter the folder.
+:: Navigate to the folder
+CD /D "%folderName%"
 
-cd %1
-
-if not exist %1.%3 (
-	type %TemplatePath%\template%2.%3 > %1.%3 
-	echo The %1.%3 creation completed.
-	code %1.%3 
-) else (
-	echo Warning. The %1.%3 has already been created.
+:: Check if the file exists, if not, create it from template
+IF NOT EXIST "%folderName%.%suffixName%" (
+    TYPE "%TemplatePath%\template%typeName%.%suffixName%" > "%folderName%.%suffixName%"
+    ECHO The file "%folderName%.%suffixName%" has been created successfully.
+    code "%folderName%.%suffixName%"
+) ELSE (
+    ECHO Warning: The file "%folderName%.%suffixName%" already exists.
 )
 
+:: Exit the script
+EXIT /B 0

@@ -11,12 +11,12 @@ if ($d -eq $false) {
 }
 
 #打开VPN
-cd 'D:\Program Files\Clash for Windows\'
-& '.\Clash for Windows.exe'
-echo 'Wait a second, Turnning VPN on'
-Start-Sleep -s 8
-echo 'Successful Turning'
-cd "$c"
+#cd 'D:\Program Files\Clash for Windows\'
+#& '.\Clash for Windows.exe'
+#echo 'Wait a second, Turnning VPN on'
+#Start-Sleep -s 8
+#echo 'Successful Turning'
+#cd "$c"
 
 #获取分支
 $a = git branch
