@@ -12,7 +12,7 @@ set /p platform=Please input the platform (Acwing, Article, AtCoder, Codeforces,
 set d=%date:~0,10%
 set da=%d:/=-%
 
-echo %d%
+echo %da%
 
 hexo new %type% %platform%%da%
 code %platform%%da%.md

@@ -18,10 +18,11 @@ static int IOS = []() {
     return 0;
 }();
 
-class Solution {
-public:
-    int hIndex(vector<int>& citations) {
-      
+class Solution
+{
+  public:
+    int hIndex(vector<int> &citations)
+    {
     }
 };
 // ---------------------
