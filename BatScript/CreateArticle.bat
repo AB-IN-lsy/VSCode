@@ -23,4 +23,9 @@ cd "%hexoPath%"
 
 :: Create new article
 hexo new %articleType% %platform%%formattedDate%
+
+:: Navigate to the posts directory
+cd "%hexoPath%\source\_posts"
+
+:: Open the new article in VSCode
 code "%platform%%formattedDate%.md"
