@@ -1,8 +1,8 @@
 '''
 Author: NEFU AB-IN
-Date: 2024-07-12 11:05:52
-FilePath: \LeetCode\3181\3181.py
-LastEditTime: 2024-07-12 15:27:59
+Date: 2024-07-12 16:13:26
+FilePath: \LeetCode\2974\2974.py
+LastEditTime: 2024-07-12 16:14:43
 '''
 # 3.8.19 import
 import random
@@ -52,29 +52,13 @@ class Std:
 
 
 class Solution:
-    def maxTotalReward(self, rewardValues: List[int]) -> int:
-        rewardValues.sort()
-        rewardValues = [0] + rewardValues
-        n = len(rewardValues) - 1
-        m = rewardValues[-1] * 2  # 最大的可能是最大值*2
+    def numberGame(self, nums: List[int]) -> List[int]:
+        res = []
+        nums.sort(reverse=True)
 
-        dp = Arr.array(False, m + 1, )
-        dp[0] = True
+        while nums:
+            x, y = nums.pop(), nums.pop()
+            res.append(y)
+            res.append(x)
 
-        for i in range(1, n + 1):
-            v = rewardValues[i]
-            for j in range(2 * v - 1, v - 1, -1):
-                dp[j] = dp[j] or dp[j - v]
-
-        for j in range(m - 1, -1, -1):
-            if dp[j]:
-                return j
-        return 0
-
-    def maxTotalReward(self, rewardValues: List[int]) -> int:
-        rewardValues.sort()
-        f = 1
-        for v in rewardValues:
-            mask = (1 << v) - 1
-            f |= (f & mask) << v
-        return f.bit_length() - 1
+        return res

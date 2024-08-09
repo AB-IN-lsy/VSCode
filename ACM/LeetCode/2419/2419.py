@@ -1,8 +1,8 @@
 '''
 Author: NEFU AB-IN
-Date: 2024-07-12 11:05:52
-FilePath: \LeetCode\3181\3181.py
-LastEditTime: 2024-07-12 15:27:59
+Date: 2024-07-21 01:49:41
+FilePath: \LeetCode\2419\2419.py
+LastEditTime: 2024-07-21 01:59:04
 '''
 # 3.8.19 import
 import random
@@ -14,18 +14,18 @@ from itertools import combinations, compress, permutations, starmap, tee
 from math import ceil, comb, fabs, floor, gcd, log, perm, sqrt
 from string import ascii_lowercase, ascii_uppercase
 from sys import exit, setrecursionlimit, stdin
-from typing import Any, Dict, List, Tuple, TypeVar, Union
+from typing import Any, Dict, List, Optional, Tuple, TypeVar, Union
 
 # Constants
 TYPE = TypeVar('TYPE')
-N = int(2e5 + 10)  # If using AR, modify accordingly
-M = int(20)  # If using AR, modify accordingly
-INF = int(2e9)
+N = int(2e5 + 10)
+M = int(20)
+INF = int(1e12)
 OFFSET = int(100)
 MOD = int(1e9 + 7)
 
 # Set recursion limit
-setrecursionlimit(INF)
+setrecursionlimit(int(2e9))
 
 
 class Arr:
@@ -46,35 +46,33 @@ class IO:
 
 
 class Std:
-    pass
+    class SparseTable:
+        def __init__(self, data: list, func=lambda x, y: x | y):
+            """Initialize the Sparse Table with the given data and function."""
+            self.func = func
+            self.st = [list(data)]
+            i, n = 1, len(self.st[0])
+            while 2 * i <= n:
+                pre = self.st[-1]
+                self.st.append([func(pre[j], pre[j + i]) for j in range(n - 2 * i + 1)])
+                i <<= 1
+
+        def query(self, begin: int, end: int):
+            """Query the combined result over the interval [begin, end]."""
+            lg = (end - begin + 1).bit_length() - 1
+            return self.func(self.st[lg][begin], self.st[lg][end - (1 << lg) + 1])
 
 # ————————————————————— Division line ——————————————————————
 
 
 class Solution:
-    def maxTotalReward(self, rewardValues: List[int]) -> int:
-        rewardValues.sort()
-        rewardValues = [0] + rewardValues
-        n = len(rewardValues) - 1
-        m = rewardValues[-1] * 2  # 最大的可能是最大值*2
-
-        dp = Arr.array(False, m + 1, )
-        dp[0] = True
-
-        for i in range(1, n + 1):
-            v = rewardValues[i]
-            for j in range(2 * v - 1, v - 1, -1):
-                dp[j] = dp[j] or dp[j - v]
-
-        for j in range(m - 1, -1, -1):
-            if dp[j]:
-                return j
-        return 0
-
-    def maxTotalReward(self, rewardValues: List[int]) -> int:
-        rewardValues.sort()
-        f = 1
-        for v in rewardValues:
-            mask = (1 << v) - 1
-            f |= (f & mask) << v
-        return f.bit_length() - 1
+    def longestSubarray(self, nums: List[int]) -> int:
+        mx = max(nums)
+        ans = cnt = 0
+        for x in nums:
+            if x == mx:
+                cnt += 1
+                ans = max(ans, cnt)
+            else:
+                cnt = 0
+        return ans

@@ -1,8 +1,8 @@
 '''
 Author: NEFU AB-IN
-Date: 2024-07-12 11:05:52
-FilePath: \LeetCode\3181\3181.py
-LastEditTime: 2024-07-12 15:27:59
+Date: 2024-07-21 20:17:29
+FilePath: \LeetCode\1186\1186.py
+LastEditTime: 2024-07-21 21:13:05
 '''
 # 3.8.19 import
 import random
@@ -14,18 +14,18 @@ from itertools import combinations, compress, permutations, starmap, tee
 from math import ceil, comb, fabs, floor, gcd, log, perm, sqrt
 from string import ascii_lowercase, ascii_uppercase
 from sys import exit, setrecursionlimit, stdin
-from typing import Any, Dict, List, Tuple, TypeVar, Union
+from typing import Any, Dict, List, Optional, Tuple, TypeVar, Union
 
 # Constants
 TYPE = TypeVar('TYPE')
-N = int(2e5 + 10)  # If using AR, modify accordingly
-M = int(20)  # If using AR, modify accordingly
-INF = int(2e9)
+N = int(2e5 + 10)
+M = int(20)
+INF = int(1e12)
 OFFSET = int(100)
 MOD = int(1e9 + 7)
 
 # Set recursion limit
-setrecursionlimit(INF)
+setrecursionlimit(int(2e9))
 
 
 class Arr:
@@ -52,29 +52,31 @@ class Std:
 
 
 class Solution:
-    def maxTotalReward(self, rewardValues: List[int]) -> int:
-        rewardValues.sort()
-        rewardValues = [0] + rewardValues
-        n = len(rewardValues) - 1
-        m = rewardValues[-1] * 2  # 最大的可能是最大值*2
-
-        dp = Arr.array(False, m + 1, )
-        dp[0] = True
+    def maximumSum(self, arr: List[int]) -> int:
+        n = len(arr)
+        arr = [0, *arr]
+        max_, sum_, min_ = -INF, 0, INF
 
         for i in range(1, n + 1):
-            v = rewardValues[i]
-            for j in range(2 * v - 1, v - 1, -1):
-                dp[j] = dp[j] or dp[j - v]
+            sum_ += arr[i]
+            max_ = Math.max(max_, arr[i])
+            min_ = Math.min(min_, arr[i])
 
-        for j in range(m - 1, -1, -1):
-            if dp[j]:
-                return j
-        return 0
+        if min_ > 0:
+            return sum_
+        if max_ < 0:
+            return max_
 
-    def maxTotalReward(self, rewardValues: List[int]) -> int:
-        rewardValues.sort()
-        f = 1
-        for v in rewardValues:
-            mask = (1 << v) - 1
-            f |= (f & mask) << v
-        return f.bit_length() - 1
+        dpl, dpr = Arr.array(0, n + 2), Arr.array(0, n + 2)
+        for i in range(1, n + 1):
+            dpl[i] = Math.max(arr[i], dpl[i - 1] + arr[i])
+        for i in range(n, -1, -1):
+            dpr[i] = Math.max(arr[i], dpr[i + 1] + arr[i])
+
+        for i in range(1, n + 1):
+            max_ = max(max_, dpl[i - 1] + dpr[i + 1], dpl[i - 1], dpr[i + 1])
+        return max_
+
+
+arr = IO.read_list()
+print(Solution().maximumSum(arr))

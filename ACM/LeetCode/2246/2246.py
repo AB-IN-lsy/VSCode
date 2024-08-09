@@ -1,31 +1,31 @@
 '''
 Author: NEFU AB-IN
-Date: 2024-07-12 11:05:52
-FilePath: \LeetCode\3181\3181.py
-LastEditTime: 2024-07-12 15:27:59
+Date: 2024-08-07 16:39:57
+FilePath: \LeetCode\2246\2246.py
+LastEditTime: 2024-08-07 17:41:14
 '''
 # 3.8.19 import
 import random
 from collections import Counter, defaultdict, deque
 from datetime import datetime, timedelta
-from functools import lru_cache
+from functools import lru_cache, reduce
 from heapq import heapify, heappop, heappush, nlargest, nsmallest
 from itertools import combinations, compress, permutations, starmap, tee
-from math import ceil, comb, fabs, floor, gcd, log, perm, sqrt
+from math import ceil, comb, fabs, floor, gcd, hypot, log, perm, sqrt
 from string import ascii_lowercase, ascii_uppercase
 from sys import exit, setrecursionlimit, stdin
-from typing import Any, Dict, List, Tuple, TypeVar, Union
+from typing import Any, Callable, Dict, List, Optional, Tuple, TypeVar, Union
 
 # Constants
 TYPE = TypeVar('TYPE')
-N = int(2e5 + 10)  # If using AR, modify accordingly
-M = int(20)  # If using AR, modify accordingly
-INF = int(2e9)
+N = int(2e5 + 10)
+M = int(20)
+INF = int(1e12)
 OFFSET = int(100)
 MOD = int(1e9 + 7)
 
 # Set recursion limit
-setrecursionlimit(INF)
+setrecursionlimit(int(2e9))
 
 
 class Arr:
@@ -52,29 +52,33 @@ class Std:
 
 
 class Solution:
-    def maxTotalReward(self, rewardValues: List[int]) -> int:
-        rewardValues.sort()
-        rewardValues = [0] + rewardValues
-        n = len(rewardValues) - 1
-        m = rewardValues[-1] * 2  # 最大的可能是最大值*2
+    def longestPath(self, parent: List[int], s: str) -> int:
+        g = Arr.graph(len(s))
 
-        dp = Arr.array(False, m + 1, )
-        dp[0] = True
+        for i, fa in enumerate(parent):
+            if fa == -1:
+                continue
+            g[fa].append((i, 1))
 
-        for i in range(1, n + 1):
-            v = rewardValues[i]
-            for j in range(2 * v - 1, v - 1, -1):
-                dp[j] = dp[j] or dp[j - v]
+        ans = 0
+        status = Arr.array(0, len(s))
 
-        for j in range(m - 1, -1, -1):
-            if dp[j]:
-                return j
-        return 0
+        @lru_cache(None)
+        def dfs(u):
+            status[u] = 1
+            max1, max2 = 0, 0
+            nonlocal ans
+            for v, w in g[u]:
+                depth = dfs(v) + w
+                if depth > max1 and s[v] != s[u]:
+                    max2 = max1
+                    max1 = depth
+                elif depth > max2 and s[v] != s[u]:
+                    max2 = depth
 
-    def maxTotalReward(self, rewardValues: List[int]) -> int:
-        rewardValues.sort()
-        f = 1
-        for v in rewardValues:
-            mask = (1 << v) - 1
-            f |= (f & mask) << v
-        return f.bit_length() - 1
+            ans = Math.max(ans, max1 + max2)
+            return max1
+
+        dfs(0)
+        dfs.cache_clear()
+        return ans + 1

@@ -1,8 +1,8 @@
 '''
 Author: NEFU AB-IN
-Date: 2024-07-12 11:05:52
-FilePath: \LeetCode\3181\3181.py
-LastEditTime: 2024-07-12 15:27:59
+Date: 2024-07-23 16:18:08
+FilePath: \LeetCode\1674\1674.py
+LastEditTime: 2024-07-23 16:40:21
 '''
 # 3.8.19 import
 import random
@@ -11,21 +11,21 @@ from datetime import datetime, timedelta
 from functools import lru_cache
 from heapq import heapify, heappop, heappush, nlargest, nsmallest
 from itertools import combinations, compress, permutations, starmap, tee
-from math import ceil, comb, fabs, floor, gcd, log, perm, sqrt
+from math import ceil, comb, fabs, floor, gcd, hypot, log, perm, sqrt
 from string import ascii_lowercase, ascii_uppercase
 from sys import exit, setrecursionlimit, stdin
-from typing import Any, Dict, List, Tuple, TypeVar, Union
+from typing import Any, Dict, List, Optional, Tuple, TypeVar, Union
 
 # Constants
 TYPE = TypeVar('TYPE')
-N = int(2e5 + 10)  # If using AR, modify accordingly
-M = int(20)  # If using AR, modify accordingly
-INF = int(2e9)
+N = int(2e5 + 10)
+M = int(20)
+INF = int(1e12)
 OFFSET = int(100)
 MOD = int(1e9 + 7)
 
 # Set recursion limit
-setrecursionlimit(INF)
+setrecursionlimit(int(2e9))
 
 
 class Arr:
@@ -52,29 +52,32 @@ class Std:
 
 
 class Solution:
-    def maxTotalReward(self, rewardValues: List[int]) -> int:
-        rewardValues.sort()
-        rewardValues = [0] + rewardValues
-        n = len(rewardValues) - 1
-        m = rewardValues[-1] * 2  # 最大的可能是最大值*2
+    def minMoves(self, nums: List[int], limit: int) -> int:
+        n = len(nums)
+        dis = Arr.array(2 * limit + 3)
+        for i in range(n // 2):
+            a = Math.min(nums[i], nums[n - i - 1])
+            b = Math.max(nums[i], nums[n - i - 1])
 
-        dp = Arr.array(False, m + 1, )
-        dp[0] = True
+            # 1. target ∈ [2, a+1)，需要操作两次
+            dis[2] += 2
+            dis[a + 1] -= 2
 
-        for i in range(1, n + 1):
-            v = rewardValues[i]
-            for j in range(2 * v - 1, v - 1, -1):
-                dp[j] = dp[j] or dp[j - v]
+            # 2. target ∈ [a+1, a+b)，需要操作一次
+            dis[a + 1] += 1
+            dis[a + b] -= 1
 
-        for j in range(m - 1, -1, -1):
-            if dp[j]:
-                return j
-        return 0
+            # 3. target ∈ (a+b, b + limit]，需要操作一次
+            dis[a + b + 1] += 1
+            dis[b + limit + 1] -= 1
 
-    def maxTotalReward(self, rewardValues: List[int]) -> int:
-        rewardValues.sort()
-        f = 1
-        for v in rewardValues:
-            mask = (1 << v) - 1
-            f |= (f & mask) << v
-        return f.bit_length() - 1
+            # 4. target ∈ (b+limit, 2*limit]，需要操作两次
+            dis[b + limit + 1] += 2
+            dis[2 * limit + 1] -= 2
+
+        sum_ = 0
+        res = INF
+        for i in range(2, len(dis)):
+            sum_ += dis[i]
+            res = Math.min(res, sum_)
+        return res

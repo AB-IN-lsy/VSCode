@@ -1,8 +1,8 @@
 '''
 Author: NEFU AB-IN
 Date: 2024-07-12 11:05:52
-FilePath: \LeetCode\3181\3181.py
-LastEditTime: 2024-07-12 15:27:59
+FilePath: \LeetCode\3180\3180.py
+LastEditTime: 2024-07-12 15:16:57
 '''
 # 3.8.19 import
 import random
@@ -58,23 +58,15 @@ class Solution:
         n = len(rewardValues) - 1
         m = rewardValues[-1] * 2  # 最大的可能是最大值*2
 
-        dp = Arr.array(False, m + 1, )
-        dp[0] = True
+        dp = Arr.array2d(False, n + 1, m + 1, )
+        dp[0][0] = True
 
         for i in range(1, n + 1):
-            v = rewardValues[i]
-            for j in range(2 * v - 1, v - 1, -1):
-                dp[j] = dp[j] or dp[j - v]
+            for j in range(m):
+                v = rewardValues[i]
+                dp[i][j] = dp[i - 1][j] or (dp[i - 1][j - v] and v < j < 2 * v)
 
         for j in range(m - 1, -1, -1):
-            if dp[j]:
+            if dp[n][j]:
                 return j
         return 0
-
-    def maxTotalReward(self, rewardValues: List[int]) -> int:
-        rewardValues.sort()
-        f = 1
-        for v in rewardValues:
-            mask = (1 << v) - 1
-            f |= (f & mask) << v
-        return f.bit_length() - 1

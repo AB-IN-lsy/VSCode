@@ -1,270 +1,322 @@
+# 3.8.19 import
 import random
 from collections import Counter, defaultdict, deque
 from datetime import datetime, timedelta
-from enum import Enum
-from functools import lru_cache
+from functools import lru_cache, reduce
 from heapq import heapify, heappop, heappush, nlargest, nsmallest
 from itertools import combinations, compress, permutations, starmap, tee
-from math import ceil, fabs, floor, gcd, log, sqrt
+from math import ceil, comb, fabs, floor, gcd, log, perm, sqrt
 from string import ascii_lowercase, ascii_uppercase
 from sys import exit, setrecursionlimit, stdin
-from typing import Any, Dict, List, Tuple, TypeVar, Union
+from typing import Any, Callable, Dict, List, Optional, Tuple, TypeVar
 
 # Constants
 TYPE = TypeVar('TYPE')
-N = int(2e5 + 10)  # If using AR, modify accordingly
-M = int(20)  # If using AR, modify accordingly
-INF = int(2e9)
+N = int(2e5 + 10)
+M = int(20)
+INF = int(1e12)
 OFFSET = int(100)
+MOD = int(1e9 + 7)
 
 # Set recursion limit
-setrecursionlimit(INF)
+setrecursionlimit(int(2e9))
+
 
 class Arr:
     array = staticmethod(lambda x=0, size=N: [x() if callable(x) else x for _ in range(size)])
     array2d = staticmethod(lambda x=0, rows=N, cols=M: [Arr.array(x, cols) for _ in range(rows)])
     graph = staticmethod(lambda size=N: [[] for _ in range(size)])
-    @staticmethod
-    def to_1_indexed(data: Union[List, str, List[List]]):
-        """Adds a zero prefix to the data and returns the modified data and its length."""
-        if isinstance(data, list):
-            if all(isinstance(item, list) for item in data):  # Check if it's a 2D array
-                new_data = [[0] * (len(data[0]) + 1)] + [[0] + row for row in data]
-                return new_data, len(new_data) - 1, len(new_data[0]) - 1
-            else:
-                new_data = [0] + data
-                return new_data, len(new_data) - 1
-        elif isinstance(data, str):
-            new_data = '0' + data
-            return new_data, len(new_data) - 1
-        else:
-            raise TypeError("Input must be a list, a 2D list, or a string")
 
-class Str:
-    letter_to_num = staticmethod(lambda x: ord(x.upper()) - 65)  # A -> 0
-    num_to_letter = staticmethod(lambda x: ascii_uppercase[x])  # 0 -> A
-    removeprefix = staticmethod(lambda s, prefix: s[len(prefix):] if s.startswith(prefix) else s)
-    removesuffix = staticmethod(lambda s, suffix: s[:-len(suffix)] if s.endswith(suffix) else s)
 
 class Math:
     max = staticmethod(lambda a, b: a if a > b else b)
     min = staticmethod(lambda a, b: a if a < b else b)
+
 
 class IO:
     input = staticmethod(lambda: stdin.readline().rstrip("\r\n"))
     read = staticmethod(lambda: map(int, IO.input().split()))
     read_list = staticmethod(lambda: list(IO.read()))
 
-class Std:
-    pass
 
+class Std:
+    class SegTree:
+        """
+        https://github.com/boristown/leetcode/blob/main/SegTree.py
+        A segment tree based on dynamic binary tree algorithm. 
+        Supports passing callback functions `f1` and `f2` to handle range queries (RMQ) such as range sum, 
+        range maximum, and range minimum.
+        """
+
+        def __init__(self, f1: Callable, f2: Callable, l: int, r: int, v: int = 0):
+            """
+            Initializes the segment tree [left, right).
+
+            Example functions:
+                Segment Sum:
+                    f1 = lambda a, b: a + b
+                    f2 = lambda a, n: a * n
+                Segment Maximum:
+                    f1 = lambda a, b: Math.max(a, b)
+                    f2 = lambda a, n: a
+                Segment Minimum:
+                    f1 = lambda a, b: Math.min(a, b)
+                    f2 = lambda a, n: a
+            Args:
+                f1: Function for combining segment values. (merge values from different intervals)
+                f2: Function for applying values to segments. (Spread a value to an interval)
+                l (int): Left boundary of the segment.
+                r (int): Right boundary of the segment.
+                v (int): Initial value for the segment.
+            """
+            self.default = v  # Default value for the segments
+            self.ans = f2(v, r-l)  # Current result of the segment
+            self.f1 = f1
+            self.f2 = f2
+            self.l = l  # left
+            self.r = r  # right
+            self.v = v  # init value
+            self.lazy_tag = 0  # Lazy tag
+            self.left = None  # SubTree(left, bottom)
+            self.right = None  # SubTree(right, bottom)
+
+        def __repr__(self) -> str:
+            """Returns values of the segment."""
+            anss = []
+            for i in range(self.l, self.r):
+                anss.append(str(self.query(i, i + 1)))
+            return "seg: " + " ".join(anss)
+
+        @property
+        def mid_h(self) -> int:
+            """Returns the midpoint of the segment."""
+            return self.l + self.r >> 1
+
+        def _create_subtrees(self) -> None:
+            """Creates left and right subtrees if they do not exist."""
+            midh = self.mid_h
+            if not self.left and midh > self.l:
+                self.left = Std.SegTree(self.f1, self.f2, self.l, midh, self.default)
+            if not self.right:
+                self.right = Std.SegTree(self.f1, self.f2, midh, self.r, self.default)
+
+        def build(self, arr: List[int]) -> int:
+            """
+            Initializes the segment tree with values from arr.
+
+            Args:
+                arr: List of values to initialize the segment tree.
+
+            Returns:
+                The combined value of the segment tree.
+            """
+            m0 = arr[0]
+            self.lazy_tag = 0
+            if self.r == self.l + 1:
+                self.v = m0
+                self.ans = self.f2(m0, len(arr))
+                return self.ans
+            self.v = '#'
+            midh = self.mid_h
+            self._create_subtrees()
+            self.ans = self.f1(self.left.build(arr[:midh - self.l]), self.right.build(arr[midh - self.l:]))
+            return self.ans
+
+        def cover_seg(self, l: int, r: int, v: int) -> int:
+            """
+            Covers the segment [left, right) with value v.
+
+            Args:
+                l (int): Left boundary of the cover range.
+                r (int): Right boundary of the cover range.
+                v: Value to cover the segment with.
+
+            Returns:
+                The combined value of the segment tree.
+            """
+            if self.v == v or l >= self.r or r <= self.l:
+                return self.ans
+            if l <= self.l and r >= self.r:
+                self.v = v
+                self.lazy_tag = 0
+                self.ans = self.f2(v, self.r - self.l)
+                return self.ans
+            self._create_subtrees()
+            if self.v != '#':
+                self.left.v = self.v
+                self.left.ans = self.f2(self.v, self.left.r - self.left.l)
+                self.right.v = self.v
+                self.right.ans = self.f2(self.v, self.right.r - self.right.l)
+                self.v = '#'
+            # push up
+            self.ans = self.f1(self.left.cover_seg(l, r, v), self.right.cover_seg(l, r, v))
+            return self.ans
+
+        def inc_seg(self, l: int, r: int, v: int) -> int:
+            """
+            Increases the segment [left, right) by value v.
+
+            Args:
+                l (int): Left boundary of the increase range.
+                r (int): Right boundary of the increase range.
+                v: Value to increase the segment by.
+
+            Returns:
+                The combined value of the segment tree.
+            """
+            if v == 0 or l >= self.r or r <= self.l:
+                return self.ans
+            if l <= self.l and r >= self.r:
+                if self.v == '#':
+                    self.lazy_tag += v
+                else:
+                    self.v += v
+                self.ans += self.f2(v, self.r - self.l)
+                return self.ans
+            self._create_subtrees()
+            if self.v != '#':
+                self.left.v = self.v
+                self.left.ans = self.f2(self.v, self.left.r - self.left.l)
+                self.right.v = self.v
+                self.right.ans = self.f2(self.v, self.right.r - self.right.l)
+                self.v = '#'
+            self._pushdown()
+            # push up
+            self.ans = self.f1(self.left.inc_seg(l, r, v), self.right.inc_seg(l, r, v))
+            return self.ans
+
+        def inc_idx(self, idx: int, v: int) -> int:
+            """
+            Increases the value at index idx by value v.
+
+            Args:
+                idx (int): Index to increase.
+                v: Value to increase by.
+
+            Returns:
+                The combined value of the segment tree.
+            """
+            if v == 0 or idx >= self.r or idx < self.l:
+                return self.ans
+            if idx == self.l == self.r - 1:
+                self.v += v
+                self.ans += self.f2(v, 1)
+                return self.ans
+            self._create_subtrees()
+            if self.v != '#':
+                self.left.v = self.v
+                self.left.ans = self.f2(self.v, self.left.r - self.left.l)
+                self.right.v = self.v
+                self.right.ans = self.f2(self.v, self.right.r - self.right.l)
+                self.v = '#'
+            self._pushdown()
+            # push up
+            self.ans = self.f1(self.left.inc_idx(idx, v), self.right.inc_idx(idx, v))
+            return self.ans
+
+        def _pushdown(self) -> None:
+            """Propagates the lazy tag to the child nodes."""
+            if self.lazy_tag != 0:
+                if self.left.v != '#':
+                    self.left.v += self.lazy_tag
+                else:
+                    self.left.lazy_tag += self.lazy_tag
+                self.left.ans += self.f2(self.lazy_tag, self.left.r - self.left.l)
+                if self.right.v != '#':
+                    self.right.v += self.lazy_tag
+                else:
+                    self.right.lazy_tag += self.lazy_tag
+                self.right.ans += self.f2(self.lazy_tag, self.right.r - self.right.l)
+                self.lazy_tag = 0
+
+        def query(self, l: int, r: int) -> int:
+            """
+            Queries the range [left, right) for the combined value.
+
+            Args:
+                l (int): Left boundary of the query range.
+                r (int): Right boundary of the query range.
+
+            Returns:
+                The combined value of the range.
+            """
+            if l >= r:
+                return 0
+            if l <= self.l and r >= self.r:
+                return self.ans
+            if self.v != '#':
+                return self.f2(self.v, Math.min(self.r, r) - Math.max(self.l, l))  # the overlapping length
+            self._create_subtrees()
+            midh = self.mid_h
+            self._pushdown()
+            anss = []
+            if l < midh:
+                anss.append(self.left.query(l, r))
+            if r > midh:
+                anss.append(self.right.query(l, r))
+            return reduce(self.f1, anss)
+
+        @staticmethod
+        def discretize(array):
+            """Discretize the array and return the mapping dictionary. Index starts from 1"""
+            sorted_unique = sorted(set(array))
+            mapping = {val: idx + 1 for idx, val in enumerate(sorted_unique)}
+            return [mapping[val] for val in array], mapping
+
+    class PrimeSieve:
+        def __init__(self, limit):
+            """
+            Initializes the sieve with a given limit.
+
+            Args:
+                limit (int): The upper limit for the sieve.
+            """
+            self.limit = limit
+            self.is_prime = Arr.array(True, limit + 1)
+            self.divisor_count = Arr.array(1, limit + 1)
+            self.divisor_sum = Arr.array(1, limit + 1)
+            self.primes = []
+            self._generate_sieve()
+
+        def _generate_sieve(self):
+            """
+            Generates the sieve using the linear sieve algorithm.
+            Computes primes, divisor counts, and divisor sums.
+            """
+            self.is_prime[0] = self.is_prime[1] = False
+            for i in range(2, self.limit + 1):
+                if self.is_prime[i]:
+                    self.primes.append(i)
+                    self.divisor_sum[i] = i + 1
+                    self.divisor_count[i] = 2
+                for prime in self.primes:
+                    if i * prime > self.limit:
+                        break
+                    self.is_prime[i * prime] = False
+                    if i % prime == 0:
+                        self.divisor_count[i * prime] = self.divisor_count[i] * (self.divisor_count[i] + 1)
+                        self.divisor_sum[i * prime] = self.divisor_sum[i] * (prime + 1)
+                        break
+                    else:
+                        self.divisor_count[i * prime] = self.divisor_count[i] * self.divisor_count[prime]
+                        self.divisor_sum[i * prime] = self.divisor_sum[i] * self.divisor_sum[prime]
 # ————————————————————— Division line ——————————————————————
 
 
+n, m = IO.read()
+arr = IO.read_list()
 
 
-class Arr:
-    array = staticmethod(lambda x=0, size=N: [x() if callable(x) else x for _ in range(size)])
-    array2d = staticmethod(lambda x=0, rows=N, cols=N: [Arr.array(x, cols) for _ in range(rows)])
-    graph = staticmethod(lambda size=N: [[] for _ in range(size)])
-
-class SegmentTree:
-    from enum import Enum
-
-    class Mode(Enum):
-        SUM = "sum"
-        MAX = "max"
-        MIN = "min"
-        GCD = "gcd"
-        MUL = "mul"
-    
-    class Node:
-        def __init__(self, l: int = 0, r: int = 0):
-            self.l = l
-            self.r = r
-            self.len = 0
-            self.add_tag = 0
-            self.mul_tag = 1
-            self.gcd_val = 0
-            self.max_val = -INF
-            self.min_val = INF
-
-    def __init__(self, n: int):
-        self.n = n
-        self.tr = Arr.array(lambda: SegmentTree.Node(0, 0), n << 2)
-        self.mode_to_operation = {
-            SegmentTree.Mode.MAX: Math.max,
-            SegmentTree.Mode.MIN: Math.min,
-            SegmentTree.Mode.GCD: gcd,
-        }
-    
-    def ls(self, p: int) -> int:
-        """Return left child index"""
-        return p << 1
-    
-    def rs(self, p: int) -> int:
-        """Return right child index"""
-        return p << 1 | 1
-    
-    def pushup(self, p: int, mode: Mode):
-        """Push up the values to the parent node based on the mode"""
-        if mode == SegmentTree.Mode.SUM:
-            self.tr[p].len = self.tr[self.ls(p)].len + self.tr[self.rs(p)].len
-        elif mode in self.mode_to_operation:
-            op = self.mode_to_operation[mode]
-            if mode == SegmentTree.Mode.MAX:
-                self.tr[p].max_val = op(self.tr[self.ls(p)].max_val, self.tr[self.rs(p)].max_val)
-            elif mode == SegmentTree.Mode.MIN:
-                self.tr[p].min_val = op(self.tr[self.ls(p)].min_val, self.tr[self.rs(p)].min_val)
-            elif mode == SegmentTree.Mode.GCD:
-                self.tr[p].gcd_val = op(self.tr[self.ls(p)].gcd_val, self.tr[self.rs(p)].gcd_val)
-    
-    def pushdown(self, p: int, mode: Mode):
-        """Push down the tags to the children nodes"""
-        if mode in {SegmentTree.Mode.SUM, SegmentTree.Mode.MUL}:
-            if self.tr[p].add_tag != 0 or self.tr[p].mul_tag != 1:
-                ls, rs = self.ls(p), self.rs(p)
-                self.apply(p, ls, mode)
-                self.apply(p, rs, mode)
-                self.tr[p].add_tag = 0
-                self.tr[p].mul_tag = 1
-    
-    def apply(self, p: int, child: int, mode: Mode):
-        """Apply the tags to a child node"""
-        if mode == SegmentTree.Mode.SUM:
-            self.tr[child].len = self.tr[child].len * self.tr[p].mul_tag + self.tr[p].add_tag * (self.tr[child].r - self.tr[child].l + 1)
-            self.tr[child].mul_tag *= self.tr[p].mul_tag
-            self.tr[child].add_tag = self.tr[child].add_tag * self.tr[p].mul_tag + self.tr[p].add_tag
-        elif mode == SegmentTree.Mode.MUL:
-            self.tr[child].len *= self.tr[p].mul_tag
-            self.tr[child].mul_tag *= self.tr[p].mul_tag
-            self.tr[child].add_tag *= self.tr[p].mul_tag
-    
-    def build(self, p: int, l: int, r: int, mode: Mode, a: List[int] = None):
-        """Build the segment tree based on the mode"""
-        self.tr[p].l = l
-        self.tr[p].r = r
-        if l == r:
-            if a:
-                if mode in {SegmentTree.Mode.SUM, SegmentTree.Mode.MUL}:
-                    self.tr[p].len = a[l]
-                elif mode == SegmentTree.Mode.MAX:
-                    self.tr[p].max_val = a[l]
-                elif mode == SegmentTree.Mode.MIN:
-                    self.tr[p].min_val = a[l]
-                elif mode == SegmentTree.Mode.GCD:
-                    self.tr[p].gcd_val = a[l]
-            return
-        mid = (l + r) >> 1
-        self.build(self.ls(p), l, mid, mode, a)
-        self.build(self.rs(p), mid + 1, r, mode, a)
-        self.pushup(p, mode)
-    
-    def update_point(self, p: int, idx: int, value: int, mode: Mode):
-        """Point update for the segment tree at index idx"""
-        if self.tr[p].l == self.tr[p].r:
-            if mode == SegmentTree.Mode.SUM or mode == SegmentTree.Mode.MUL:
-                self.tr[p].len = value
-            elif mode == SegmentTree.Mode.MAX:
-                self.tr[p].max_val = value
-            elif mode == SegmentTree.Mode.MIN:
-                self.tr[p].min_val = value
-            elif mode == SegmentTree.Mode.GCD:
-                self.tr[p].gcd_val = value
-            return
-        
-        mid = (self.tr[p].l + self.tr[p].r) >> 1
-        if idx <= mid:
-            self.update_point(self.ls(p), idx, value, mode)
-        else:
-            self.update_point(self.rs(p), idx, value, mode)
-        self.pushup(p, mode)
-    
-    def update_range_add(self, p: int, l: int, r: int, d: int):
-        """Range add update for the segment tree within the range [l, r]"""
-        if l <= self.tr[p].l and self.tr[p].r <= r:
-            self.tr[p].len += d * (self.tr[p].r - self.tr[p].l + 1)
-            self.tr[p].add_tag += d
-            return
-        self.pushdown(p, SegmentTree.Mode.SUM)
-        mid = (self.tr[p].l + self.tr[p].r) >> 1
-        if l <= mid:
-            self.update_range_add(self.ls(p), l, r, d)
-        if mid < r:
-            self.update_range_add(self.rs(p), l, r, d)
-        self.pushup(p, SegmentTree.Mode.SUM)
-    
-    def update_range_mul(self, p: int, l: int, r: int, d: int):
-        """Range multiply update for the segment tree within the range [l, r]"""
-        if l <= self.tr[p].l and self.tr[p].r <= r:
-            self.tr[p].len *= d
-            self.tr[p].mul_tag *= d
-            self.tr[p].add_tag *= d
-            return
-        self.pushdown(p, SegmentTree.Mode.MUL)
-        mid = (self.tr[p].l + self.tr[p].r) >> 1
-        if l <= mid:
-            self.update_range_mul(self.ls(p), l, r, d)
-        if mid < r:
-            self.update_range_mul(self.rs(p), l, r, d)
-        self.pushup(p, SegmentTree.Mode.MUL)
-    
-    def query(self, p: int, l: int, r: int, mode: Mode) -> int:
-        """Query the segment tree within the range [l, r]"""
-        if mode == SegmentTree.Mode.SUM: res = 0
-        elif mode == SegmentTree.Mode.MAX: res = -INF
-        elif mode == SegmentTree.Mode.MIN: res = INF
-        elif mode == SegmentTree.Mode.GCD: res = 0
-        
-        if l <= self.tr[p].l and self.tr[p].r <= r:
-            if mode == SegmentTree.Mode.SUM: return self.tr[p].len
-            elif mode == SegmentTree.Mode.MAX: return self.tr[p].max_val
-            elif mode == SegmentTree.Mode.MIN: return self.tr[p].min_val
-            elif mode == SegmentTree.Mode.GCD: return self.tr[p].gcd_val
-
-        self.pushdown(p, mode)
-        mid = (self.tr[p].l + self.tr[p].r) >> 1
-        if l <= mid:
-            if mode == SegmentTree.Mode.SUM:
-                res += self.query(self.ls(p), l, r, mode)
-            else:
-                op = self.mode_to_operation[mode]
-                res = op(res, self.query(self.ls(p), l, r, mode))
-        if r > mid:
-            if mode == SegmentTree.Mode.SUM:
-                res += self.query(self.rs(p), l, r, mode)
-            else:
-                op = self.mode_to_operation[mode]
-                res = op(res, self.query(self.rs(p), l, r, mode))
-        return res
+def f1(a, b): return a + b
+def f2(a, n): return a * n
 
 
-# Constants for testing
-N = 10
-INF = int(2e9)
+seg = Std.SegTree(f1, f2, 0, len(arr))
+seg.build(arr)
 
-# Example usage with initial array
-a = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-segment_tree = SegmentTree(len(a))
-
-# Build segment trees based on the initial array
-segment_tree.build(1, 0, len(a) - 1, SegmentTree.Mode.SUM, a)
-segment_tree.build(1, 0, len(a) - 1, SegmentTree.Mode.MAX, a)
-segment_tree.build(1, 0, len(a) - 1, SegmentTree.Mode.MIN, a)
-segment_tree.build(1, 0, len(a) - 1, SegmentTree.Mode.GCD, a)
-
-# Update and query operations
-segment_tree.update_range_add(1, 1, 3, 5)  # Increment values in range [1, 3] by 5
-segment_tree.update_range_mul(1, 2, 4, 2)  # Multiply values in range [2, 4] by 2
-segment_tree.update_point(1, 5, 20, SegmentTree.Mode.MAX)  # Update value at index 5 to 20 for MAX mode
-segment_tree.update_point(1, 6, 1, SegmentTree.Mode.MIN)  # Update value at index 6 to 1 for MIN mode
-
-sum_result = segment_tree.query(1, 1, 3, SegmentTree.Mode.SUM)  # Query sum in range [1, 3]
-max_result = segment_tree.query(1, 1, 6, SegmentTree.Mode.MAX)  # Query max in range [1, 3]
-min_result = segment_tree.query(1, 1, 6, SegmentTree.Mode.MIN)  # Query min in range [1, 3]
-gcd_result = segment_tree.query(1, 1, 6, SegmentTree.Mode.GCD)  # Query gcd in range [1, 3]
-
-print(f"Sum result: {sum_result}")
-print(f"Max result: {max_result}")
-print(f"Min result: {min_result}")
-print(f"GCD result: {gcd_result}")
+for _ in range(m):
+    flag, a, b = IO.read()
+    if flag == 1:
+        seg.inc_idx(a - 1, b)
+    if flag == 2:
+        print(seg.query(a - 1, b))

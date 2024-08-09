@@ -1,9 +1,3 @@
-'''
-Author: NEFU AB-IN
-Date: 2024-07-12 11:05:52
-FilePath: \LeetCode\3181\3181.py
-LastEditTime: 2024-07-12 15:27:59
-'''
 # 3.8.19 import
 import random
 from collections import Counter, defaultdict, deque
@@ -52,29 +46,20 @@ class Std:
 
 
 class Solution:
-    def maxTotalReward(self, rewardValues: List[int]) -> int:
-        rewardValues.sort()
-        rewardValues = [0] + rewardValues
-        n = len(rewardValues) - 1
-        m = rewardValues[-1] * 2  # 最大的可能是最大值*2
+    def maximizeSquareArea(self, m: int, n: int, hFences: List[int], vFences: List[int]) -> int:
+        hFences = [1, *sorted(hFences), m]
+        vFences = [1, *sorted(vFences), n]
 
-        dp = Arr.array(False, m + 1, )
-        dp[0] = True
+        cnt_ = Counter()
+        res = -1
+        for i in range(len(hFences)):
+            for j in range(i):
+                cnt_[hFences[i] - hFences[j]] = 1
 
-        for i in range(1, n + 1):
-            v = rewardValues[i]
-            for j in range(2 * v - 1, v - 1, -1):
-                dp[j] = dp[j] or dp[j - v]
+        for i in range(len(vFences)):
+            for j in range(i):
+                l = vFences[i] - vFences[j]
+                if cnt_[l]:
+                    res = Math.max(res, l * l)
 
-        for j in range(m - 1, -1, -1):
-            if dp[j]:
-                return j
-        return 0
-
-    def maxTotalReward(self, rewardValues: List[int]) -> int:
-        rewardValues.sort()
-        f = 1
-        for v in rewardValues:
-            mask = (1 << v) - 1
-            f |= (f & mask) << v
-        return f.bit_length() - 1
+        return res % MOD if res != -1 else -1

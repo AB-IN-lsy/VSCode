@@ -1,8 +1,8 @@
 '''
 Author: NEFU AB-IN
-Date: 2024-07-12 11:05:52
-FilePath: \LeetCode\3181\3181.py
-LastEditTime: 2024-07-12 15:27:59
+Date: 2024-07-27 09:40:49
+FilePath: \LeetCode\3106\3106.py
+LastEditTime: 2024-07-27 10:16:10
 '''
 # 3.8.19 import
 import random
@@ -11,21 +11,21 @@ from datetime import datetime, timedelta
 from functools import lru_cache
 from heapq import heapify, heappop, heappush, nlargest, nsmallest
 from itertools import combinations, compress, permutations, starmap, tee
-from math import ceil, comb, fabs, floor, gcd, log, perm, sqrt
+from math import ceil, comb, fabs, floor, gcd, hypot, log, perm, sqrt
 from string import ascii_lowercase, ascii_uppercase
 from sys import exit, setrecursionlimit, stdin
-from typing import Any, Dict, List, Tuple, TypeVar, Union
+from typing import Any, Dict, List, Optional, Tuple, TypeVar, Union
 
 # Constants
 TYPE = TypeVar('TYPE')
-N = int(2e5 + 10)  # If using AR, modify accordingly
-M = int(20)  # If using AR, modify accordingly
-INF = int(2e9)
+N = int(2e5 + 10)
+M = int(20)
+INF = int(1e12)
 OFFSET = int(100)
 MOD = int(1e9 + 7)
 
 # Set recursion limit
-setrecursionlimit(INF)
+setrecursionlimit(int(2e9))
 
 
 class Arr:
@@ -45,36 +45,24 @@ class IO:
     read_list = staticmethod(lambda: list(IO.read()))
 
 
-class Std:
-    pass
+class Str:
+    atoi = staticmethod(lambda x: ord(x.upper()) - 65)  # A -> 0
+    itoa = staticmethod(lambda x: ascii_uppercase[x])   # 0 -> A
+    removeprefix = staticmethod(lambda s, prefix: s[len(prefix):] if s.startswith(prefix) else s)
+    removesuffix = staticmethod(lambda s, suffix: s[:-len(suffix)] if s.endswith(suffix) else s)
+
 
 # ————————————————————— Division line ——————————————————————
 
 
 class Solution:
-    def maxTotalReward(self, rewardValues: List[int]) -> int:
-        rewardValues.sort()
-        rewardValues = [0] + rewardValues
-        n = len(rewardValues) - 1
-        m = rewardValues[-1] * 2  # 最大的可能是最大值*2
-
-        dp = Arr.array(False, m + 1, )
-        dp[0] = True
-
-        for i in range(1, n + 1):
-            v = rewardValues[i]
-            for j in range(2 * v - 1, v - 1, -1):
-                dp[j] = dp[j] or dp[j - v]
-
-        for j in range(m - 1, -1, -1):
-            if dp[j]:
-                return j
-        return 0
-
-    def maxTotalReward(self, rewardValues: List[int]) -> int:
-        rewardValues.sort()
-        f = 1
-        for v in rewardValues:
-            mask = (1 << v) - 1
-            f |= (f & mask) << v
-        return f.bit_length() - 1
+    def getSmallestString(self, s: str, k: int) -> str:
+        lst = list(s)
+        for i, id_c in enumerate(map(Str.atoi, lst)):
+            dis = Math.min(id_c - Str.atoi('a'), Str.atoi('z') - id_c + 1)
+            if dis > k:
+                lst[i] = Str.itoa(id_c - k).lower()
+                break
+            lst[i] = 'a'
+            k -= dis
+        return ''.join(lst)

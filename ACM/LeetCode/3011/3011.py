@@ -1,8 +1,8 @@
 '''
 Author: NEFU AB-IN
-Date: 2024-07-12 11:05:52
-FilePath: \LeetCode\3181\3181.py
-LastEditTime: 2024-07-12 15:27:59
+Date: 2024-07-13 19:17:41
+FilePath: \LeetCode\3011\3011.py
+LastEditTime: 2024-07-13 23:27:44
 '''
 # 3.8.19 import
 import random
@@ -18,14 +18,14 @@ from typing import Any, Dict, List, Tuple, TypeVar, Union
 
 # Constants
 TYPE = TypeVar('TYPE')
-N = int(2e5 + 10)  # If using AR, modify accordingly
-M = int(20)  # If using AR, modify accordingly
-INF = int(2e9)
+N = int(2e5 + 10)
+M = int(20)
+INF = int(1e12)
 OFFSET = int(100)
 MOD = int(1e9 + 7)
 
 # Set recursion limit
-setrecursionlimit(INF)
+setrecursionlimit(int(2e9))
 
 
 class Arr:
@@ -45,6 +45,25 @@ class IO:
     read_list = staticmethod(lambda: list(IO.read()))
 
 
+class Bit:
+    def __init__(self, value: int):
+        self.value = value
+        self.bin_rep = bin(value)[2:]
+
+    def bit_length(self): return len(self.bin_rep)
+    def bit_count(self): return self.bin_rep.count('1')
+    def lowest1(self): return self.value & -self.value
+    def lowest0(self): return ~self.value & (self.value + 1)
+    def get_bits(self, start, end): return self.bin_rep[start:end + 1]
+    def clear_lowest1(self): return self.value & (self.value - 1)
+    def clear_lowest0(self): return self.value | (self.value + 1)
+
+    def all_ones_mask(self, length): return (1 << length) - 1
+    def all_zeros_mask(self, length): return 0
+    def single_bit_mask(self, position): return 1 << position
+    def range_mask(self, start, end): return ((1 << (end - start + 1)) - 1) << start
+
+
 class Std:
     pass
 
@@ -52,29 +71,16 @@ class Std:
 
 
 class Solution:
-    def maxTotalReward(self, rewardValues: List[int]) -> int:
-        rewardValues.sort()
-        rewardValues = [0] + rewardValues
-        n = len(rewardValues) - 1
-        m = rewardValues[-1] * 2  # 最大的可能是最大值*2
+    def canSortArray(self, nums: List[int]) -> bool:
+        n = len(nums)
+        for _ in range(n):
+            for i in range(1, n):
+                if nums[i - 1] > nums[i]:
+                    if Bit(nums[i - 1]).bit_count() != Bit(nums[i]).bit_count():
+                        return False
+                    nums[i - 1], nums[i] = nums[i], nums[i - 1]
 
-        dp = Arr.array(False, m + 1, )
-        dp[0] = True
+        return True
 
-        for i in range(1, n + 1):
-            v = rewardValues[i]
-            for j in range(2 * v - 1, v - 1, -1):
-                dp[j] = dp[j] or dp[j - v]
 
-        for j in range(m - 1, -1, -1):
-            if dp[j]:
-                return j
-        return 0
-
-    def maxTotalReward(self, rewardValues: List[int]) -> int:
-        rewardValues.sort()
-        f = 1
-        for v in rewardValues:
-            mask = (1 << v) - 1
-            f |= (f & mask) << v
-        return f.bit_length() - 1
+print(Solution().canSortArray([8, 4, 2, 30, 15]))
