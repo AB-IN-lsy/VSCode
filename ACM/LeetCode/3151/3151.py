@@ -1,21 +1,20 @@
 '''
 Author: NEFU AB-IN
-Date: 2022-09-06 20:56:39
-FilePath: \LeetCode\test\test.py
-LastEditTime: 2024-08-17 21:57:12
+Date: 2024-08-13 14:08:50
+FilePath: \LeetCode\3151\3151.py
+LastEditTime: 2024-08-13 14:09:01
 '''
+# 3.8.19 import
 import random
 from collections import Counter, defaultdict, deque
 from datetime import datetime, timedelta
 from functools import lru_cache, reduce
 from heapq import heapify, heappop, heappush, nlargest, nsmallest
 from itertools import combinations, compress, permutations, starmap, tee
-from math import ceil, comb, fabs, floor, gcd, log, perm, sqrt
-# 3.8.19 import
-from pprint import pprint
+from math import ceil, comb, fabs, floor, gcd, hypot, log, perm, sqrt
 from string import ascii_lowercase, ascii_uppercase
 from sys import exit, setrecursionlimit, stdin
-from typing import Any, Callable, Dict, List, Optional, Tuple, TypeVar
+from typing import Any, Callable, Dict, List, Optional, Tuple, TypeVar, Union
 
 # Constants
 TYPE = TypeVar('TYPE')
@@ -39,13 +38,6 @@ class Math:
     max = staticmethod(lambda a, b: a if a > b else b)
     min = staticmethod(lambda a, b: a if a < b else b)
 
-    class Mod:
-        add = staticmethod(lambda *args: (lambda result=0: [(result := (result + num) % MOD) for num in args] and result)())
-        sub = staticmethod(lambda a, b: (a - b + MOD) % MOD)
-        mul = staticmethod(lambda *args: (lambda result=1: [(result := (result * num) % MOD) for num in args] and result)())
-        div = staticmethod(lambda a, b: (a * pow(b, MOD - 2, MOD)) % MOD)
-        mod = staticmethod(lambda a: (a % MOD + MOD) % MOD)
-
 
 class IO:
     input = staticmethod(lambda: stdin.readline().rstrip("\r\n"))
@@ -54,5 +46,31 @@ class IO:
 
 
 class Std:
-    pass
+    class Func:
+        @staticmethod
+        def find(container: Union[List[TYPE], str], value: TYPE):
+            """Returns the index of value in container or -1 if value is not found."""
+            if isinstance(container, list):
+                try:
+                    return container.index(value)
+                except ValueError:
+                    return -1
+            elif isinstance(container, str):
+                return container.find(value)  # type: ignore
+
+        @staticmethod
+        def pairwise(iterable):
+            """Return successive overlapping pairs taken from the input iterable."""
+            a, b = tee(iterable)
+            next(b, None)
+            return zip(a, b)
+
 # ————————————————————— Division line ——————————————————————
+
+
+class Solution:
+    def isArraySpecial(self, nums: List[int]) -> bool:
+        for x, y in Std.Func.pairwise(nums):
+            if x & 1 == y & 1:
+                return False
+        return True

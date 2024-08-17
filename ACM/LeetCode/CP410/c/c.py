@@ -1,21 +1,20 @@
 '''
 Author: NEFU AB-IN
-Date: 2022-09-06 20:56:39
-FilePath: \LeetCode\test\test.py
-LastEditTime: 2024-08-17 21:57:12
+Date: 2024-08-11 10:33:01
+FilePath: \LeetCode\CP410\c\c.py
+LastEditTime: 2024-08-11 12:15:01
 '''
+# 3.8.19 import
 import random
 from collections import Counter, defaultdict, deque
 from datetime import datetime, timedelta
 from functools import lru_cache, reduce
 from heapq import heapify, heappop, heappush, nlargest, nsmallest
 from itertools import combinations, compress, permutations, starmap, tee
-from math import ceil, comb, fabs, floor, gcd, log, perm, sqrt
-# 3.8.19 import
-from pprint import pprint
+from math import ceil, comb, fabs, floor, gcd, hypot, log, perm, sqrt
 from string import ascii_lowercase, ascii_uppercase
 from sys import exit, setrecursionlimit, stdin
-from typing import Any, Callable, Dict, List, Optional, Tuple, TypeVar
+from typing import Any, Callable, Dict, List, Optional, Tuple, TypeVar, Union
 
 # Constants
 TYPE = TypeVar('TYPE')
@@ -39,13 +38,6 @@ class Math:
     max = staticmethod(lambda a, b: a if a > b else b)
     min = staticmethod(lambda a, b: a if a < b else b)
 
-    class Mod:
-        add = staticmethod(lambda *args: (lambda result=0: [(result := (result + num) % MOD) for num in args] and result)())
-        sub = staticmethod(lambda a, b: (a - b + MOD) % MOD)
-        mul = staticmethod(lambda *args: (lambda result=1: [(result := (result * num) % MOD) for num in args] and result)())
-        div = staticmethod(lambda a, b: (a * pow(b, MOD - 2, MOD)) % MOD)
-        mod = staticmethod(lambda a: (a % MOD + MOD) % MOD)
-
 
 class IO:
     input = staticmethod(lambda: stdin.readline().rstrip("\r\n"))
@@ -55,4 +47,26 @@ class IO:
 
 class Std:
     pass
+
 # ————————————————————— Division line ——————————————————————
+
+
+class Solution:
+    def countOfPairs(self, nums: List[int]) -> int:
+        n = len(nums)
+        max_ = max(nums)
+
+        dp = Arr.array2d(0, n, max_ + 1)
+
+        for j in range(nums[0] + 1):
+            dp[0][j] = 1
+
+        for i in range(1, n):
+            for j in range(nums[i] + 1):
+                for k in range(nums[i - 1] + 1):
+                    if j >= k and nums[i] - j <= nums[i - 1] - k:
+                        dp[i][j] += dp[i - 1][k]
+                        dp[i][j] %= MOD
+
+        res = sum(dp[n - 1]) % MOD
+        return res

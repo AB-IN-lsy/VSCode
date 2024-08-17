@@ -1,3 +1,9 @@
+'''
+Author: NEFU AB-IN
+Date: 2024-08-09 22:27:53
+FilePath: \LeetCode\3244\3244.py
+LastEditTime: 2024-08-10 15:35:15
+'''
 # 3.8.19 import
 import random
 from collections import Counter, defaultdict, deque
@@ -40,6 +46,48 @@ class IO:
 
 
 class Std:
-    pass
+    class UnionFind:
+        """Union-Find data structure."""
+
+        def __init__(self, n: int):
+            self.n = n
+            self.comp_cnt = n  # Initially, each element is its own component
+            self.parent = list(range(n))  # Parent pointers
+            self.size = Arr.array(1, n)  # Size arrays for each node
+
+        def find(self, p: int) -> int:
+            """Find the root of the element p using non-recursive path compression."""
+            rt = p
+            while self.parent[rt] != rt:
+                rt = self.parent[rt]
+            while self.parent[p] != rt:
+                self.parent[p], p = rt, self.parent[p]
+            return rt
+
+        def union(self, p: int, q: int) -> int:
+            """Merge the set containing p into the set containing q."""
+            rootP = self.find(p)
+            rootQ = self.find(q)
+            if rootP != rootQ:
+                self.parent[rootP] = rootQ
+                self.size[rootQ] += self.size[rootP]
+                self.comp_cnt -= 1  # Decrease component count as two components are merged
+            return rootQ
 
 # ————————————————————— Division line ——————————————————————
+
+
+class Solution:
+    def shortestDistanceAfterQueries(self, n: int, queries: List[List[int]]) -> List[int]:
+        uf = Std.UnionFind(n - 1)
+        ans = []
+
+        for l, r in queries:
+            l = uf.find(l)
+            r = uf.find(r - 1)
+
+            while l != r:
+                uf.union(l, r)
+                l = uf.find(l + 1)
+            ans.append(uf.comp_cnt)
+        return ans

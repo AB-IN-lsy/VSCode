@@ -1,21 +1,20 @@
 '''
 Author: NEFU AB-IN
-Date: 2022-09-06 20:56:39
-FilePath: \LeetCode\test\test.py
-LastEditTime: 2024-08-17 21:57:12
+Date: 2024-08-13 22:32:27
+FilePath: \CF\966\c\c.py
+LastEditTime: 2024-08-13 23:11:28
 '''
+# 3.8.19 import
 import random
 from collections import Counter, defaultdict, deque
 from datetime import datetime, timedelta
 from functools import lru_cache, reduce
 from heapq import heapify, heappop, heappush, nlargest, nsmallest
 from itertools import combinations, compress, permutations, starmap, tee
-from math import ceil, comb, fabs, floor, gcd, log, perm, sqrt
-# 3.8.19 import
-from pprint import pprint
+from math import ceil, comb, fabs, floor, gcd, hypot, log, perm, sqrt
 from string import ascii_lowercase, ascii_uppercase
 from sys import exit, setrecursionlimit, stdin
-from typing import Any, Callable, Dict, List, Optional, Tuple, TypeVar
+from typing import Any, Callable, Dict, List, Optional, Tuple, TypeVar, Union
 
 # Constants
 TYPE = TypeVar('TYPE')
@@ -39,13 +38,6 @@ class Math:
     max = staticmethod(lambda a, b: a if a > b else b)
     min = staticmethod(lambda a, b: a if a < b else b)
 
-    class Mod:
-        add = staticmethod(lambda *args: (lambda result=0: [(result := (result + num) % MOD) for num in args] and result)())
-        sub = staticmethod(lambda a, b: (a - b + MOD) % MOD)
-        mul = staticmethod(lambda *args: (lambda result=1: [(result := (result * num) % MOD) for num in args] and result)())
-        div = staticmethod(lambda a, b: (a * pow(b, MOD - 2, MOD)) % MOD)
-        mod = staticmethod(lambda a: (a % MOD + MOD) % MOD)
-
 
 class IO:
     input = staticmethod(lambda: stdin.readline().rstrip("\r\n"))
@@ -55,4 +47,47 @@ class IO:
 
 class Std:
     pass
+
 # ————————————————————— Division line ——————————————————————
+
+
+def solve():
+    n, = IO.read()
+    a = IO.read_list()
+    m, = IO.read()
+
+    for _ in range(m):
+        s = IO.input()
+        char_to_num, num_to_char = {}, {}
+        if len(s) != len(a):
+            print("No")
+            continue
+
+        flag = 1
+
+        for char, num in zip(s, a):
+            if char in char_to_num:
+                if char_to_num[char] != num:
+                    print("No")
+                    flag = 0
+                    break
+            else:
+                char_to_num[char] = num
+
+            if num in num_to_char:
+                if num_to_char[num] != char:
+                    print("No")
+                    flag = 0
+                    break
+            else:
+                num_to_char[num] = char
+
+        if flag:
+            print("Yes")
+
+
+T, = IO.read()
+
+
+for _ in range(T):
+    solve()

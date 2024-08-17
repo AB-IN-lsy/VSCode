@@ -1,21 +1,20 @@
 '''
 Author: NEFU AB-IN
-Date: 2022-09-06 20:56:39
-FilePath: \LeetCode\test\test.py
-LastEditTime: 2024-08-17 21:57:12
+Date: 2024-08-15 23:21:56
+FilePath: \Acwing\1022\1022.py
+LastEditTime: 2024-08-15 23:22:02
 '''
+# 3.8.19 import
 import random
 from collections import Counter, defaultdict, deque
 from datetime import datetime, timedelta
 from functools import lru_cache, reduce
 from heapq import heapify, heappop, heappush, nlargest, nsmallest
 from itertools import combinations, compress, permutations, starmap, tee
-from math import ceil, comb, fabs, floor, gcd, log, perm, sqrt
-# 3.8.19 import
-from pprint import pprint
+from math import ceil, comb, fabs, floor, gcd, hypot, log, perm, sqrt
 from string import ascii_lowercase, ascii_uppercase
 from sys import exit, setrecursionlimit, stdin
-from typing import Any, Callable, Dict, List, Optional, Tuple, TypeVar
+from typing import Any, Callable, Dict, List, Optional, Tuple, TypeVar, Union
 
 # Constants
 TYPE = TypeVar('TYPE')
@@ -39,13 +38,6 @@ class Math:
     max = staticmethod(lambda a, b: a if a > b else b)
     min = staticmethod(lambda a, b: a if a < b else b)
 
-    class Mod:
-        add = staticmethod(lambda *args: (lambda result=0: [(result := (result + num) % MOD) for num in args] and result)())
-        sub = staticmethod(lambda a, b: (a - b + MOD) % MOD)
-        mul = staticmethod(lambda *args: (lambda result=1: [(result := (result * num) % MOD) for num in args] and result)())
-        div = staticmethod(lambda a, b: (a * pow(b, MOD - 2, MOD)) % MOD)
-        mod = staticmethod(lambda a: (a % MOD + MOD) % MOD)
-
 
 class IO:
     input = staticmethod(lambda: stdin.readline().rstrip("\r\n"))
@@ -55,4 +47,26 @@ class IO:
 
 class Std:
     pass
+
 # ————————————————————— Division line ——————————————————————
+import bisect
+
+
+def dp(N, M, K, balls, blood):
+    f = [[0] * (M + 1) for _ in range(N + 1)]
+    for i in range(K):
+        for j in range(N, balls[i] - 1, -1):
+            for k in range(M, blood[i], - 1):
+                f[j][k] = max(f[j][k], f[j - balls[i]][k - blood[i]] + 1)
+
+    if f[N][M] == 0 : return 0, M
+
+    return f[N][M], M - bisect.bisect_left(f[N], f[N][M]) + 1
+
+N, M, K = map(int, stdin.readline().split())
+balls, blood = [0] * K, [0] * K
+for i in range(K):
+    balls[i], blood[i] = map(int, stdin.readline().split())
+
+C, R = dp(N, M, K, balls, blood)
+print(str(C) + ' ' + str(R))
